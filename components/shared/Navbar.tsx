@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const Navbar = () => {
   // hooks
@@ -88,11 +89,22 @@ const Navbar = () => {
             </Link>
           </div>
           {/* Taggle bar */}
-          <FaBars onClick={handleToggle} className="lg:hidden" />
+          {toggle ? (
+            <FaBars className="hidden" />
+          ) : (
+            <FaBars onClick={handleToggle} className="lg:hidden" />
+          )}
         </div>
         <ul
-          className={`z-50 absolute left-0 p-5 lg:hidden  bg-[#307bc4] text-white w-full flex flex-col  gap-5 text-[19px] font-light translate-y-14 duration-700  ${toggle ? "translate-x-0" : "-translate-x-full"}`}
+          className={`z-50 absolute left-0 p-5 lg:hidden  bg-[#d3588f] text-white w-[80%] h-full flex flex-col  gap-5 text-[19px] font-light translate-y-0 duration-300  ${toggle ? "translate-x-0" : "-translate-x-full"}`}
         >
+          {/* Toggle icon */}
+          <div
+            onClick={handleToggle}
+            className="flex justify-end items-end text-4xl cursor-pointer"
+          >
+            <IoClose />
+          </div>
           {/* Small divice routes */}
           {navgicaton.map((navi) => (
             <Link

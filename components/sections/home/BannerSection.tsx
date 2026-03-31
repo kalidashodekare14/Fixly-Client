@@ -10,7 +10,7 @@ const BannerSection = () => {
   return (
     <div className="lg:w-300 m-auto flex lg:flex-row flex-col justify-between items-center lg:h-160">
       {/* Left side info */}
-      <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 h-190">
+      <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-190 ">
         <h1 className="lg:text-[65px] md:text-[50px] text-5xl leading-none font-bold">
           Smart Way to Hire Local Service Experts
         </h1>
