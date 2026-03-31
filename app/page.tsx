@@ -1,7 +1,9 @@
+import HomeTemplate from "@/components/templates/HomeTemplate/HomeTemplate";
+
 export default function Home() {
   return (
     <div>
-      <h1>Fixly Client Project</h1>
+      <HomeTemplate />
     </div>
   );
 }

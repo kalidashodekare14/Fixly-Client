@@ -60,7 +60,7 @@ const Navbar = () => {
       className={`${isSticky ? "sticky top-0 z-50 bg-[#ffffffb9] shadow-xl backdrop-blur-lg transition-all duration-300 opacity-100" : "bg-white"}`}
     >
       <nav
-        className={` z-50 w-full lg:px-32 px-3 flex justify-between py-3 font-roboto font-200`}
+        className={` z-50 w-full lg:w-300 m-auto px-3 flex justify-between py-3 font-roboto font-200`}
       >
         <div className="flex items-center gap-20">
           {/* Logo */}
@@ -69,7 +69,7 @@ const Navbar = () => {
             {/* Large Device routes */}
             {navgicaton.map((navi) => (
               <Link
-                className={`${pathname == navi.path && "text-[#0065FF] border-b-2 border-[#0065FF]"} hover:text-[#0065FF] font-normal`}
+                className={`${pathname == navi.path && "text-[#F72585] border-b-2 border-[#F72585]"} hover:text-[#F72585] font-normal`}
                 key={navi.id}
                 href={navi.path}
               >
@@ -82,7 +82,7 @@ const Navbar = () => {
           <div>
             {/* Login button */}
             <Link href={"/signin"}>
-              <button className="btn w-40 h-10 bg-[#0065FF] border-0 text-white rounded-2xl cursor-pointer">
+              <button className="btn w-40 h-10 bg-[#F72585] border-0 text-white rounded-2xl cursor-pointer">
                 Login
               </button>
             </Link>
