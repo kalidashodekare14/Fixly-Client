@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { FaArrowRight, FaPlus } from "react-icons/fa";
 import { IoMdStar } from "react-icons/io";
-import { IoCheckmarkCircle } from "react-icons/io5";
+import { IoCheckmarkCircle, IoStar } from "react-icons/io5";
+import { MdVerifiedUser } from "react-icons/md";
 
 const BannerSection = () => {
   return (
-    <div className="lg:w-300 m-auto flex lg:flex-row flex-col justify-between items-center h-160">
+    <div className="lg:w-300 m-auto flex lg:flex-row flex-col justify-between items-center lg:h-160">
       {/* Left side info */}
-      <div className="w-[50%] space-y-5">
-        <h1 className="text-[65px] leading-none font-bold">
+      <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 h-190">
+        <h1 className="lg:text-[65px] md:text-[50px] text-5xl leading-none font-bold">
           Smart Way to Hire Local Service Experts
         </h1>
         <p className="">
@@ -19,7 +20,7 @@ const BannerSection = () => {
           transparently.
         </p>
         {/* Buttons */}
-        <div className="space-x-5 flex">
+        <div className="flex lg:flex-row md:flex-row flex-col gap-4">
           <button className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-[#F72585] text-white">
             <FaPlus />
             <span>Post Request</span>
@@ -29,9 +30,34 @@ const BannerSection = () => {
             <FaArrowRight />
           </button>
         </div>
+        {/* Success Info */}
+        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
+          <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
+            <MdVerifiedUser className="text-4xl text-[#F72585]" />
+            <div>
+              <p>530,547 +</p>
+              <p>Verified Providers</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
+            <IoStar className="text-4xl text-[#F72585]" />
+            <div>
+              <p>80,00 +</p>
+              <p>Services Completed</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
+            <MdVerifiedUser className="text-4xl text-[#F72585]" />
+            <div>
+              <p>80,00 +</p>
+              <p>Reviews Globally</p>
+            </div>
+          </div>
+        </div>
+        <div></div>
       </div>
       {/* Right Side Images */}
-      <div className="relative  w-180 h-150 flex justify-center items-center">
+      <div className="relative  lg:w-180 h-150 hidden lg:flex justify-center items-center">
         {/* reviews */}
         <div className="absolute left-0 top-8 flex items-center gap-2 bg-[#ffdcec] p-2 rounded-xl">
           <IoMdStar className="text-4xl border rounded-full bg-amber-300 text-white p-2" />
