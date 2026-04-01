@@ -4,10 +4,10 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const CategorySection = () => {
   return (
-    <div className="lg:w-300 m-auto h-160">
+    <div className="lg:w-300 m-auto px-5 lg:px-0 lg:h-130">
       {/* Header info */}
-      <div className="flex items-end justify-between">
-        <div className="w-110  space-y-5">
+      <div className="flex lg:flex-row flex-col items-end justify-between">
+        <div className="lg:w-110 space-y-5">
           <p className="text-[#F72585]">Top categories</p>
           <h1 className="text-4xl font-bold">Browse by service type</h1>
           <p className="text-[#4e4e4e]">
@@ -51,7 +51,7 @@ const CategorySection = () => {
           transition={{
             duration: 0.2,
           }}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center rounded-xl"
         >
           <Image
             className="w-full h-36 rounded-t-xl"
@@ -72,7 +72,7 @@ const CategorySection = () => {
           transition={{
             duration: 0.2,
           }}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center rounded-xl"
         >
           <Image
             className="w-full h-36 rounded-t-xl"
@@ -93,7 +93,7 @@ const CategorySection = () => {
           transition={{
             duration: 0.2,
           }}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center rounded-xl"
         >
           <Image
             className="w-full h-36 rounded-t-xl"
@@ -114,7 +114,7 @@ const CategorySection = () => {
           transition={{
             duration: 0.2,
           }}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center rounded-xl"
         >
           <Image
             className="w-full h-36 rounded-t-xl"
@@ -135,7 +135,7 @@ const CategorySection = () => {
           transition={{
             duration: 0.2,
           }}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center rounded-xl"
         >
           <Image
             className="w-full h-36 rounded-t-xl"
