@@ -80,11 +80,16 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex items-center gap-5 text-[19px]">
-          <div>
+          <div className="space-x-3">
             {/* Login button */}
             <Link href={"/signin"}>
-              <button className="btn w-40 h-10 bg-[#F72585] border-0 text-white rounded-2xl cursor-pointer">
+              <button className="btn w-40 h-10 border border-[#F72585] text-black rounded-xl cursor-pointer">
                 Login
+              </button>
+            </Link>
+            <Link href={"/signin"}>
+              <button className="btn w-40 h-10 bg-[#F72585] border-0 text-white rounded-xl cursor-pointer">
+                Get Started
               </button>
             </Link>
           </div>
