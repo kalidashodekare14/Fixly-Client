@@ -57,7 +57,7 @@ const testimonialData: Review[] = [
 const Testimonial = () => {
   return (
     <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 py-10">
-      <div className="space-y-3 w-150">
+      <div className="space-y-3 lg:w-150">
         <p className="text-[#F72585] font-semibold">Reviews</p>
         <h1 className="text-3xl font-bold">What our users say</h1>
         <p className="text-charcoal">

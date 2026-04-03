@@ -83,12 +83,12 @@ const Navbar = () => {
           <div className="space-x-3">
             {/* Login button */}
             <Link href={"/signin"}>
-              <button className="btn w-40 h-10 border border-[#F72585] text-black rounded-xl cursor-pointer">
+              <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-[#F72585] text-black lg:rounded-xl rounded-[5px] cursor-pointer">
                 Login
               </button>
             </Link>
             <Link href={"/signin"}>
-              <button className="btn w-40 h-10 bg-[#F72585] border-0 text-white rounded-xl cursor-pointer">
+              <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-[#F72585] border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
                 Get Started
               </button>
             </Link>

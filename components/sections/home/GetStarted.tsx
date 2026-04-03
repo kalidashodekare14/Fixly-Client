@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const GetStarted = () => {
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 bg-[#ffdcec] rounded-2xl py-20 flex justify-around items-center my-10">
+    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 bg-[#ffdcec] lg:rounded-2xl py-20 flex lg:flex-row flex-col justify-around items-center my-10">
       <div className="space-y-3">
         <h1 className="text-3xl font-bold">Ready to get started?</h1>
         <p className="text-charcoal">
