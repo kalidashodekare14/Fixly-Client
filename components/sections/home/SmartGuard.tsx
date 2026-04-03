@@ -9,7 +9,7 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const SmartGuard = () => {
   return (
-    <div className="lg:w-300 m-auto px-5 lg:px-0 lg:h-160 my-5">
+    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-160 my-5">
       <div className="flex lg:flex-row flex-col-reverse justify-baseline items-center lg:gap-30 gap-10 pt-20 lg:pt-0">
         {/* Left side info */}
         <div className="space-y-5 lg:w-[50%]">

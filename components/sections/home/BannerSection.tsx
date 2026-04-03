@@ -10,7 +10,7 @@ import { MdVerifiedUser } from "react-icons/md";
 const BannerSection = () => {
   return (
     <div className="">
-      <div className="lg:w-300 m-auto flex lg:flex-row flex-col justify-between items-center lg:h-160">
+      <div className="2xl:w-350 xl:w-310 lg:w-260 w-full   m-auto flex lg:flex-row flex-col justify-between items-center lg:h-160">
         {/* Left side info */}
         <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-190 ">
           <h1 className="lg:text-[65px] md:text-[50px] text-5xl leading-none font-bold">
@@ -84,8 +84,9 @@ const BannerSection = () => {
             <IoCheckmarkCircle className="text-[#29f022] text-xl" />
             <p className="text-[14px]">500+ Booking Completed</p>
           </div>
+          {/* middle image */}
           <Image
-            className="lg:w-50 md:w-40 rounded-3xl absolute lg:top-12 md:top-25"
+            className="xl:w-50 lg:w-40 md:w-40 rounded-3xl absolute lg:top-12 md:top-25"
             src={"/banner/img1.jpg"}
             width={500}
             height={300}
@@ -93,31 +94,16 @@ const BannerSection = () => {
             loading="lazy"
           />
           <Image
-            className="lg:w-50 md:w-28 rounded-3xl absolute top-58 lg:left-4 md:left-40"
+            className="xl:w-50 lg:w-40 md:w-28 rounded-3xl absolute top-58 xl:left-4 lg:left-12 md:left-40"
             src={"/banner/img2.png"}
             width={500}
             height={300}
             alt="image1"
             loading="lazy"
           />
+          {/* first left and right image */}
           <Image
-            className="lg:w-50 md:w-32 rounded-3xl absolute top-58 lg:right-4 md:right-35"
-            src={"/banner/img3.png"}
-            width={500}
-            height={300}
-            alt="image2"
-            loading="lazy"
-          />
-          <Image
-            className="lg:w-50 lg:flex md:hidden rounded-3xl absolute bottom-55 lg:bottom-23"
-            src={"/banner/img5.jpg"}
-            width={500}
-            height={300}
-            alt="image6"
-            loading="lazy"
-          />
-          <Image
-            className="lg:w-35 md:w-32 rounded-3xl absolute lg:left-18 md:left-35 top-28"
+            className="xl:w-40 lg:w-40 rounded-3xl absolute xl:left-12 lg:left-12 md:left-35 top-28"
             src={"/banner/img4.jpg"}
             width={500}
             height={300}
@@ -125,8 +111,25 @@ const BannerSection = () => {
             loading="lazy"
           />
           <Image
-            className="lg:w-35 md:w-32 rounded-3xl absolute right-18 top-28"
+            className="xl:w-40 lg:w-40 md:w-32 rounded-3xl absolute right-18 xl:right-12 lg:right-12 top-28"
             src={"/banner/img7.jpg"}
+            width={500}
+            height={300}
+            alt="image6"
+            loading="lazy"
+          />
+          {/* second left and right image */}
+          <Image
+            className="xl:w-50 lg:w-40 md:w-32 rounded-3xl absolute top-58 xl:right-4 lg:right-12 md:right-35"
+            src={"/banner/img3.png"}
+            width={500}
+            height={300}
+            alt="image2"
+            loading="lazy"
+          />
+          <Image
+            className="xl:w-50 lg:w-40 lg:flex md:hidden rounded-3xl absolute xl:bottom-25 lg:bottom-45"
+            src={"/banner/img5.jpg"}
             width={500}
             height={300}
             alt="image6"

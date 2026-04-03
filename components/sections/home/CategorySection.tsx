@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const CategorySection = () => {
   return (
-    <div className="lg:w-300 m-auto px-5 lg:px-0 lg:h-130">
+    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-130">
       {/* Header info */}
       <div className="flex lg:flex-row flex-col items-end justify-between">
         <div className="lg:w-110 space-y-5">

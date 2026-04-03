@@ -61,7 +61,7 @@ const Navbar = () => {
       className={`${isSticky ? "sticky top-0 z-50 bg-[#ffffffb9] shadow-xl backdrop-blur-lg transition-all duration-300 opacity-100" : "bg-white"}`}
     >
       <nav
-        className={` z-50 w-full lg:w-300 m-auto px-3 flex justify-between py-3 font-roboto font-200`}
+        className={` z-50 2xl:w-350 xl:w-310 lg:w-260 w-full  m-auto px-3 lg:px-0 flex justify-between py-3 font-roboto font-200`}
       >
         <div className="flex items-center gap-20">
           {/* Logo */}
