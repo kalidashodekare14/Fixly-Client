@@ -15,7 +15,7 @@ const OurAchievements = () => {
         <h1 className="text-3xl font-bold">
           How do I know the service provider is verified?
         </h1>
-        <p className="text-[#4e4e4e]">
+        <p className="text-charcoal">
           All service providers are verified through our quality checks and
           community reviews.
         </p>
@@ -27,7 +27,7 @@ const OurAchievements = () => {
               >
                 Can I trust the 5-star ratings?
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className={"text-charcoal"}>
                 Yes! Ratings are based on real customer feedback from completed
                 orders.
               </AccordionContent>
@@ -38,7 +38,7 @@ const OurAchievements = () => {
               >
                 What is “Friendly Shop”?
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className={"text-charcoal"}>
                 Friendly Shop represents providers who offer reliable,
                 approachable, and customer-focused services.
               </AccordionContent>
@@ -49,7 +49,7 @@ const OurAchievements = () => {
               >
                 How can I ask a question before ordering?
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className={"text-charcoal"}>
                 You can use the Question & Answer section to directly message
                 the provider before placing an order.
               </AccordionContent>
@@ -61,19 +61,19 @@ const OurAchievements = () => {
       <div className="xl:w-[45%] lg:w-[50%] grid grid-cols-2 xl:grid-cols-2 lg:grid-cols-2  bg-[#ffdcec] p-5 rounded-2xl">
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-b border-[#bbb]">
           <h1 className="text-3xl font-bold text-[#e9237e]">5000+</h1>
-          <p className="text-[#4e4e4e] text-xl">Service Providers</p>
+          <p className="text-charcoal text-xl">Service Providers</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-b border-[#bbb]">
           <h1 className="text-3xl font-bold text-[#e9237e]">10000+</h1>
-          <p className="text-[#4e4e4e] text-xl">Order Served</p>
+          <p className="text-charcoal text-xl">Order Served</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-[#bbb]">
           <h1 className="text-3xl font-bold text-[#e9237e]">3000+</h1>
-          <p className="text-[#4e4e4e] text-xl">5 Star Received</p>
+          <p className="text-charcoal text-xl">5 Star Received</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5">
           <h1 className="text-3xl font-bold text-[#e9237e]">5000+</h1>
-          <p className="text-[#4e4e4e] text-xl">Friendly Shop</p>
+          <p className="text-charcoal text-xl">Friendly Shop</p>
         </div>
       </div>
     </div>

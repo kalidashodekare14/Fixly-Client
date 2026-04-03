@@ -5,6 +5,7 @@ import CategorySection from "@/components/sections/home/CategorySection";
 import GetServices from "@/components/sections/home/GetServices";
 import OurAchievements from "@/components/sections/home/OurAchievements";
 import SmartGuard from "@/components/sections/home/SmartGuard";
+import Testimonial from "@/components/sections/home/Testimonial";
 
 const HomeTemplate = () => {
   return (
@@ -14,6 +15,7 @@ const HomeTemplate = () => {
       <CategorySection />
       <SmartGuard />
       <OurAchievements />
+      <Testimonial />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const GetServices = () => {
   };
 
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-230 py-10">
+    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-230 pb-10">
       {/* section header */}
       <div className="space-y-3 mb-10">
         <p>How it works</p>

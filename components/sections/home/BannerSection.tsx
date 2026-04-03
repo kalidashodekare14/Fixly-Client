@@ -10,13 +10,13 @@ import { MdVerifiedUser } from "react-icons/md";
 const BannerSection = () => {
   return (
     <div className="">
-      <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto flex lg:flex-row flex-col justify-between items-center lg:h-150">
+      <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto flex lg:flex-row flex-col justify-between items-center lg:h-140">
         {/* Left side info */}
         <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-190 ">
           <h1 className=" xl:text-[65px] lg:text-[55px] md:text-[50px] text-5xl leading-none font-bold">
             Smart Way to Hire Local Service Experts
           </h1>
-          <p className="text-[#4e4e4e]">
+          <p className="text-charcoal">
             Skip the hassle of searching. Let providers come to you, compare
             options instantly, and get your job done efficiently and
             transparently.
