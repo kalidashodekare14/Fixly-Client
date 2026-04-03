@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 const GetServices = () => {
-  const [toggle, setToggle] = useState<string>("");
+  const [toggle, setToggle] = useState<string>("customar");
 
   const handleToggle = (value: string) => {
     if (value === "customar") {
@@ -16,7 +16,7 @@ const GetServices = () => {
   };
 
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto h-230">
+    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-230 py-10">
       {/* section header */}
       <div className="space-y-3 mb-10">
         <p>How it works</p>
@@ -26,7 +26,7 @@ const GetServices = () => {
           makes it easy.
         </p>
       </div>
-      <div className="flex justify-center items-center gap-10 w-full">
+      <div className="flex lg:flex-row flex-col justify-center items-center gap-10 w-full">
         {/* left side info */}
         <div className="lg:w-[50%] space-y-5">
           <div>
@@ -137,7 +137,7 @@ const GetServices = () => {
           )}
         </div>
         {/* right side image */}
-        <div className="lg:w-[50%]">
+        <div className="lg:w-[50%] lg:flex hidden">
           <Image
             className="rounded-2xl w-140 h-150"
             src={"/works/img1.jpg"}
