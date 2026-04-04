@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "name": "John Doe",
+    "location": "Dhaka, Bangladesh",
+    "services": ["Electrician", "AC Repair"],
+    "rating": 4.8,
+    "price": 500,
+    "available": true,
+    "job_done": 120
+  },
+  {
+    "id": 2,
+    "image": "https://randomuser.me/api/portraits/women/45.jpg",
+    "name": "Sara Khan",
+    "location": "Chittagong, Bangladesh",
+    "services": ["Plumber", "Pipe Repair"],
+    "rating": 4.6,
+    "price": 400,
+    "available": true,
+    "job_done": 95
+  },
+  {
+    "id": 3,
+    "image": "https://randomuser.me/api/portraits/men/76.jpg",
+    "name": "Ali Hasan",
+    "location": "Sylhet, Bangladesh",
+    "services": ["Cleaner", "House Cleaning"],
+    "rating": 4.9,
+    "price": 300,
+    "available": false,
+    "job_done": 180
+  },
+  {
+    "id": 4,
+    "image": "https://randomuser.me/api/portraits/women/22.jpg",
+    "name": "Nabila Rahman",
+    "location": "Khulna, Bangladesh",
+    "services": ["Electrician", "Wiring", "AC Repair"],
+    "rating": 4.7,
+    "price": 550,
+    "available": true,
+    "job_done": 140
+  },
+  {
+    "id": 5,
+    "image": "https://randomuser.me/api/portraits/men/54.jpg",
+    "name": "Riaz Uddin",
+    "location": "Rajshahi, Bangladesh",
+    "services": ["Plumber", "Drain Cleaning"],
+    "rating": 4.5,
+    "price": 350,
+    "available": false,
+    "job_done": 110
+  },
+  {
+    "id": 6,
+    "image": "https://randomuser.me/api/portraits/women/33.jpg",
+    "name": "Maya Akter",
+    "location": "Barishal, Bangladesh",
+    "services": ["Cleaner", "Window Cleaning"],
+    "rating": 4.8,
+    "price": 280,
+    "available": true,
+    "job_done": 130
+  },
+  {
+    "id": 7,
+    "image": "https://randomuser.me/api/portraits/men/21.jpg",
+    "name": "Fahim Hossain",
+    "location": "Mymensingh, Bangladesh",
+    "services": ["AC Repair", "Electrician"],
+    "rating": 4.6,
+    "price": 520,
+    "available": true,
+    "job_done": 105
+  },
+  {
+    "id": 8,
+    "image": "https://randomuser.me/api/portraits/women/11.jpg",
+    "name": "Tania Sultana",
+    "location": "Comilla, Bangladesh",
+    "services": ["Plumber", "Pipe Installation"],
+    "rating": 4.7,
+    "price": 420,
+    "available": false,
+    "job_done": 90
+  },
+  {
+    "id": 9,
+    "image": "https://randomuser.me/api/portraits/men/67.jpg",
+    "name": "Rafiq Islam",
+    "location": "Gazipur, Bangladesh",
+    "services": ["Electrician", "Home Wiring"],
+    "rating": 4.5,
+    "price": 480,
+    "available": true,
+    "job_done": 115
+  },
+  {
+    "id": 10,
+    "image": "https://randomuser.me/api/portraits/women/27.jpg",
+    "name": "Shamna Begum",
+    "location": "Tangail, Bangladesh",
+    "services": ["Cleaner", "House Cleaning"],
+    "rating": 4.9,
+    "price": 310,
+    "available": true,
+    "job_done": 150
+  }
+]
