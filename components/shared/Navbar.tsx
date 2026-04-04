@@ -70,7 +70,7 @@ const Navbar = () => {
             {/* Large Device routes */}
             {navgicaton.map((navi) => (
               <Link
-                className={`${pathname == navi.path && "text-[#F72585] border-b-2 border-[#F72585]"} hover:text-[#F72585] font-normal`}
+                className={`${pathname == navi.path && "text-pink border-b-2 border-pink"} hover:text-pink font-normal`}
                 key={navi.id}
                 href={navi.path}
               >
@@ -79,25 +79,25 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className="flex items-center gap-5 text-[19px]">
+        <div className="flex items-center gap-5">
           <div className="space-x-3">
             {/* Login button */}
             <Link href={"/signin"}>
-              <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-[#F72585] text-black lg:rounded-xl rounded-[5px] cursor-pointer">
+              <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-pink text-black lg:rounded-xl rounded-[5px] cursor-pointer">
                 Login
               </button>
             </Link>
             <Link href={"/signin"}>
-              <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-[#F72585] border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
+              <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-pink border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
                 Get Started
               </button>
             </Link>
           </div>
           {/* Taggle bar */}
           {toggle ? (
-            <FaBars className="hidden" />
+            <FaBars className="hidden text-[19px]" />
           ) : (
-            <FaBars onClick={handleToggle} className="lg:hidden" />
+            <FaBars onClick={handleToggle} className="lg:hidden text-[19px]" />
           )}
         </div>
         <ul
