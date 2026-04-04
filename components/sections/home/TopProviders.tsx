@@ -8,7 +8,23 @@ import type { Provider } from "../../../types/Providers";
 // -------------------- Provider Card Component -------------------
 const ProviderCard = ({ provider }: { provider: Provider }) => {
   return (
-    <div className="border p-5 rounded-2xl">
+    <div className="relative border p-5 rounded-2xl">
+      {/* Online and Ofline */}
+      <div className="absolute top-5 right-5">
+        {provider.available ? (
+          // Online
+          <div className="w-22 flex items-center gap-1 bg-[#ccf7e9bb] text-charcoal px-2  rounded-2xl">
+            <p className="w-2 h-2 bg-[#08eca8bb] rounded-full"></p>
+            <p className="text-[#0fbd88bb]">Online</p>
+          </div>
+        ) : (
+          // Offline
+          <div className="w-22 flex items-center gap-1 bg-[#e0e0e0bb] text-charcoal px-2  rounded-2xl">
+            <p className="w-2 h-2 bg-[#b4b4b4bb] rounded-full"></p>
+            <p className="text-[#4b4b4bbb]">Offline</p>
+          </div>
+        )}
+      </div>
       {/* Header: Image + Name +  Location */}
       <div className="flex items-center gap-3 border-b border-[#c5c5c5bb] p-4">
         <Image
@@ -29,7 +45,7 @@ const ProviderCard = ({ provider }: { provider: Provider }) => {
         <div className="flex flex-wrap gap-3">
           {provider.services.map((service, index) => (
             <p
-              className="border px-3 py-0.75 rounded-full text-charcoal text-[15px]"
+              className="border px-3 py-0.75 rounded-full bg-pastel_pink text-charcoal text-[15px]"
               key={index}
             >
               {service}
