@@ -26,7 +26,7 @@ const BannerSection = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-[#F72585] text-white"
+              className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-pink text-white"
             >
               <FaPlus />
               <span>Post Request</span>
@@ -38,7 +38,7 @@ const BannerSection = () => {
                 color: "white",
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer border border-[#F72585] text-black"
+              className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer border border-pink text-black"
             >
               <span> Browse providers</span>
               <FaArrowRight />
@@ -46,22 +46,22 @@ const BannerSection = () => {
           </div>
           {/* Success Info */}
           <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
-              <MdVerifiedUser className="text-4xl text-[#F72585]" />
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
+              <MdVerifiedUser className="text-4xl text-pink" />
               <div>
                 <p>530,547 +</p>
                 <p>Verified Providers</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
-              <IoStar className="text-4xl text-[#F72585]" />
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
+              <IoStar className="text-4xl text-pink" />
               <div>
                 <p>80,00 +</p>
                 <p>Services Completed</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-[#ffdcec]">
-              <MdVerifiedUser className="text-4xl text-[#F72585]" />
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
+              <MdVerifiedUser className="text-4xl text-pink" />
               <div>
                 <p>80,00 +</p>
                 <p>Reviews Globally</p>
@@ -73,14 +73,14 @@ const BannerSection = () => {
         {/* Right Side Images */}
         <div className="relative z-20 lg:w-180 h-150 hidden lg:flex justify-center items-center">
           {/* reviews */}
-          <div className="absolute left-0 top-8 flex items-center gap-2 bg-[#ffdcec] p-2 rounded-xl">
+          <div className="absolute left-0 top-8 flex items-center gap-2 bg-pastel_pink p-2 rounded-xl">
             <IoMdStar className="text-4xl border rounded-full bg-amber-300 text-white p-2" />
             <div>
               <h1>4/5</h1>
               <p>(500+ reviews)</p>
             </div>
           </div>
-          <div className="absolute right-0 top-7 flex items-center gap-2 bg-[#ffdcec] p-2 rounded-xl">
+          <div className="absolute right-0 top-7 flex items-center gap-2 bg-pastel_pink p-2 rounded-xl">
             <IoCheckmarkCircle className="text-[#29f022] text-xl" />
             <p className="text-[14px]">500+ Booking Completed</p>
           </div>
@@ -137,13 +137,6 @@ const BannerSection = () => {
             loading="lazy"
           />
         </div>
-        {/* Background color */}
-        {/* <motion.div
-          // initial={{
-          //   opacity: 0.2,
-          // }}
-          className="z-10 absolute bottom-20 right-50 w-100 h-100 rounded-full bg-[#f89dc6] opacity-100 blur-[100px]"
-        ></motion.div> */}
       </div>
     </div>
   );
