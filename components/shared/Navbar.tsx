@@ -10,7 +10,7 @@ import { IoClose } from "react-icons/io5";
 const NAV_ITEMS = [
   { id: 1, name: "Home", path: "/" },
   { id: 3, name: "About Us", path: "/about" },
-  { id: 5, name: "Providers", path: "/doctors" },
+  { id: 5, name: "Providers", path: "/providers" },
   { id: 6, name: "Contact", path: "/contact" },
 ];
 

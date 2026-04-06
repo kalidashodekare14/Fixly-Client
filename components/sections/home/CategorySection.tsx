@@ -8,14 +8,14 @@ const CategorySection = () => {
       {/* Header info */}
       <div className="flex lg:flex-row flex-col items-end justify-between">
         <div className="lg:w-110 space-y-5">
-          <p className="text-[#F72585]">Top categories</p>
+          <p className="text-pink">Top categories</p>
           <h1 className="text-4xl font-bold">Browse by service type</h1>
-          <p className="text-[#4e4e4e]">
+          <p className="text-charcoal">
             From quick fixes to major renovations — find specialists in every
             home service category.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-[#F72585]">
+        <div className="flex items-center gap-2 text-pink">
           <p className="cursor-pointer">See more</p>
           <FaArrowRightLong />
         </div>
@@ -39,7 +39,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Electrician</h1>
           </div>
         </motion.div>
@@ -60,7 +60,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Plumber</h1>
           </div>
         </motion.div>
@@ -81,7 +81,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Painter</h1>
           </div>
         </motion.div>
@@ -102,7 +102,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Cleaner</h1>
           </div>
         </motion.div>
@@ -123,7 +123,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Security</h1>
           </div>
         </motion.div>
@@ -144,7 +144,7 @@ const CategorySection = () => {
             height={300}
             alt="Electrician"
           />
-          <div className="bg-[#F72585] p-3 w-full text-center text-[16px] text-white rounded-b-xl">
+          <div className="bg-pink  p-3 w-full text-center text-[16px] text-white rounded-b-xl">
             <h1 className="">Carpenter</h1>
           </div>
         </motion.div>

@@ -6,6 +6,7 @@ import { useState } from "react";
 const GetServices = () => {
   const [toggle, setToggle] = useState<string>("customar");
 
+  // Handle customar and provider toggle
   const handleToggle = (value: string) => {
     if (value === "customar") {
       setToggle("customar");
@@ -34,13 +35,13 @@ const GetServices = () => {
             <div className="flex items-center gap-5 my-5">
               <button
                 onClick={() => handleToggle("customar")}
-                className={`${toggle === "customar" && "text-white bg-[#F72585]"} px-5 py-2 rounded-2xl text-black border border-[#F72585] cursor-pointer`}
+                className={`${toggle === "customar" && "text-white bg-pink"} px-5 py-2 rounded-2xl text-black border border-pink cursor-pointer`}
               >
                 For Customers
               </button>
               <button
                 onClick={() => handleToggle("provider")}
-                className={`${toggle === "provider" && "text-white bg-[#F72585]"} px-5 py-2 rounded-2xl text-black border border-[#F72585] cursor-pointer`}
+                className={`${toggle === "provider" && "text-white bg-pink"} px-5 py-2 rounded-2xl text-black border border-pink cursor-pointer`}
               >
                 For Services Providers
               </button>
@@ -51,7 +52,7 @@ const GetServices = () => {
             <div className="space-y-5">
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">01</h1>
+                  <h1 className="text-4xl font-semibold text-pink">01</h1>
                   <h3 className="text-xl font-bold">Send Post Request</h3>
                 </div>
                 <p className="text-charcoal">
@@ -61,7 +62,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">02</h1>
+                  <h1 className="text-4xl font-semibold text-pink">02</h1>
                   <h3 className="text-xl font-bold">Receive offers</h3>
                 </div>
                 <p className="text-charcoal">
@@ -71,7 +72,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">03</h1>
+                  <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Compare & choose</h3>
                 </div>
                 <p className="text-charcoal">
@@ -81,7 +82,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">03</h1>
+                  <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Job done, review</h3>
                 </div>
                 <p className="text-charcoal">
@@ -95,7 +96,7 @@ const GetServices = () => {
             <div className="space-y-5">
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">01</h1>
+                  <h1 className="text-4xl font-semibold text-pink">01</h1>
                   <h3 className="text-xl font-bold">Create your profile</h3>
                 </div>
                 <p className="text-charcoal">
@@ -105,7 +106,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">02</h1>
+                  <h1 className="text-4xl font-semibold text-pink">02</h1>
                   <h3 className="text-xl font-bold">Get notified</h3>
                 </div>
                 <p className="text-charcoal">
@@ -115,7 +116,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">03</h1>
+                  <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Submit your offer</h3>
                 </div>
                 <p className="text-charcoal">
@@ -125,7 +126,7 @@ const GetServices = () => {
               </div>
               <div className="border p-5 rounded-2xl space-y-2">
                 <div className="flex items-end gap-3">
-                  <h1 className="text-4xl font-semibold text-[#F72585]">03</h1>
+                  <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Complete & get paid</h3>
                 </div>
                 <p className="text-charcoal">

@@ -58,21 +58,21 @@ const OurAchievements = () => {
         </div>
       </div>
       {/* right side info */}
-      <div className="xl:w-[45%] lg:w-[50%] grid grid-cols-2 xl:grid-cols-2 lg:grid-cols-2  bg-[#ffdcec] p-5 rounded-2xl">
+      <div className="xl:w-[45%] lg:w-[50%] grid grid-cols-2 xl:grid-cols-2 lg:grid-cols-2  bg-pastel_pink p-5 rounded-2xl">
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-b border-[#bbb]">
-          <h1 className="text-3xl font-bold text-[#e9237e]">5000+</h1>
+          <h1 className="text-3xl font-bold text-pink">5000+</h1>
           <p className="text-charcoal text-xl">Service Providers</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-b border-[#bbb]">
-          <h1 className="text-3xl font-bold text-[#e9237e]">10000+</h1>
+          <h1 className="text-3xl font-bold text-pink">10000+</h1>
           <p className="text-charcoal text-xl">Order Served</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-[#bbb]">
-          <h1 className="text-3xl font-bold text-[#e9237e]">3000+</h1>
+          <h1 className="text-3xl font-bold text-pink">3000+</h1>
           <p className="text-charcoal text-xl">5 Star Received</p>
         </div>
         <div className="flex flex-col justify-center items-center gap-2 p-5">
-          <h1 className="text-3xl font-bold text-[#e9237e]">5000+</h1>
+          <h1 className="text-3xl font-bold text-pink">5000+</h1>
           <p className="text-charcoal text-xl">Friendly Shop</p>
         </div>
       </div>
