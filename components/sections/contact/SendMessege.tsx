@@ -20,17 +20,19 @@ const SendMessege = () => {
       </div>
       {/* Right: Input filed => Name, Email, Messege, Submit */}
       <div className="w-[60%] border h-80 p-5">
+        {/* Input: Name + Email */}
         <div className="flex items-center gap-5 w-full mb-5">
           <Input className="p-5 w-full" placeholder="Name" />
           <Input className="p-5 w-full" placeholder="Email" />
         </div>
+        {/* Textarea: Description */}
         <Textarea className="h-30" placeholder="Messege" />
         <div className="flex justify-center items-center mt-5">
           <Button
             className="w-80 h-12 cursor-pointer bg-pink text-white"
             variant="outline"
           >
-            Button
+            Submit
           </Button>
         </div>
       </div>
