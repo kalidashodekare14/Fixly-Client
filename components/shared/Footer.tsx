@@ -73,7 +73,7 @@ const Footer = () => {
         {/* Last Content */}
         <div className="flex justify-between items-center my-5 pt-5 border-t border-[#c5c5c5bb]">
           <p className="text-charcoal">
-            © 2026 Fixly Bangladesh. All rights reserved.
+            © ${new Date(Date.now).getFullYear} Fixly Bangladesh. All rights reserved.
           </p>
           <p className="text-charcoal">
             Made with care for homeowners everywhere 🇧🇩
