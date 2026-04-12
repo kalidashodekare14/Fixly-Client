@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -27,9 +28,9 @@ const GetServices = () => {
           makes it easy.
         </p>
       </div>
-      <div className="flex lg:flex-row flex-col justify-center items-center gap-10 w-full">
+      <div className="flex lg:flex-row flex-col justify-center items-center gap-20 w-full">
         {/* left side info */}
-        <div className="lg:w-[50%] space-y-5">
+        <div className="lg:w-[55%] space-y-5">
           <div>
             {/* buttons */}
             <div className="flex items-center gap-5 my-5">
@@ -50,7 +51,12 @@ const GetServices = () => {
           {/* Toggle customar and provider */}
           {toggle === "customar" && (
             <div className="space-y-5">
-              <div className="border p-5 rounded-2xl space-y-2">
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">01</h1>
                   <h3 className="text-xl font-bold">Send Post Request</h3>
@@ -59,8 +65,13 @@ const GetServices = () => {
                   Post a service request with job details, your location, and
                   estimated budget. Takes under 2 minutes.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">02</h1>
                   <h3 className="text-xl font-bold">Receive offers</h3>
@@ -69,8 +80,13 @@ const GetServices = () => {
                   Nearby verified providers review your request and submit
                   competitive offers with pricing and availability.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Compare & choose</h3>
@@ -79,8 +95,13 @@ const GetServices = () => {
                   Compare offers side by side — price, ratings, past work. Pick
                   the provider who best fits your needs.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Job done, review</h3>
@@ -89,12 +110,17 @@ const GetServices = () => {
                   Your provider completes the job. Pay securely through the
                   platform and leave an honest review.
                 </p>
-              </div>
+              </motion.div>
             </div>
           )}
           {toggle === "provider" && (
             <div className="space-y-5">
-              <div className="border p-5 rounded-2xl space-y-2">
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">01</h1>
                   <h3 className="text-xl font-bold">Create your profile</h3>
@@ -103,8 +129,13 @@ const GetServices = () => {
                   Sign up, add your services, set your service area, and upload
                   your certifications and past work.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">02</h1>
                   <h3 className="text-xl font-bold">Get notified</h3>
@@ -113,8 +144,13 @@ const GetServices = () => {
                   Receive real-time alerts for new job requests in your area
                   matching your service categories.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Submit your offer</h3>
@@ -123,8 +159,13 @@ const GetServices = () => {
                   Respond with your price, timeline, and a short message about
                   your approach to win the job.
                 </p>
-              </div>
-              <div className="border p-5 rounded-2xl space-y-2">
+              </motion.div>
+              <motion.div
+                initial={{ backgroundColor: "#ffffff" }}
+                whileHover={{ backgroundColor: "#ffdcec" }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="border p-5 rounded-2xl space-y-2"
+              >
                 <div className="flex items-end gap-3">
                   <h1 className="text-4xl font-semibold text-pink">03</h1>
                   <h3 className="text-xl font-bold">Complete & get paid</h3>
@@ -133,12 +174,12 @@ const GetServices = () => {
                   Do great work, collect payment, and build your reputation with
                   verified customer reviews.
                 </p>
-              </div>
+              </motion.div>
             </div>
           )}
         </div>
         {/* right side image */}
-        <div className="lg:w-[50%] lg:flex hidden">
+        <div className="lg:w-[40%] lg:flex hidden">
           <Image
             className="rounded-2xl w-140 h-150"
             src={"/works/img1.jpg"}
