@@ -23,7 +23,7 @@ const SmartGuard = () => {
             </div>
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">Secure Payment</h3>
-              <p className="text-[#4e4e4e]">
+              <p className="text-charcoal">
                 Only release payment when the work is completed and meets your
                 full
               </p>
@@ -31,14 +31,14 @@ const SmartGuard = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <div className="bg-[#E9237E] text-white lg:w-19 lg:h-14 w-20 h-10 rounded-full flex justify-center items-center text-2xl">
+            <div className="bg-pink text-white lg:w-19 lg:h-14 w-20 h-10 rounded-full flex justify-center items-center text-2xl">
               <FaStar />
             </div>
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">
                 Trusted ratings and reviews
               </h3>
-              <p className="text-[#4e4e4e]">
+              <p className="text-charcoal">
                 Choose the right person for your task based on real ratings and
                 user reviews
               </p>
@@ -53,7 +53,7 @@ const SmartGuard = () => {
               <h3 className="text-xl font-semibold">
                 Insurance for peace of mind
               </h3>
-              <p className="text-[#4e4e4e]">
+              <p className="text-charcoal">
                 Release payment only once the task has been completed to your
                 full satisfaction
               </p>
@@ -63,7 +63,7 @@ const SmartGuard = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-[#F72585] text-white"
+            className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-pink text-white"
           >
             <span>Post your task for free</span>
             <FaArrowRightLong />
@@ -71,7 +71,7 @@ const SmartGuard = () => {
         </div>
         {/* Right side image and design */}
         <div className="lg:w-[50%] relative">
-          <div className="absolute -top-10 right-0 flex items-center gap-3 bg-[#ffdcec] w-64 p-3 rounded-2xl">
+          <div className="absolute -top-10 right-0 flex items-center gap-3 bg-pastel_pink w-64 p-3 rounded-2xl">
             <Image
               className="w-20 h-20 border border-[#EF2481] rounded-full"
               src={"/smart_guard/img2.jpg"}
