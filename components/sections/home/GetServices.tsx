@@ -48,7 +48,10 @@ const GetServices = () => {
               </button>
             </div>
           </div>
+
           {/* Toggle customar and provider */}
+
+          {/* Customar info */}
           {toggle === "customar" && (
             <div className="space-y-5">
               <motion.div
@@ -113,6 +116,7 @@ const GetServices = () => {
               </motion.div>
             </div>
           )}
+          {/* Provider info */}
           {toggle === "provider" && (
             <div className="space-y-5">
               <motion.div
