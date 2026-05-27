@@ -1,10 +1,26 @@
 'use client';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
+import {
+  CreditCardIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from 'lucide-react';
 
 //---------------Navigation Data-----------------
 const NAV_ITEMS = [
@@ -20,7 +36,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const pathname = usePathname();
-
+  const { data: session } = useSession();
+  console.log('checking session', session);
   // Taggle menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -67,19 +84,50 @@ const Navbar = () => {
 
         {/* --------- Right: Buttons + Mobile Icon ------------- */}
         <div className="flex items-center gap-5">
-          <div className="space-x-3">
-            {/* Buttons */}
-            <Link href={'/signin'}>
-              <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-pink text-black lg:rounded-xl rounded-[5px] cursor-pointer">
-                Login
-              </button>
-            </Link>
-            <Link href={'/signup'}>
-              <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-pink border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
-                Get Started
-              </button>
-            </Link>
-          </div>
+          {session ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar size="lg" className={'cursor-pointer'}>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <UserIcon />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <CreditCardIcon />
+                  Billing
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <SettingsIcon />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                  <LogOutIcon />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <div className="space-x-3">
+              {/* Buttons */}
+              <Link href={'/signin'}>
+                <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-pink text-black lg:rounded-xl rounded-[5px] cursor-pointer">
+                  Login
+                </button>
+              </Link>
+              <Link href={'/signup'}>
+                <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-pink border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
+                  Get Started
+                </button>
+              </Link>
+            </div>
+          )}
+          {/* Avatar Dropdown */}
 
           {/* Mobile Taggle Icon */}
           <button onClick={toggleMenu} className="lg:hidden text-[19px]">

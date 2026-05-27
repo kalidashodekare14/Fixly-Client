@@ -1,20 +1,21 @@
-import Footer from "@/components/shared/Footer";
-import Navbar from "@/components/shared/Navbar";
-import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
-import { Geist, Poppins } from "next/font/google";
-import "./globals.css";
+import Footer from '@/components/shared/Footer';
+import Navbar from '@/components/shared/Navbar';
+import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { Geist, Poppins } from 'next/font/google';
+import './globals.css';
+import Providers from '@/components/auth/Providers';
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 const poppings = Poppins({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Fixly",
-  description: "Fixly local service marketplace.",
+  title: 'Fixly',
+  description: 'Fixly local service marketplace.',
 };
 
 export default function RootLayout({
@@ -26,17 +27,19 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "h-full",
-        "antialiased",
+        'h-full',
+        'antialiased',
         poppings.className,
-        "font-sans",
+        'font-sans',
         geist.variable
       )}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
-        <Footer />
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
