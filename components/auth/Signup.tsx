@@ -83,7 +83,7 @@ export default function Signup() {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Name */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label className="text-charcoal">First Name</Label>
                 <Input

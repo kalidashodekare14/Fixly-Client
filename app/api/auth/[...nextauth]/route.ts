@@ -1,0 +1,97 @@
+import axios from 'axios';
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+
+export const authOptions = {
+  secret: process.env.NEXT_JWT_SECRET,
+  session: {
+    strategy: 'jwt' as const,
+  },
+  providers: [
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        email: {},
+        password: {},
+      },
+      async authorize(credentials) {
+        try {
+          if (!credentials) return null;
+          const { email, password } = credentials;
+
+          if (!email || !password) return null;
+
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
+            {
+              email: email,
+              password: password,
+            },
+            { withCredentials: true }
+          );
+          const data = res.data.data;
+          if (data && data.user) {
+            return {
+              id: data.user._id,
+              name: data.user.name,
+              email: data.user.email,
+              role: data.user.role,
+              token: data.token,
+            };
+          }
+          return null;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      },
+    }),
+    // Google Providers
+    GoogleProvider({
+      clientId: process.env.NEXT_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+  ],
+  callbacks: {
+    async signIn({ user, account }: { user: any; account: any }) {
+      if (account.provider === 'google') {
+        try {
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/social_login`,
+            {
+              name: user?.name,
+              email: user?.email,
+              image: user?.image,
+            },
+            { withCredentials: true }
+          );
+          user.token = res.data?.data?.token;
+          user.role = res.data.data?.user?.role;
+          return true;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      return true;
+    },
+    async jwt({ token, user }: { token: any; user: any }) {
+      if (user) {
+        token.accessToken = user.token;
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: any; token: any }) {
+      if (token) {
+        session.accessToken = token.accessToken as string;
+        session.user.role = token.role;
+        return session;
+      }
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

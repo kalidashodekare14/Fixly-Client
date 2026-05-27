@@ -5,10 +5,50 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SocialLogin from '../shared/SocialLogin';
 import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const Signin = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const router = useRouter();
+  const [errorHandle, setErrorHandle] = useState<boolean>(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const loginData = {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      };
+      const res = await signIn('credentials', loginData);
+      if (res?.status === 200) {
+        reset();
+        toast.success('Login Successfully🎉');
+        router.push('/');
+      }
+      if (res?.error) {
+        reset();
+        toast.error('The email or password is incorrect ❌');
+        setErrorHandle(true);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Login Failed ❌');
+    }
   };
 
   return (
@@ -20,30 +60,49 @@ const Signin = () => {
             Log in to your account to continue
           </CardContent>
         </CardHeader>
-
+        {errorHandle && (
+          <div className="bg-[#FEF2F2] border border-[#dd9595] mx-5 px-2 py-3 rounded-xl">
+            <p className="text-[#a13535] text-center">
+              Invalid email or password. Please try again.
+            </p>
+          </div>
+        )}
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email */}
             <div className="space-y-2">
               <Label>Email</Label>
               <Input
-                className="p-6"
+                {...register('email', { required: true })}
+                className={`p-6 ${errors.email && 'border-red-400'}`}
                 type="email"
                 placeholder="example@mail.com"
               />
+              {errors.email && (
+                <span className="text-red-500 text-sm">Email is required</span>
+              )}
             </div>
 
             {/* Password */}
             <div className="space-y-2">
               <Label>Password</Label>
               <Input
-                className="p-6"
+                {...register('password', { required: true })}
+                className={`p-6 ${errors.password && 'border-red-400'}`}
                 type="password"
                 placeholder="Enter password"
               />
+              {errors.password && (
+                <span className="text-red-500 text-sm">
+                  Password is required
+                </span>
+              )}
             </div>
 
-            <Button className="w-full h-11 rounded-xl bg-pink hover:bg-pink">
+            <Button
+              type="submit"
+              className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
+            >
               Sign In
             </Button>
             {/* Or Sign Up */}
@@ -67,6 +126,7 @@ const Signin = () => {
           </form>
         </CardContent>
       </Card>
+      <Toaster />
     </div>
   );
 };
