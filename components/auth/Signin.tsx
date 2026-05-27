@@ -5,10 +5,22 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import SocialLogin from '../shared/SocialLogin';
 import Link from 'next/link';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const Signin = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -22,28 +34,41 @@ const Signin = () => {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email */}
             <div className="space-y-2">
               <Label>Email</Label>
               <Input
-                className="p-6"
+                {...register('email', { required: true })}
+                className={`p-6 ${errors.email && 'border-red-400'}`}
                 type="email"
                 placeholder="example@mail.com"
               />
+              {errors.email && (
+                <span className="text-red-500 text-sm">Email is required</span>
+              )}
             </div>
 
             {/* Password */}
             <div className="space-y-2">
               <Label>Password</Label>
               <Input
-                className="p-6"
+                {...register('password', { required: true })}
+                className={`p-6 ${errors.password && 'border-red-400'}`}
                 type="password"
                 placeholder="Enter password"
               />
+              {errors.password && (
+                <span className="text-red-500 text-sm">
+                  Password is required
+                </span>
+              )}
             </div>
 
-            <Button className="w-full h-11 rounded-xl bg-pink hover:bg-pink">
+            <Button
+              type="submit"
+              className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
+            >
               Sign In
             </Button>
             {/* Or Sign Up */}

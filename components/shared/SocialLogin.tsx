@@ -8,7 +8,7 @@ const SocialLogin = () => {
       <div className="cursor-pointer rounded-full p-1 bg-white shadow">
         <FcGoogle className="text-4xl" />
       </div>
-      <div className="cursor-pointer rounded-full p-1 bg-white shadow">
+      <div className="rounded-full p-1 bg-white shadow pointer-events-none opacity-50 cursor-not-allowed">
         <FaFacebook className="text-3xl text-blue-600" />
       </div>
     </div>
