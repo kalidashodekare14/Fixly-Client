@@ -5,17 +5,43 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
 import SocialLogin from '../shared/SocialLogin';
 import Link from 'next/link';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type Inputs = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+};
 
 export default function Signup() {
   const [accountType, setAccountType] = useState<'user' | 'provider'>('user');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Signup submitted', accountType);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const password = watch('password');
+  const confirmPassword = watch('confirm_password');
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const userData = {
+      name: data.first_name + data.last_name,
+      email: data.email,
+      password: data.password,
+    };
+
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    console.log(userData);
   };
 
   return (
@@ -55,50 +81,98 @@ export default function Signup() {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Name */}
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label>First Name</Label>
-                <Input className="p-6" placeholder="John" />
+                <Label className="text-charcoal">First Name</Label>
+                <Input
+                  {...register('first_name', { required: true })}
+                  className={`p-6 ${errors.first_name && 'border-red-400'}`}
+                  placeholder="John"
+                />
+                {errors.first_name && (
+                  <span className="text-red-500 text-sm">
+                    First Name is required
+                  </span>
+                )}
               </div>
               <div className="space-y-2">
-                <Label>Last Name</Label>
-                <Input className="p-6" placeholder="Doe" />
+                <Label className="text-charcoal">Last Name (Optional)</Label>
+                <Input
+                  {...register('last_name', { required: true })}
+                  className={`p-6 ${errors.last_name && 'border-red-400'}`}
+                  placeholder="Doe"
+                />
+                {errors.last_name && (
+                  <span className="text-red-500 text-sm">
+                    Last Name is required
+                  </span>
+                )}
               </div>
             </div>
 
             {/* Email */}
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label className="text-charcoal">Email</Label>
               <Input
-                className="p-6"
+                {...register('email', { required: true })}
+                className={`p-6 ${errors.email && 'border-red-400'}`}
                 type="email"
                 placeholder="example@mail.com"
               />
+              {errors.email && (
+                <span className="text-red-500 text-sm">Email is required</span>
+              )}
             </div>
 
             {/* Password */}
             <div className="space-y-2">
-              <Label>Password</Label>
+              <Label className="text-charcoal">Password</Label>
               <Input
-                className="p-6"
+                {...register('password', {
+                  required: true,
+                })}
+                className={`p-6 ${errors.password && 'border-red-400'}`}
                 type="password"
                 placeholder="Enter password"
               />
+              {errors.password && (
+                <span className="text-red-500 text-sm">
+                  Password is required
+                </span>
+              )}
             </div>
 
             {/* Confirm Password */}
             <div className="space-y-2">
-              <Label>Confirm Password</Label>
+              <Label className="text-charcoal">Confirm Password</Label>
               <Input
-                className="p-6"
+                {...register('confirm_password', {
+                  required: true,
+                })}
+                className={`p-6 ${errors.confirm_password && 'border-red-400'}`}
                 type="password"
                 placeholder="Confirm password"
               />
+              {errors.confirm_password && (
+                <span className="text-red-500 text-sm">
+                  Confirm password is required
+                </span>
+              )}
+              {confirmPassword && password !== confirmPassword && (
+                <p className="text-red-500 text-sm">Passwords do not match</p>
+              )}
+
+              {confirmPassword && password === confirmPassword && (
+                <p className="text-green-500 text-sm">Passwords matched</p>
+              )}
             </div>
 
-            <Button className="w-full h-11 rounded-xl bg-pink hover:bg-pink">
+            <Button
+              type="submit"
+              className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
+            >
               Sign Up as {accountType}
             </Button>
             {/* Or Sign Up */}
