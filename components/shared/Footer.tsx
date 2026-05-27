@@ -1,11 +1,17 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { motion } from 'motion/react';
+import { usePathname } from 'next/navigation';
+import { FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  const matchPath =
+    pathname.startsWith('/signup') || pathname.startsWith('/signin');
+
   return (
-    <footer className="bg-pastel_pink">
+    <footer className={`bg-pastel_pink ${matchPath && 'hidden'}`}>
       <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto  pt-10">
         {/* First Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-10">
