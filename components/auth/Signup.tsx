@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useState } from 'react';
 
 export default function Signup() {
-  const [accountType, setAccountType] = useState<"user" | "provider">("user");
+  const [accountType, setAccountType] = useState<'user' | 'provider'>('user');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup submitted", accountType);
+    console.log('Signup submitted', accountType);
   };
 
   return (
@@ -26,11 +26,11 @@ export default function Signup() {
           <div className="flex items-center justify-center bg-gray-100 rounded-full p-1 w-fit mx-auto">
             <button
               type="button"
-              onClick={() => setAccountType("user")}
+              onClick={() => setAccountType('user')}
               className={`px-4 py-1 text-sm rounded-full transition-all ${
-                accountType === "user"
-                  ? "bg-white shadow text-pink"
-                  : "text-gray-500"
+                accountType === 'user'
+                  ? 'bg-white shadow text-pink'
+                  : 'text-gray-500'
               }`}
             >
               User
@@ -38,11 +38,11 @@ export default function Signup() {
 
             <button
               type="button"
-              onClick={() => setAccountType("provider")}
+              onClick={() => setAccountType('provider')}
               className={`px-4 py-1 text-sm rounded-full transition-all ${
-                accountType === "provider"
-                  ? "bg-white shadow text-pink"
-                  : "text-gray-500"
+                accountType === 'provider'
+                  ? 'bg-white shadow text-pink'
+                  : 'text-gray-500'
               }`}
             >
               Provider
