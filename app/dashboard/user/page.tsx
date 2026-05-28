@@ -1,9 +1,10 @@
+import Overview from '@/components/dashboard/User/Overview';
 import React from 'react';
 
 const page = () => {
   return (
     <div>
-      <p>User Main</p>
+      <Overview />
     </div>
   );
 };
