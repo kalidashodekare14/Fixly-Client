@@ -8,6 +8,11 @@ import { useState } from 'react';
 import SocialLogin from '../shared/SocialLogin';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import { Spinner } from '@/components/ui/spinner';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 type Inputs = {
   first_name: string;
@@ -19,10 +24,14 @@ type Inputs = {
 
 export default function Signup() {
   const [accountType, setAccountType] = useState<'user' | 'provider'>('user');
+  const [errorHandle, setErrorHandle] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
@@ -30,18 +39,63 @@ export default function Signup() {
   const password = watch('password');
   const confirmPassword = watch('confirm_password');
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  // Form submit function
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const userData = {
-      name: data.first_name + data.last_name,
+      name: `${data.first_name} ${data.last_name}`,
       email: data.email,
       password: data.password,
+      role: accountType,
     };
 
     if (password !== confirmPassword) {
       return;
     }
 
-    console.log(userData);
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`,
+        userData
+      );
+
+      console.log(res.data.data);
+
+      if (res.status === 200 || res.status === 201) {
+        const loginRes = await signIn('credentials', {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+        if (loginRes?.ok) {
+          reset();
+          toast.success('Account created successfully 🎉');
+          router.push('/');
+        } else {
+          toast.error('Login failed after registration ❌');
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message);
+
+      // Backend Error
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+        setErrorHandle(error.response.data.message);
+      }
+
+      // Network error
+      else if (error?.message) {
+        toast.error(error.message);
+      }
+
+      // Fallback Error
+      else {
+        toast.error('Something went wrong ❌');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -79,6 +133,14 @@ export default function Signup() {
             </button>
           </div>
         </CardHeader>
+
+        {errorHandle && (
+          <div className="bg-[#FEF2F2] border border-[#dd9595] mx-5 px-2 py-3 rounded-xl">
+            <p className="text-[#a13535] text-center">
+              Invalid email or password. Please try again.
+            </p>
+          </div>
+        )}
 
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -173,7 +235,14 @@ export default function Signup() {
               type="submit"
               className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
             >
-              Sign Up as {accountType}
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <Spinner className="size-6" />
+                  <span>SignUp...</span>
+                </div>
+              ) : (
+                `Sign Up as ${accountType}`
+              )}
             </Button>
             {/* Or Sign Up */}
             <div className="flex items-center gap-3 my-5">
@@ -196,6 +265,7 @@ export default function Signup() {
           </form>
         </CardContent>
       </Card>
+      <Toaster />
     </div>
   );
 }
