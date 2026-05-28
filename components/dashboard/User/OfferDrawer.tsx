@@ -160,9 +160,15 @@ const OfferDrawer = ({ offerDrawer, setOfferDraser }: IOfferDrawer) => {
               </div>
 
               {/* Action */}
-              <button className="w-full mt-2 py-2 rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition">
-                View Profile
-              </button>
+
+              <div className="flex items-center gap-5">
+                <button className="w-full mt-2 py-2 cursor-pointer rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition">
+                  Select
+                </button>
+                <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-[#E91E63]  text-sm hover:bg-[#ffedf4] transition">
+                  View Profile
+                </button>
+              </div>
             </div>
           ))}
         </div>
