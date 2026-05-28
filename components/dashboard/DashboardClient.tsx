@@ -12,7 +12,12 @@ const DashboardClient = ({
   role: Role;
   children: React.ReactNode;
 }) => {
+  const [sidebarSort, setSidebarSort] = useState<boolean>(true);
   const [toggle, setToggle] = useState<boolean>(false);
+
+  const handleSidebarSort = () => {
+    setSidebarSort((prev) => !prev);
+  };
 
   const handleToggle = () => {
     setToggle((prev) => !prev);
@@ -20,10 +25,23 @@ const DashboardClient = ({
 
   return (
     <div className="flex relative">
-      <Sidebar handleToggle={handleToggle} toggle={toggle} role={role} />
+      <Sidebar
+        sidebarProps={{
+          role,
+          sidebarSort,
+          toggle,
+          handleToggle,
+          handleSidebarSort,
+        }}
+      />
 
       <div className="flex-1">
-        <DashboardHeader handleToggle={handleToggle} />
+        <DashboardHeader
+          headerProps={{
+            handleToggle,
+            handleSidebarSort,
+          }}
+        />
         {children}
       </div>
     </div>

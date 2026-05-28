@@ -6,16 +6,33 @@ import { FiSearch, FiBell } from 'react-icons/fi';
 
 interface IParams {
   handleToggle: () => void;
+  handleSidebarSort: () => void;
 }
 
-export default function DashboardHeader({ handleToggle }: IParams) {
+export default function DashboardHeader({
+  headerProps,
+}: {
+  headerProps: IParams;
+}) {
   const { data: session } = useSession();
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white border-b">
       {/* Left: Greeting */}
       <div className="flex items-center gap-10">
-        <div onClick={handleToggle} className="text-xl cursor-pointer">
+        {/* Sidebar sort */}
+        <div
+          onClick={headerProps.handleSidebarSort}
+          className="hidden lg:flex text-xl cursor-pointer"
+        >
+          <FaBars />
+        </div>
+
+        {/* Responsive sort */}
+        <div
+          onClick={headerProps.handleToggle}
+          className="lg:hidden text-xl cursor-pointer"
+        >
           <FaBars />
         </div>
         <div>

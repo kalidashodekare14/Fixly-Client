@@ -8,33 +8,42 @@ import { IoMdClose } from 'react-icons/io';
 
 interface ISidebar {
   toggle: boolean;
+  sidebarSort: boolean;
   role: Role;
   handleToggle: () => void;
+  handleSidebarSort: () => void;
 }
 
-const Sidebar = ({ handleToggle, toggle, role }: ISidebar) => {
-  const menus = sidebarConfig[role];
+const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
+  const menus = sidebarConfig[sidebarProps.role];
   const pathname = usePathname();
 
   return (
     <div
-      className={`border h-screen p-3 transition-all duration-300 bg-white absolute lg:relative
-      ${toggle ? 'w-64' : 'w-16'}`}
+      className={`border h-screen p-3 transition-all duration-300 bg-white absolute lg:static 
+      ${sidebarProps.sidebarSort ? 'w-64' : 'w-16'}
+      ${sidebarProps.toggle ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}
     >
+      {/* Responsive toggle */}
       <div
-        onClick={handleToggle}
-        className="flex justify-end items-end cursor-pointer text-xl"
+        onClick={sidebarProps.handleToggle}
+        className="lg:hidden flex justify-end items-end cursor-pointer text-xl"
       >
         <IoMdClose />
       </div>
       {/* Header */}
       <div className="flex items-center gap-3">
-        <FaTools className="bg-[#E91E63] text-4xl p-2 text-white rounded-xl" />
+        <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-[#E91E63] text-white text-2xl rounded-xl">
+          <FaTools className="" />
+        </div>
 
-        {toggle && (
+        {sidebarProps.sidebarSort && (
           <div>
             <h2 className="font-semibold text-xl">Fixly</h2>
-            <p className="text-xs text-gray-500">Service Marketplace</p>
+            <p className="text-xs text-gray-500 whitespace-nowrap">
+              Service Marketplace
+            </p>
           </div>
         )}
       </div>
@@ -58,7 +67,9 @@ const Sidebar = ({ handleToggle, toggle, role }: ISidebar) => {
                 <span className="text-lg">{menu.icon}</span>
 
                 {/* Label only when expanded */}
-                {toggle && <p className="text-sm">{menu.label}</p>}
+                {sidebarProps.sidebarSort && (
+                  <p className="text-sm whitespace-nowrap">{menu.label}</p>
+                )}
               </div>
             </Link>
           );
