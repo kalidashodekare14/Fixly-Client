@@ -12,10 +12,14 @@ export const sidebarConfig = {
     { label: 'Overview', href: '/dashboard/user', icon: <MdDashboard /> },
     {
       label: 'Create Request',
-      href: '/dashboard/create_request',
+      href: '/dashboard/user/create_request',
       icon: <IoCreateOutline />,
     },
-    { label: 'My Requests', href: '/dashboard/requests', icon: <CiViewList /> },
+    {
+      label: 'My Requests',
+      href: '/dashboard/user/requests',
+      icon: <CiViewList />,
+    },
     {
       label: 'View Offers',
       href: '/dashboard/offers',
@@ -23,14 +27,14 @@ export const sidebarConfig = {
     },
     {
       label: 'Select Provider',
-      href: '/dashboard/select_provider',
+      href: '/dashboard/user/select_provider',
       icon: <FaUserCog />,
     },
-    { label: 'Chat', href: '/dashboard/chat', icon: <MdChat /> },
-    { label: 'Profile', href: '/dashboard/profile', icon: <FaUsers /> },
+    { label: 'Chat', href: '/dashboard/user/chat', icon: <MdChat /> },
+    { label: 'Profile', href: '/dashboard/user/profile', icon: <FaUsers /> },
     {
       label: 'Feedback',
-      href: '/dashboard/feedback',
+      href: '/dashboard/user/feedback',
       icon: <MdOutlineFeedback />,
     },
   ],
