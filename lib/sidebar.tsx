@@ -17,7 +17,7 @@ export const sidebarConfig = {
     },
     {
       label: 'My Requests',
-      href: '/dashboard/user/requests',
+      href: '/dashboard/user/my_requests',
       icon: <CiViewList />,
     },
     {
