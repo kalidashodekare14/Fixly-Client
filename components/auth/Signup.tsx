@@ -136,9 +136,7 @@ export default function Signup() {
 
         {errorHandle && (
           <div className="bg-[#FEF2F2] border border-[#dd9595] mx-5 px-2 py-3 rounded-xl">
-            <p className="text-[#a13535] text-center">
-              Invalid email or password. Please try again.
-            </p>
+            <p className="text-[#a13535] text-center">{errorHandle}</p>
           </div>
         )}
 

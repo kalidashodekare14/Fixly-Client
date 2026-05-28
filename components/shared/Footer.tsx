@@ -8,7 +8,9 @@ const Footer = () => {
   const pathname = usePathname();
 
   const matchPath =
-    pathname.startsWith('/signup') || pathname.startsWith('/signin');
+    pathname.startsWith('/signup') ||
+    pathname.startsWith('/signin') ||
+    pathname.startsWith('/dashboard');
 
   return (
     <footer className={`bg-pastel_pink ${matchPath && 'hidden'}`}>

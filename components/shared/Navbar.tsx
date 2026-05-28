@@ -53,7 +53,9 @@ const Navbar = () => {
   }, []);
 
   const matchPath =
-    pathname.startsWith('/signup') || pathname.startsWith('/signin');
+    pathname.startsWith('/signup') ||
+    pathname.startsWith('/signin') ||
+    pathname.startsWith('/dashboard');
   console.log('chack', matchPath);
 
   return (
