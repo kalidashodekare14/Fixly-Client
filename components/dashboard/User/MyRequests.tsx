@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import OfferDrawer from './OfferDrawer';
+import EditRequestModal from './EditRequestModal';
 
 type IRequest = {
   id: number;
@@ -97,6 +98,7 @@ const statusColor = {
 
 export default function MyRequests() {
   const [offerDrawer, setOfferDraser] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<boolean>(false);
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
@@ -164,9 +166,9 @@ export default function MyRequests() {
 
                 {/* Edit */}
                 <Button
+                  onClick={() => setEditModal(true)}
                   variant="outline"
                   className="flex-1 h-12 cursor-pointer rounded-xl"
-                  onClick={() => alert(`Edit Request ID: ${req.id}`)}
                 >
                   Edit
                 </Button>
@@ -174,6 +176,7 @@ export default function MyRequests() {
             </div>
           </div>
         ))}
+        <EditRequestModal editModal={editModal} setEditModal={setEditModal} />
         <OfferDrawer
           offerDrawer={offerDrawer}
           setOfferDraser={setOfferDraser}
