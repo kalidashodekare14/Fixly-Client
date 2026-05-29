@@ -31,29 +31,35 @@ import {
   Shield,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useProfileInfoQuery } from '@/state/services/user/ProfileService';
 
 export type UserRole = 'user' | 'provider' | 'admin';
 
-interface IUserProfile {
-  image: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  phone: string;
-  address: string;
-  bio: string;
-  isVerified: boolean;
-  averageRating: number;
-  totalReviews: number;
-  memberSince?: string;
-  completedJobs?: number;
-}
+const Profile = () => {
+  const {
+    data: profileInfo,
+    isLoading: infoLoading,
+    refetch,
+    error,
+  } = useProfileInfoQuery();
 
-const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
+  const {
+    image,
+    name,
+    email,
+    phone,
+    role,
+    bio,
+    location,
+    totalReviews,
+    isVerified,
+    averageRating,
+  } = profileInfo?.data || {};
+
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState(userProfile.image);
+  const [imagePreview, setImagePreview] = useState(image);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,11 +76,14 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: userProfile.name,
-      email: userProfile.email,
-      phone: userProfile.phone,
-      address: userProfile.address,
-      bio: userProfile.bio,
+      name: name,
+      email: email,
+      phone: phone,
+      address: location?.address || '',
+      city: location?.city || '',
+      state: location?.state || '',
+      zipCode: location?.zipCode || '',
+      bio: bio,
     },
   });
 
@@ -88,28 +97,29 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
   const stats = [
     {
       label: 'Rating',
-      value: userProfile.averageRating,
+      value: averageRating,
       icon: Star,
       color: 'text-amber-500',
       bg: 'bg-amber-50',
     },
     {
       label: 'Reviews',
-      value: userProfile.totalReviews,
+      value: totalReviews,
       icon: Award,
       color: 'text-blue-500',
       bg: 'bg-blue-50',
     },
+    // Now is static
     {
       label: 'Completed Jobs',
-      value: userProfile.completedJobs ?? 0,
+      value: '500',
       icon: Briefcase,
       color: 'text-emerald-500',
       bg: 'bg-emerald-50',
     },
     {
       label: 'Member Since',
-      value: userProfile.memberSince ?? '2024',
+      value: '2022',
       icon: Calendar,
       color: 'text-purple-500',
       bg: 'bg-purple-50',
@@ -131,14 +141,14 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
               <div className="relative -mt-16 sm:-mt-20">
                 <div className="size-28 overflow-hidden rounded-full border-4 border-white shadow-xl sm:size-32">
                   <Image
-                    src={userProfile.image}
-                    alt={userProfile.name}
+                    src={image || ''}
+                    alt={name || ''}
                     width={128}
                     height={128}
                     className="size-full object-cover"
                   />
                 </div>
-                {userProfile.isVerified && (
+                {isVerified && (
                   <div className="absolute -bottom-1 -right-1 rounded-full border-4 border-white bg-green-500 p-1">
                     <CheckCircle className="size-4 text-white" />
                   </div>
@@ -149,15 +159,15 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
               <div className="flex-1 text-center sm:text-left">
                 <div className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
                   <h1 className="text-2xl font-bold text-gray-900">
-                    {userProfile.name}
+                    {name ? name : 'N/A'}
                   </h1>
                   <Badge className="border-0 bg-pink-500/10 capitalize text-pink-600 hover:bg-pink-500/20">
                     <Shield className="mr-1 size-3" />
-                    {userProfile.role}
+                    {role ? role : 'N/A'}
                   </Badge>
                 </div>
                 <p className="mt-1 text-sm text-gray-500">
-                  {userProfile.email}
+                  {email ? email : 'N/A'}
                 </p>
               </div>
 
@@ -208,7 +218,7 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
             </CardHeader>
             <CardContent>
               <p className="text-sm leading-relaxed text-gray-600">
-                {userProfile.bio}
+                {bio ? bio : 'Bio not available...'}
               </p>
             </CardContent>
           </Card>
@@ -226,7 +236,7 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Email</p>
                   <p className="truncate text-sm font-medium text-gray-900">
-                    {userProfile.email}
+                    {email ? email : 'N/A'}
                   </p>
                 </div>
               </div>
@@ -237,7 +247,7 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Phone</p>
                   <p className="truncate text-sm font-medium text-gray-900">
-                    {userProfile.phone}
+                    {phone ? phone : 'N/A'}
                   </p>
                 </div>
               </div>
@@ -248,7 +258,14 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Address</p>
                   <p className="truncate text-sm font-medium text-gray-900">
-                    {userProfile.address}
+                    {[
+                      location?.address,
+                      location?.city,
+                      location?.state,
+                      location?.zipCode,
+                    ]
+                      .filter(Boolean)
+                      .join(', ') || 'N/A'}
                   </p>
                 </div>
               </div>
@@ -272,7 +289,7 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
             <div className="flex items-center gap-4">
               <div className="relative size-16 shrink-0 overflow-hidden rounded-full border">
                 <Image
-                  src={imagePreview}
+                  src={imagePreview || ''}
                   alt="Preview"
                   width={64}
                   height={64}
@@ -341,13 +358,43 @@ const Profile = ({ userProfile }: { userProfile: IUserProfile }) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address">Address</Label>
+              <Label htmlFor="address">Street Address</Label>
               <Input
                 className="h-11"
                 id="address"
-                placeholder="Your address"
+                placeholder="Street address"
                 {...register('address')}
               />
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="city">City</Label>
+                <Input
+                  className="h-11"
+                  id="city"
+                  placeholder="City"
+                  {...register('city')}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="state">State</Label>
+                <Input
+                  className="h-11"
+                  id="state"
+                  placeholder="State"
+                  {...register('state')}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="zipCode">Zip Code</Label>
+                <Input
+                  className="h-11"
+                  id="zipCode"
+                  placeholder="Zip Code"
+                  {...register('zipCode')}
+                />
+              </div>
             </div>
 
             <div className="space-y-2">

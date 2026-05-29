@@ -16,7 +16,7 @@ const userProfile = {
 const ProfilePage = () => {
   return (
     <div>
-      <Profile userProfile={userProfile} />
+      <Profile />
     </div>
   );
 };
