@@ -10,7 +10,13 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['user'],
     }),
+    myRequest: builder.query<any, void>({
+      query: () => ({
+        url: '/api/request',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useCreateRequestMutation } = requestService;
+export const { useCreateRequestMutation, useMyRequestQuery } = requestService;

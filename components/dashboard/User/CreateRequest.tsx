@@ -23,7 +23,7 @@ type Inputs = {
   title: string;
   description: string;
   budget: string;
-  dateline: string;
+  deadline: string;
 };
 
 export default function CreateRequest() {
@@ -104,7 +104,7 @@ export default function CreateRequest() {
       formData.append('title', data.title);
       formData.append('description', data.description);
       formData.append('budget', data.budget);
-      formData.append('deadline', data.dateline);
+      formData.append('deadline', data.deadline);
       formData.append('location', JSON.stringify(location));
 
       if (file) {
@@ -206,11 +206,11 @@ export default function CreateRequest() {
           <div className="w-full">
             <Label>Deadline</Label>
             <Input
-              {...register('dateline', { required: true })}
+              {...register('deadline', { required: true })}
               type="date"
-              className={`${errors.dateline && 'border-2 border-red-200'} h-12 mt-2`}
+              className={`${errors.deadline && 'border-2 border-red-200'} h-12 mt-2`}
             />
-            {errors.dateline && (
+            {errors.deadline && (
               <span className="text-red-400">Deateline title is required</span>
             )}
           </div>
