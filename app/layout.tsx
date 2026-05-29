@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Geist, Poppins } from 'next/font/google';
 import './globals.css';
 import AuthProviders from '@/components/auth/AuthProviders';
+import ReduxtProviderWrapper from '@/lib/ReduxtProviderWrappert';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -36,9 +37,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AuthProviders>
-          <Navbar />
-          {children}
-          <Footer />
+          <ReduxtProviderWrapper>
+            <Navbar />
+            {children}
+            <Footer />
+          </ReduxtProviderWrapper>
         </AuthProviders>
       </body>
     </html>

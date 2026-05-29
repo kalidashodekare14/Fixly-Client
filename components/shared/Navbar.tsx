@@ -20,6 +20,7 @@ import {
   LogOutIcon,
   SettingsIcon,
   UserIcon,
+  LayoutDashboardIcon,
 } from 'lucide-react';
 
 //---------------Navigation Data-----------------
@@ -99,6 +100,13 @@ const Navbar = () => {
                   <UserIcon />
                   Profile
                 </DropdownMenuItem>
+                <Link href={'/dashboard'}>
+                  <DropdownMenuItem>
+                    <LayoutDashboardIcon />
+                    Dashboard
+                  </DropdownMenuItem>
+                </Link>
+
                 <DropdownMenuItem>
                   <CreditCardIcon />
                   Billing
