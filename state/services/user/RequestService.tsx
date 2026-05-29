@@ -8,15 +8,29 @@ export const requestService = baseApi.injectEndpoints({
         method: 'POST',
         body: requestData,
       }),
-      invalidatesTags: ['user'],
+      invalidatesTags: ['Request'],
     }),
+
     myRequest: builder.query<any, void>({
       query: () => ({
         url: '/api/request',
         method: 'GET',
       }),
+      providesTags: ['Request'],
+    }),
+    updateRequest: builder.mutation({
+      query: (updateData) => ({
+        url: '/api/request',
+        method: 'PUT',
+        body: updateData,
+      }),
+      invalidatesTags: ['Request'],
     }),
   }),
 });
 
-export const { useCreateRequestMutation, useMyRequestQuery } = requestService;
+export const {
+  useCreateRequestMutation,
+  useMyRequestQuery,
+  useUpdateRequestMutation,
+} = requestService;

@@ -8,7 +8,7 @@ export const profileService = baseApi.injectEndpoints({
         url: '/api/user',
         method: 'GET',
       }),
-      providesTags: ['user'],
+      providesTags: ['User'],
     }),
     profileInfoUpdate: builder.mutation({
       query: (userData) => ({
@@ -16,7 +16,7 @@ export const profileService = baseApi.injectEndpoints({
         method: 'PUT',
         body: userData,
       }),
-      invalidatesTags: ['user'],
+      invalidatesTags: ['User'],
     }),
   }),
 });
