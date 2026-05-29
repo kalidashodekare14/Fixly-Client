@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -31,17 +31,36 @@ import {
   Shield,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useProfileInfoQuery } from '@/state/services/user/ProfileService';
+import {
+  useProfileInfoQuery,
+  useProfileInfoUpdateMutation,
+} from '@/state/services/user/ProfileService';
 
 export type UserRole = 'user' | 'provider' | 'admin';
 
+type Inputs = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  bio: string;
+};
+
 const Profile = () => {
+  // Fetch user data
   const {
     data: profileInfo,
     isLoading: infoLoading,
     refetch,
     error,
   } = useProfileInfoQuery();
+  // update user data
+
+  const [profileInfoUpdate, { isLoading: updateLoading, error: updateError }] =
+    useProfileInfoUpdateMutation();
 
   const {
     image,
@@ -74,24 +93,65 @@ const Profile = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
-      name: name,
-      email: email,
-      phone: phone,
-      address: location?.address || '',
-      city: location?.city || '',
-      state: location?.state || '',
-      zipCode: location?.zipCode || '',
-      bio: bio,
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      bio: '',
     },
   });
 
-  const onSubmit = async () => {
+  useEffect(() => {
+    if (profileInfo?.data) {
+      const user = profileInfo.data;
+
+      reset({
+        name: user.name ?? '',
+        email: user.email ?? '',
+        phone: user.phone ?? '',
+        address: user.location?.address ?? '',
+        city: user.location?.city ?? '',
+        state: user.location?.state ?? '',
+        zipCode: user.location?.zipCode ?? '',
+        bio: user.bio ?? '',
+      });
+    }
+  }, [profileInfo, reset]);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setSaving(false);
-    setOpen(false);
+    try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+
+      formData.append('location[address]', data.address);
+      formData.append('location[city]', data.city);
+      formData.append('location[state]', data.state);
+      formData.append('location[zipCode]', data.zipCode);
+
+      formData.append('bio', data.bio);
+
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+
+      const res = await profileInfoUpdate(formData).unwrap();
+      if (res?.success) {
+        setOpen(false);
+      }
+    } catch (error: any) {
+      console.log(error?.message);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const stats = [

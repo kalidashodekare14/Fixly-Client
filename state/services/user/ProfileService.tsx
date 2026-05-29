@@ -10,7 +10,16 @@ export const profileService = baseApi.injectEndpoints({
       }),
       providesTags: ['user'],
     }),
+    profileInfoUpdate: builder.mutation({
+      query: (userData) => ({
+        url: '/api/user',
+        method: 'PUT',
+        body: userData,
+      }),
+      invalidatesTags: ['user'],
+    }),
   }),
 });
 
-export const { useProfileInfoQuery } = profileService;
+export const { useProfileInfoQuery, useProfileInfoUpdateMutation } =
+  profileService;
