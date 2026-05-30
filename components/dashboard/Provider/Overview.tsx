@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  Briefcase,
-  LucideDollarSign,
-  Star,
-  ClipboardList,
-  TrendingUp,
-  TrendingDown,
-} from 'lucide-react';
+import { LucideDollarSign } from 'lucide-react';
 import {
   BarChart,
   Bar,
