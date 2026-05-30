@@ -9,3 +9,9 @@ export interface Provider {
   available: boolean;
   job_done: number;
 }
+
+export interface IUserResponse {
+  success: boolean;
+  message: string;
+  data: '';
+}
