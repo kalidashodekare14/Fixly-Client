@@ -90,6 +90,14 @@ const Profile = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(image);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  // Location state fields — address, city, division, lat, lng
+  const [address, setAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [division, setDivision] = useState<string>('');
+  const [latitude, setLatitude] = useState<string>('');
+  const [longitude, setLongitude] = useState<string>('');
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Image file set
@@ -99,6 +107,45 @@ const Profile = () => {
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
+  };
+
+  // Browser geolocation — lat/lng + reverse geocoding via Nominatim (free, no API key)
+  const getLocation = () => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        setLatitude(lat.toString());
+        setLongitude(lng.toString());
+
+        // Reverse geocode lat/lng → address, city, division using OpenStreetMap Nominatim
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=en`,
+            { headers: { 'User-Agent': 'Fixly-Client/1.0' } }
+          );
+          const data = await res.json();
+          const addr = data.address || {};
+
+          // Nominatim returns data.address with fields like road, city, state, country etc.
+          setAddress(
+            [addr.road, addr.house_number, addr.suburb]
+              .filter(Boolean)
+              .join(', ')
+          );
+          setCity(addr.city || addr.town || addr.village || addr.county || '');
+          setDivision(addr.state || '');
+        } catch (err) {
+          console.error('Reverse geocoding failed:', err);
+        }
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+      }
+    );
   };
 
   const {
@@ -132,6 +179,13 @@ const Profile = () => {
 
       setImagePreview(provider.user.image);
 
+      // Populate location fields from existing profile data
+      setAddress(provider.location?.address ?? '');
+      setCity(provider.location?.city ?? '');
+      setDivision(provider.location?.division ?? '');
+      setLatitude(provider.location?.coordinates[0]);
+      setLongitude(provider.location?.coordinates[1]);
+
       const cats = (provider as any).services;
       if (cats) {
         setSelectedServices(cats);
@@ -156,6 +210,17 @@ const Profile = () => {
       formData.append('rateType', data.rateType);
       formData.append('availableStatus', data.availableStatus);
       formData.append('services', JSON.stringify(selectedServices));
+
+      // Append location fields to form data
+      formData.append(
+        'location',
+        JSON.stringify({
+          address,
+          city,
+          division,
+          coordinates: [longitude, latitude],
+        })
+      );
 
       if (imageFile) {
         formData.append('image', imageFile);
@@ -338,62 +403,22 @@ const Profile = () => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                {services.map((service: string[], i: number) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
-                  >
-                    <span className="text-sm font-medium text-gray-700">
-                      {service}
-                    </span>
-                  </div>
-                ))}
+                {services ? (
+                  services.map((service: string[], i: number) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
+                    >
+                      <span className="text-sm font-medium text-gray-700">
+                        {service}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <p>No Service Data</p>
+                )}
               </div>
             </CardContent>
-            {/* <Separator className="mx-4 w-auto" /> */}
-            {/* TODO: Certification options */}
-            {/* Certifications */}
-            {/* <CardHeader>
-              <CardTitle>Certifications & Licenses</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {[
-                  {
-                    name: 'Licensed Master Plumber',
-                    issuer: 'State Board',
-                    year: '2018',
-                  },
-                  {
-                    name: 'Certified HVAC Technician',
-                    issuer: 'NATE',
-                    year: '2020',
-                  },
-                  {
-                    name: 'OSHA Safety Certified',
-                    issuer: 'OSHA',
-                    year: '2021',
-                  },
-                ].map((cert) => (
-                  <div
-                    key={cert.name}
-                    className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50/50 p-3"
-                  >
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-purple-50">
-                      <Award className="size-4 text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">
-                        {cert.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {cert.issuer} &middot; {cert.year}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent> */}
           </Card>
 
           {/* Sidebar */}
@@ -678,6 +703,74 @@ const Profile = () => {
                   </label>
                 ))}
               </div>
+            </div>
+
+            {/* Location form section — address, city, division, lat, lng */}
+            <Separator />
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-gray-900">Location</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-2 sm:col-span-2">
+                  <Label htmlFor="address">Address</Label>
+                  <Input
+                    className="h-11"
+                    id="address"
+                    placeholder="Street address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="city">City</Label>
+                  <Input
+                    className="h-11"
+                    id="city"
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="division">Division</Label>
+                  <Input
+                    className="h-11"
+                    id="division"
+                    placeholder="Division"
+                    value={division}
+                    onChange={(e) => setDivision(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="latitude">Latitude</Label>
+                  <Input
+                    className="h-11"
+                    id="latitude"
+                    placeholder="Latitude"
+                    value={latitude}
+                    onChange={(e) => setLatitude(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="longitude">Longitude</Label>
+                  <Input
+                    className="h-11"
+                    id="longitude"
+                    placeholder="Longitude"
+                    value={longitude}
+                    onChange={(e) => setLongitude(e.target.value)}
+                  />
+                </div>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={getLocation}
+                className="gap-2"
+              >
+                <MapPin className="size-4" />
+                Get Current Location
+              </Button>
             </div>
 
             <DialogFooter>
