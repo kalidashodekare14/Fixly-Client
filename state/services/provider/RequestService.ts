@@ -9,6 +9,7 @@ export const requestService = baseApi.injectEndpoints({
       }),
       providesTags: ['Request'],
     }),
+
     sendOffer: builder.mutation({
       query: (offerData) => ({
         url: '/api/provider/offer',
@@ -17,12 +18,30 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+
     sendOfferd: builder.query<any, void>({
       query: () => ({
         url: '/api/provider/send_offered',
         method: 'GET',
       }),
       providesTags: ['Request'],
+    }),
+
+    jobsInfo: builder.query<any, void>({
+      query: () => ({
+        url: '/api/provider/jobs',
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+    }),
+
+    jobStatusChange: builder.mutation({
+      query: (jobInfo) => ({
+        url: '/api/provider/job_status',
+        method: 'PUT',
+        body: jobInfo,
+      }),
+      invalidatesTags: ['Request'],
     }),
   }),
 });
@@ -31,4 +50,6 @@ export const {
   useIncomingRequestsQuery,
   useSendOfferMutation,
   useSendOfferdQuery,
+  useJobsInfoQuery,
+  useJobStatusChangeMutation,
 } = requestService;
