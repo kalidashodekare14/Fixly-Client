@@ -26,6 +26,20 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    viewOffers: builder.query<any, { requestId: string }>({
+      query: ({ requestId }) => ({
+        url: `/api/request/${requestId}/offers`,
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+    }),
+    selectOffer: builder.mutation<any, { offerId: string }>({
+      query: ({ offerId }) => ({
+        url: `/api/request/offers/${offerId}/accept`,
+        method: 'PUT',
+      }),
+      invalidatesTags: ['Request'],
+    }),
   }),
 });
 
@@ -33,4 +47,6 @@ export const {
   useCreateRequestMutation,
   useMyRequestQuery,
   useUpdateRequestMutation,
+  useViewOffersQuery,
+  useSelectOfferMutation,
 } = requestService;

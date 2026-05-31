@@ -5,7 +5,11 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import OfferDrawer from './OfferDrawer';
 import EditRequestModal from './EditRequestModal';
-import { useMyRequestQuery } from '@/state/services/user/RequestService';
+
+import {
+  useMyRequestQuery,
+  useViewOffersQuery,
+} from '@/state/services/user/RequestService';
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
 
@@ -19,6 +23,7 @@ export default function MyRequests() {
   const [offerDrawer, setOfferDraser] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [selectedRequest, setSelectedRequest] = useState<IRequest | null>(null);
+  const [selectedRequestId, setSelectedRequestId] = useState<string>('');
   const {
     data: requestData,
     isLoading: requestLoading,
@@ -35,6 +40,11 @@ export default function MyRequests() {
     }
     setEditModal(true);
     console.log(selectedData);
+  };
+
+  const handleViewOffer = (id: string) => {
+    setSelectedRequestId(id);
+    setOfferDraser(true);
   };
 
   return (
@@ -89,14 +99,16 @@ export default function MyRequests() {
                 {/* Budget + Deadline */}
                 <div className="flex justify-between text-sm pt-2 border-t">
                   <p className="font-semibold">৳ {req.budget}</p>
-                  <p className="text-gray-500">{req.deadline}</p>
+                  <p className="text-gray-500">
+                    {new Date(req.deadline).toDateString()}
+                  </p>
                 </div>
 
                 {/* ACTION BUTTONS */}
                 <div className="flex gap-2 pt-3">
                   {/* View Offers */}
                   <Button
-                    onClick={() => setOfferDraser(true)}
+                    onClick={() => handleViewOffer(req._id)}
                     className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
                   >
                     View Offers
@@ -133,6 +145,7 @@ export default function MyRequests() {
           }}
         />
         <OfferDrawer
+          selectedRequestId={selectedRequestId}
           offerDrawer={offerDrawer}
           setOfferDraser={setOfferDraser}
         />
