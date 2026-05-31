@@ -27,127 +27,31 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import {
+  useIncomingRequestsQuery,
+  useSendOfferMutation,
+} from '@/state/services/provider/RequestService';
 
 interface IIncomingRequest {
   _id: string;
+  user: {
+    _id: string;
+    name: string;
+    image: string;
+  };
   image: string;
   title: string;
   category: string;
   description: string;
   budget: number;
   deadline: string;
-  clientName: string;
-  clientImage: string;
   location: {
     address: string;
     city: string;
     division: string;
   };
-  urgency: 'low' | 'medium' | 'high';
+  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
 }
-
-const requests: IIncomingRequest[] = [
-  {
-    _id: '1',
-    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400',
-    title: 'AC not cooling properly',
-    category: 'AC Repair',
-    description:
-      'My split AC is running but not cooling. Gas might be low. Need someone to check and fix as soon as possible.',
-    budget: 2500,
-    deadline: '2026-06-02',
-    clientName: 'Rahul Sharma',
-    clientImage: 'https://randomuser.me/api/portraits/men/32.jpg',
-    location: {
-      address: 'House 12, Road 5',
-      city: 'Mirpur',
-      division: 'Dhaka',
-    },
-    urgency: 'high',
-  },
-  {
-    _id: '2',
-    image: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=400',
-    title: 'Kitchen sink leaking',
-    category: 'Plumbing',
-    description:
-      'Water pipe under the kitchen sink is leaking. Need urgent plumbing service to fix the leakage.',
-    budget: 1200,
-    deadline: '2026-06-01',
-    clientName: 'Priya Das',
-    clientImage: 'https://randomuser.me/api/portraits/women/44.jpg',
-    location: {
-      address: 'Flat 3B, Block C',
-      city: 'Banani',
-      division: 'Dhaka',
-    },
-    urgency: 'high',
-  },
-  {
-    _id: '3',
-    image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400',
-    title: 'Room painting needed',
-    category: 'Painting',
-    description:
-      'Need painting for 2 bedrooms. Walls are in good condition, just need a fresh coat of paint.',
-    budget: 8000,
-    deadline: '2026-06-10',
-    clientName: 'Amit Khan',
-    clientImage: 'https://randomuser.me/api/portraits/men/46.jpg',
-    location: { address: 'Road 3, House 8', city: 'Uttara', division: 'Dhaka' },
-    urgency: 'low',
-  },
-  {
-    _id: '4',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400',
-    title: 'Full house deep cleaning',
-    category: 'Cleaning',
-    description:
-      'Need deep cleaning for a 3-bedroom apartment. Includes kitchen, bathrooms, and all rooms.',
-    budget: 3500,
-    deadline: '2026-06-05',
-    clientName: 'Sneha Roy',
-    clientImage: 'https://randomuser.me/api/portraits/women/68.jpg',
-    location: { address: 'Apartment 5A', city: 'Gulshan', division: 'Dhaka' },
-    urgency: 'medium',
-  },
-  {
-    _id: '5',
-    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400',
-    title: 'Fan regulator switch repair',
-    category: 'Electrical',
-    description:
-      'Ceiling fan regulator is not working. Fan runs at full speed only. Need to replace or repair the regulator.',
-    budget: 600,
-    deadline: '2026-06-03',
-    clientName: 'Imran Hossain',
-    clientImage: 'https://randomuser.me/api/portraits/men/75.jpg',
-    location: {
-      address: 'Road 12, House 45',
-      city: 'Mohammadpur',
-      division: 'Dhaka',
-    },
-    urgency: 'low',
-  },
-  {
-    _id: '6',
-    image: 'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=400',
-    title: 'Water heater installation',
-    category: 'Plumbing',
-    description:
-      'Need to install a new geyser/water heater in the bathroom. Unit is already purchased.',
-    budget: 1500,
-    deadline: '2026-06-07',
-    clientName: 'Nasrin Akter',
-    clientImage: 'https://randomuser.me/api/portraits/women/26.jpg',
-    location: {
-      address: 'Block D, Flat 7',
-      city: 'Baridhara',
-      division: 'Dhaka',
-    },
-    urgency: 'medium',
-  },
-];
 
 const categories = [
   'All',
@@ -158,9 +62,11 @@ const categories = [
   'Painting',
 ];
 const urgencyColors: Record<string, string> = {
-  high: 'bg-red-50 text-red-600 border-red-200',
-  medium: 'bg-amber-50 text-amber-600 border-amber-200',
-  low: 'bg-green-50 text-green-600 border-green-200',
+  pending: 'bg-[#FFC6C6] text-[#3F3F3F] border-red-200',
+  assigned: 'bg-amber-50 text-amber-600 border-amber-200',
+  in_progress: 'bg-green-50 text-green-600 border-green-200',
+  completed: 'bg-blue-50 text-green-600 border-green-200',
+  cancelled: 'bg-yellow-50 text-green-600 border-green-200',
 };
 
 const IncomingRequest = () => {
@@ -174,30 +80,50 @@ const IncomingRequest = () => {
   const [offerMessage, setOfferMessage] = useState('');
   const [sending, setSending] = useState(false);
 
-  const filtered = requests.filter((req) => {
-    const matchCategory =
-      activeCategory === 'All' || req.category === activeCategory;
-    const matchSearch =
-      req.title.toLowerCase().includes(search.toLowerCase()) ||
-      req.clientName.toLowerCase().includes(search.toLowerCase()) ||
-      req.description.toLowerCase().includes(search.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+  console.log('checking selected', selectedRequest);
 
-  const openSendOffer = (req: IIncomingRequest) => {
-    setSelectedRequest(req);
+  // incoming request data of rtk query
+  const {
+    data: incomingRequest,
+    isLoading: requestLoading,
+    error: requestError,
+  } = useIncomingRequestsQuery();
+
+  // send offer
+  const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
+
+  const requestData = incomingRequest?.data || [];
+
+  console.log('checking incoming request', incomingRequest);
+
+  const openSendOffer = (req: any) => {
+    setSelectedRequest(req?.request);
     setOfferPrice('');
     setOfferDate('');
     setOfferMessage('');
     setDialogOpen(true);
   };
 
-  const handleSendOffer = () => {
-    setSending(true);
-    setTimeout(() => {
+  const handleSendOffer = async () => {
+    const sendData = {
+      offeredPrice: offerPrice,
+      message: offerMessage,
+      estimatedTime: offerDate,
+      requestId: selectedRequest?._id,
+    };
+
+    try {
+      setSending(true);
+      const send = await sendOffer(sendData).unwrap();
+      if (send.success) {
+        setDialogOpen(false);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    } finally {
       setSending(false);
       setDialogOpen(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -213,9 +139,6 @@ const IncomingRequest = () => {
               Browse requests from clients and send your offers
             </p>
           </div>
-          <Badge className="w-fit border-0 bg-pink-500/10 px-3 py-1 text-sm text-pink-600">
-            {filtered.length} Requests
-          </Badge>
         </div>
 
         {/* Search & Filter */}
@@ -224,40 +147,25 @@ const IncomingRequest = () => {
             <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Search requests or clients..."
-              className="h-11 border-gray-200 pl-9"
+              className="h-11 w-80 border-gray-200 pl-9"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  'shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors',
-                  activeCategory === cat
-                    ? 'bg-pink-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100'
-                )}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Request Cards Grid */}
-        {filtered.length === 0 ? (
+        {requestData < 1 && !requestLoading && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
               No requests found matching your search.
             </p>
           </div>
-        ) : (
+        )}
+        {requestData && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((req) => (
+            {requestData.map((req: any) => (
               <Card
                 key={req._id}
                 className="group overflow-hidden border-0 shadow-sm transition-shadow hover:shadow-md"
@@ -265,7 +173,7 @@ const IncomingRequest = () => {
                 {/* Image */}
                 <div className="relative h-44 bg-gray-100">
                   <Image
-                    src={req.image}
+                    src={req.request.image}
                     alt={req.title}
                     fill
                     className="object-cover"
@@ -276,10 +184,10 @@ const IncomingRequest = () => {
                     <Badge
                       className={cn(
                         'border px-2 py-0.5 text-xs font-medium capitalize',
-                        urgencyColors[req.urgency]
+                        urgencyColors[req.request.status]
                       )}
                     >
-                      {req.urgency} priority
+                      {req.request.status}
                     </Badge>
                   </div>
                 </div>
@@ -288,30 +196,30 @@ const IncomingRequest = () => {
                   {/* Title & Category */}
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold text-gray-900 line-clamp-1">
-                      {req.title}
+                      {req.request.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {req.category}
+                      {req.request.category}
                     </span>
                   </div>
 
                   {/* Description */}
                   <p className="line-clamp-2 text-sm leading-relaxed text-gray-500">
-                    {req.description}
+                    {req.request.description}
                   </p>
 
                   {/* Client Info */}
                   <div className="flex items-center gap-2">
                     <div className="relative size-6 shrink-0 overflow-hidden rounded-full">
                       <Image
-                        src={req.clientImage}
-                        alt={req.clientName}
+                        src={req.request.user.image}
+                        alt={req.request.user.name}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <span className="text-xs text-gray-600">
-                      {req.clientName}
+                      {req.request.user.name}
                     </span>
                   </div>
 
@@ -320,12 +228,14 @@ const IncomingRequest = () => {
                     <div className="flex items-center gap-1.5">
                       <DollarSign className="size-4 text-pink-600" />
                       <span className="font-semibold text-gray-900">
-                        ৳{req.budget.toLocaleString()}
+                        ৳{req.request.budget.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 text-gray-500">
                       <Clock className="size-3.5" />
-                      <span className="text-xs">{req.deadline}</span>
+                      <span className="text-xs">
+                        {new Date(req.request.deadline).toDateString()}
+                      </span>
                     </div>
                   </div>
 
@@ -333,8 +243,9 @@ const IncomingRequest = () => {
                   <div className="flex items-start gap-1.5 text-xs text-gray-400">
                     <MapPin className="mt-0.5 size-3 shrink-0" />
                     <span className="line-clamp-1">
-                      {req.location.address}, {req.location.city},{' '}
-                      {req.location.division}
+                      {req.request.location.address},{' '}
+                      {req.request.location.city},{' '}
+                      {req.request.location.division}
                     </span>
                   </div>
 
@@ -351,6 +262,19 @@ const IncomingRequest = () => {
             ))}
           </div>
         )}
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {requestLoading &&
+            Array.from({ length: 5 }).map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <CardContent className="space-y-3">
+                  <div className="h-30 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
+                  <div className="h-3 w-full bg-gray-200 rounded"></div>
+                  <div className="h-3 w-3/4 bg-gray-200 rounded"></div>
+                </CardContent>
+              </Card>
+            ))}
+        </div>
       </div>
 
       {/* Send Offer Dialog */}
@@ -385,9 +309,9 @@ const IncomingRequest = () => {
                     </p>
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <User className="size-3" />
-                      <span>{selectedRequest.clientName}</span>
+                      <span>{selectedRequest.user.name}</span>
                       <span>|</span>
-                      <span>৳{selectedRequest.budget.toLocaleString()}</span>
+                      <span>৳{selectedRequest.budget}</span>
                     </div>
                   </div>
                 </div>
