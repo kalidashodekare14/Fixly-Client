@@ -12,6 +12,7 @@ import {
 } from '@/state/services/user/RequestService';
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
+import { Search } from 'lucide-react';
 
 const statusColor = {
   pending: 'bg-yellow-100 text-yellow-700',
@@ -30,7 +31,7 @@ export default function MyRequests() {
     error: requestError,
   } = useMyRequestQuery();
 
-  const requests: IRequest[] = requestData?.data;
+  const requests: IRequest[] = requestData?.data || [];
 
   const handleEdit = (id: string) => {
     const selectedData = requests.find((data: IRequest) => data._id === id);
@@ -50,7 +51,14 @@ export default function MyRequests() {
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">My Requests</h2>
-
+      {requests?.length < 1 && !requestLoading && (
+        <div className="flex flex-col items-center justify-center py-20">
+          <Search className="size-12 text-gray-300" />
+          <p className="mt-3 text-sm text-gray-500">
+            No requests found matching your search.
+          </p>
+        </div>
+      )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {requests &&
           requests.map((req) => (
