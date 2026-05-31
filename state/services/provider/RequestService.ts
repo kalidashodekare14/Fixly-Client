@@ -17,8 +17,18 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    sendOfferd: builder.query<any, void>({
+      query: () => ({
+        url: '/api/provider/send_offered',
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+    }),
   }),
 });
 
-export const { useIncomingRequestsQuery, useSendOfferMutation } =
-  requestService;
+export const {
+  useIncomingRequestsQuery,
+  useSendOfferMutation,
+  useSendOfferdQuery,
+} = requestService;
