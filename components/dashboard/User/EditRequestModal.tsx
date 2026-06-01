@@ -17,7 +17,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useUpdateRequestMutation } from '@/state/services/user/RequestService';
 import toast from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MapPin, Crosshair } from 'lucide-react';
 
 interface IEditRequestModal {
   editModal: boolean;
@@ -41,57 +41,60 @@ const EditRequestModal = ({
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [fileError, setFileError] = useState<boolean>(false);
+  // TODO: Location state fields — split like Provider Profile & CreateRequest
+  const [address, setAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [division, setDivision] = useState<string>('');
+  const [postalCode, setPostalCode] = useState<string>('');
+  const [latitude, setLatitude] = useState<string>('');
+  const [longitude, setLongitude] = useState<string>('');
   const [locationLoading, setLocationLoading] = useState<boolean>(false);
-  const [location, setLocation] = useState<any>(null);
   const [
     updateRequest,
     { isLoading: requestReqLoading, error: updateReqError },
   ] = useUpdateRequestMutation();
 
-  // filter data
-
+  // TODO: getLocation — using Nominatim (same as Provider Profile), no API key needed
   const getLocation = () => {
-    setLocationLoading(true);
-
     if (!navigator.geolocation) {
       alert('Geolocation not supported');
-      setLocationLoading(false);
       return;
     }
 
+    setLocationLoading(true);
+
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
 
-        const res = await fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`
-        );
+        setLatitude(lat.toString());
+        setLongitude(lng.toString());
 
-        const data = await res.json();
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=en`,
+            { headers: { 'User-Agent': 'Fixly-Client/1.0' } }
+          );
+          const data = await res.json();
+          const addr = data.address || {};
 
-        const result = data.features?.[0]?.properties;
-
-        const formattedLocation = {
-          address: result.address_line1 || '',
-
-          city: result.city || result.town || result.village || '',
-
-          division: result.state || '',
-
-          postalCode: result.postcode || '',
-
-          coordinates: [lon, lat],
-        };
-
-        console.log(data);
-
-        setLocation(formattedLocation);
+          setAddress(
+            [addr.road, addr.house_number, addr.suburb]
+              .filter(Boolean)
+              .join(', ')
+          );
+          setCity(addr.city || addr.town || addr.village || addr.county || '');
+          setDivision(addr.state || '');
+          setPostalCode(addr.postcode || '');
+        } catch (err) {
+          console.error('Reverse geocoding failed:', err);
+        }
 
         setLocationLoading(false);
       },
-      (err) => {
-        console.log(err.message);
+      (error) => {
+        console.error('Error getting location:', error);
         setLocationLoading(false);
       }
     );
@@ -114,6 +117,7 @@ const EditRequestModal = ({
     },
   });
 
+  // TODO: Populate individual location fields from selected request
   useEffect(() => {
     if (editRequestProps.selectedRequest) {
       const request = editRequestProps.selectedRequest;
@@ -124,7 +128,14 @@ const EditRequestModal = ({
         category: request?.category ?? '',
         description: request?.description ?? '',
       });
-      setLocation(editRequestProps.selectedRequest.location);
+
+      const loc = request.location;
+      setAddress(loc?.address || '');
+      setCity(loc?.city || '');
+      setDivision(loc?.division || '');
+      setPostalCode(loc?.postalCode || '');
+      setLatitude(loc?.coordinates?.[1]?.toString() || '');
+      setLongitude(loc?.coordinates?.[0]?.toString() || '');
     }
   }, [editRequestProps.selectedRequest, reset]);
 
@@ -141,7 +152,17 @@ const EditRequestModal = ({
       formData.append('description', data.description);
       formData.append('budget', data.budget.toString());
       formData.append('deadline', data.deadline);
-      formData.append('location', JSON.stringify(location));
+      // TODO: Construct location object from individual fields (like CreateRequest)
+      formData.append(
+        'location',
+        JSON.stringify({
+          address,
+          city,
+          division,
+          postalCode,
+          coordinates: [longitude, latitude],
+        })
+      );
 
       if (file) {
         formData.append('image', file);
@@ -263,14 +284,103 @@ const EditRequestModal = ({
                 </label>
               </div>
             </div>
-            <Button type="button" onClick={getLocation}>
-              Set Location
-            </Button>
-            {location && (
-              <pre className="mt-4 bg-gray-100 p-4 rounded">
-                {JSON.stringify(location, null, 2)}
-              </pre>
-            )}
+            {/* ------------------------------------------------------------------ */}
+            {/* TODO: Location section — individual fields (like CreateRequest)     */}
+            {/* ------------------------------------------------------------------ */}
+            <div className="border rounded-xl p-4 bg-gray-50/50 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <MapPin className="size-4 text-[#E91E63]" />
+                  <h3 className="text-sm font-semibold text-gray-800">
+                    Service Location
+                  </h3>
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={getLocation}
+                  disabled={locationLoading}
+                  className="h-9 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-lg text-xs gap-1.5"
+                >
+                  {locationLoading ? (
+                    <Loader2 className="size-3.5 animate-spin" />
+                  ) : (
+                    <Crosshair className="size-3.5" />
+                  )}
+                  {locationLoading ? 'Detecting...' : 'Detect My Location'}
+                </Button>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="md:col-span-2">
+                  <Label className="text-xs">Address</Label>
+                  <Input
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="h-10 mt-1 text-sm"
+                    placeholder="Street address"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-xs">City</Label>
+                  <Input
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="h-10 mt-1 text-sm"
+                    placeholder="City"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-xs">Division</Label>
+                  <Input
+                    value={division}
+                    onChange={(e) => setDivision(e.target.value)}
+                    className="h-10 mt-1 text-sm"
+                    placeholder="Division"
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-xs">Postal Code</Label>
+                  <Input
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    className="h-10 mt-1 text-sm"
+                    placeholder="Postal code"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label className="text-xs">Latitude</Label>
+                    <Input
+                      value={latitude}
+                      onChange={(e) => setLatitude(e.target.value)}
+                      className="h-10 mt-1 text-sm"
+                      placeholder="Lat"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Longitude</Label>
+                    <Input
+                      value={longitude}
+                      onChange={(e) => setLongitude(e.target.value)}
+                      className="h-10 mt-1 text-sm"
+                      placeholder="Lng"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {!address && !latitude && (
+                <p className="text-xs text-gray-400 flex items-center gap-1">
+                  <MapPin className="size-3" />
+                  Click &quot;Detect My Location&quot; or type manually.
+                </p>
+              )}
+            </div>
 
             {/* Button */}
             <Button

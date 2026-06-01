@@ -12,6 +12,6 @@ export interface IRequest {
     city: string;
     division: string;
     postalCode: string;
-    coordinates: [];
+    coordinates: [number, number];
   };
 }
