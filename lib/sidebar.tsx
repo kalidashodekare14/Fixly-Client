@@ -22,7 +22,7 @@ export const sidebarConfig = {
     },
     {
       label: 'View Offers',
-      href: '/dashboard/offers',
+      href: '/dashboard/user/offers',
       icon: <BsClipboardCheck />,
     },
     {
