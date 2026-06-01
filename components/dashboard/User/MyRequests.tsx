@@ -21,10 +21,8 @@ const statusColor = {
 };
 
 export default function MyRequests() {
-  const [offerDrawer, setOfferDraser] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
   const [selectedRequest, setSelectedRequest] = useState<IRequest | null>(null);
-  const [selectedRequestId, setSelectedRequestId] = useState<string>('');
   const {
     data: requestData,
     isLoading: requestLoading,
@@ -41,11 +39,6 @@ export default function MyRequests() {
     }
     setEditModal(true);
     console.log(selectedData);
-  };
-
-  const handleViewOffer = (id: string) => {
-    setSelectedRequestId(id);
-    setOfferDraser(true);
   };
 
   return (
@@ -114,19 +107,11 @@ export default function MyRequests() {
 
                 {/* ACTION BUTTONS */}
                 <div className="flex gap-2 pt-3">
-                  {/* View Offers */}
-                  <Button
-                    onClick={() => handleViewOffer(req._id)}
-                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
-                  >
-                    View Offers
-                  </Button>
-
                   {/* Edit */}
                   <Button
                     onClick={() => handleEdit(req._id)}
                     variant="outline"
-                    className="flex-1 h-12 cursor-pointer rounded-xl"
+                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] hover:text-white text-white rounded-xl"
                   >
                     Edit
                   </Button>
@@ -151,11 +136,6 @@ export default function MyRequests() {
             setEditModal,
             selectedRequest,
           }}
-        />
-        <OfferDrawer
-          selectedRequestId={selectedRequestId}
-          offerDrawer={offerDrawer}
-          setOfferDraser={setOfferDraser}
         />
       </div>
     </div>

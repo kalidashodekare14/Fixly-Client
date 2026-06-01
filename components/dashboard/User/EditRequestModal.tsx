@@ -165,7 +165,7 @@ const EditRequestModal = ({
       open={editRequestProps.editModal}
       onOpenChange={editRequestProps.setEditModal}
     >
-      <DialogContent className="max-w-3xl! max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="max-w-1xl! max-h-[90vh] overflow-y-auto rounded-2xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Header */}
           <div className="mb-4">
