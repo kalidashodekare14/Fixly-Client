@@ -6,7 +6,7 @@ import GetServices from '@/components/sections/home/GetServices';
 import GetStarted from '@/components/sections/home/GetStarted';
 import OurAchievements from '@/components/sections/home/OurAchievements';
 import SmartGuard from '@/components/sections/home/SmartGuard';
-import Testimonial from '@/components/sections/home/Testimonial';
+import Testimonial from '@/components/sections/home/Testimonial/Testimonial';
 import TopProviders from '@/components/sections/home/TopProviders/TopProviders';
 
 const HomeTemplate = () => {
