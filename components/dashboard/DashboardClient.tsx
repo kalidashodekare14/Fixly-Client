@@ -4,16 +4,15 @@ import { useState } from 'react';
 import Sidebar from './Sidebar';
 import DashboardHeader from './Header';
 import { Role } from '@/lib/sidebar';
+import { useSession } from 'next-auth/react';
 
-const DashboardClient = ({
-  role,
-  children,
-}: {
-  role: Role;
-  children: React.ReactNode;
-}) => {
+const DashboardClient = ({ children }: { children: React.ReactNode }) => {
   const [sidebarSort, setSidebarSort] = useState<boolean>(true);
   const [toggle, setToggle] = useState<boolean>(false);
+
+  // auto session
+  const { data: session, status: authStatus } = useSession();
+  const role = session?.user.role as Role;
 
   const handleSidebarSort = () => {
     setSidebarSort((prev) => !prev);
@@ -28,6 +27,7 @@ const DashboardClient = ({
       <Sidebar
         sidebarProps={{
           role,
+          authStatus,
           sidebarSort,
           toggle,
           handleToggle,

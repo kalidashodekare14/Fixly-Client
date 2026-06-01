@@ -6,11 +6,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaTools } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
+import { Card, CardContent } from '../ui/card';
+
+type SessionStatus = 'loading' | 'authenticated' | 'unauthenticated';
 
 interface ISidebar {
   toggle: boolean;
   sidebarSort: boolean;
   role: Role;
+  authStatus: SessionStatus;
   handleToggle: () => void;
   handleSidebarSort: () => void;
 }
@@ -52,30 +56,43 @@ const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
 
         {/* Menu */}
         <div className="mt-10 space-y-2">
-          {menus?.map((menu: any) => {
-            const isActive = pathname === menu.href;
+          {sidebarProps.authStatus === 'loading' ? (
+            <div className="space-y-2">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="space-y-3 flex  gap-2">
+                    <div className="h-6 w-6 bg-gray-200 rounded"></div>
+                    <div className="h-6 w-3/4 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            menus?.map((menu: any) => {
+              const isActive = pathname === menu.href;
 
-            return (
-              <Link key={menu.href} href={menu.href}>
-                <div
-                  className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition
+              return (
+                <Link key={menu.href} href={menu.href}>
+                  <div
+                    className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition
                 ${
                   isActive
                     ? 'bg-[#E91E63] text-white'
                     : 'text-gray-600 hover:bg-[#FCE4EC]'
                 }`}
-                >
-                  {/* Icon always visible */}
-                  <span className="text-lg">{menu.icon}</span>
+                  >
+                    {/* Icon always visible */}
+                    <span className="text-lg">{menu.icon}</span>
 
-                  {/* Label only when expanded */}
-                  {sidebarProps.sidebarSort && (
-                    <p className="text-sm whitespace-nowrap">{menu.label}</p>
-                  )}
-                </div>
-              </Link>
-            );
-          })}
+                    {/* Label only when expanded */}
+                    {sidebarProps.sidebarSort && (
+                      <p className="text-sm whitespace-nowrap">{menu.label}</p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })
+          )}
         </div>
       </div>
       <Link href={'/'}>
