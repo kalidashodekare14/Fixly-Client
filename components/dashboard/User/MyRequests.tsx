@@ -16,8 +16,10 @@ import { Search } from 'lucide-react';
 
 const statusColor = {
   pending: 'bg-yellow-100 text-yellow-700',
-  accepted: 'bg-blue-100 text-blue-700',
+  assigned: 'bg-blue-100 text-blue-700',
+  in_progress: 'bg-purple-100 text-purple-700',
   completed: 'bg-green-100 text-green-700',
+  cancelled: 'bg-red-100 text-red-700',
 };
 
 export default function MyRequests() {
@@ -109,6 +111,7 @@ export default function MyRequests() {
                 <div className="flex gap-2 pt-3">
                   {/* Edit */}
                   <Button
+                    disabled={req.status !== 'pending'}
                     onClick={() => handleEdit(req._id)}
                     variant="outline"
                     className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] hover:text-white text-white rounded-xl"

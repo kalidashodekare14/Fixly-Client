@@ -26,8 +26,8 @@ export const sidebarConfig = {
       icon: <BsClipboardCheck />,
     },
     {
-      label: 'Select Provider',
-      href: '/dashboard/user/select_provider',
+      label: 'Selected Provider',
+      href: '/dashboard/user/selected_provider',
       icon: <FaUserCog />,
     },
     { label: 'Chat', href: '/dashboard/user/chat', icon: <MdChat /> },

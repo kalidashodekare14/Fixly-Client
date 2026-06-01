@@ -7,7 +7,7 @@ import OfferDrawer from './OfferDrawer';
 
 import {
   useMyRequestQuery,
-  useOpenOffersQuery,
+  useViewSelectedOfferForRequestQuery,
 } from '@/state/services/user/RequestService';
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
@@ -17,25 +17,20 @@ const statusColor = {
   pending: 'bg-yellow-100 text-yellow-700',
   assigned: 'bg-blue-100 text-blue-700',
   in_progress: 'bg-purple-100 text-purple-700',
-  cancelled: 'bg-red-100 text-red-700',
   completed: 'bg-green-100 text-green-700',
+  cancelled: 'bg-red-100 text-red-700',
 };
-
-export default function Offers() {
+const SelectedOffers = () => {
   const [offerDrawer, setOfferDraser] = useState<boolean>(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string>('');
+
   const {
-    data: requestData,
-    isLoading: requestLoading,
-    error: requestError,
-  } = useMyRequestQuery();
+    data: viewSelectedOfferForRequest,
+    isLoading: viewSelectedOfferLoading,
+  } = useViewSelectedOfferForRequestQuery();
 
-  const { data: openRequestsData, isLoading: openOffersLoading } =
-    useOpenOffersQuery();
-
-  const openRequests: IRequest[] = openRequestsData?.data || [];
-
-  const requests: IRequest[] = requestData?.data || [];
+  const selectedRequestOffer: IRequest[] =
+    viewSelectedOfferForRequest?.data || [];
 
   const handleViewOffer = (id: string) => {
     setSelectedRequestId(id);
@@ -44,16 +39,18 @@ export default function Offers() {
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
-      <h2 className="text-2xl font-semibold mb-6">Offers on My Requests</h2>
-      {openRequests?.length < 1 && !openOffersLoading && (
+      <h2 className="text-2xl font-semibold mb-6">Selected Providers</h2>
+      {selectedRequestOffer?.length < 1 && !viewSelectedOfferLoading && (
         <div className="flex flex-col items-center justify-center py-20">
           <Search className="size-12 text-gray-300" />
-          <p className="mt-3 text-sm text-gray-500">No open offers found.</p>
+          <p className="mt-3 text-sm text-gray-500">
+            No requests found matching your search.
+          </p>
         </div>
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {openRequests &&
-          openRequests.map((req) => (
+        {selectedRequestOffer &&
+          selectedRequestOffer.map((req: IRequest) => (
             <div
               key={req._id}
               className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden"
@@ -83,9 +80,7 @@ export default function Offers() {
                   </span>
 
                   <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      statusColor[req.status]
-                    }`}
+                    className={`text-xs px-2 py-1 rounded-full ${statusColor[req.status]}`}
                   >
                     {req.status}
                   </span>
@@ -117,7 +112,7 @@ export default function Offers() {
               </div>
             </div>
           ))}
-        {openOffersLoading &&
+        {viewSelectedOfferLoading &&
           Array.from({ length: 5 }).map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardContent className="space-y-3">
@@ -136,4 +131,6 @@ export default function Offers() {
       </div>
     </div>
   );
-}
+};
+
+export default SelectedOffers;
