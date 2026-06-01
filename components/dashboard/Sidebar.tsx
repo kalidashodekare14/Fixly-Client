@@ -100,7 +100,9 @@ const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
           className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition text-gray-600 hover:bg-[#FCE4EC] border border-[#f8cada]`}
         >
           <HomeIcon />
-          <p className="text-sm whitespace-nowrap">Home</p>
+          {sidebarProps.sidebarSort && (
+            <p className="text-sm whitespace-nowrap">Home</p>
+          )}
         </div>
       </Link>
     </div>
