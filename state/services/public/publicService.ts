@@ -9,7 +9,14 @@ export const requestService = baseApi.injectEndpoints({
         params,
       }),
     }),
+    providerDetails: builder.query({
+      query: (id) => ({
+        url: `/api/public/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useProvidersDataQuery } = requestService;
+export const { useProvidersDataQuery, useProviderDetailsQuery } =
+  requestService;

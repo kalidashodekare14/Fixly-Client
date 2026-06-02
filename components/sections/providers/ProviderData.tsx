@@ -1,6 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
@@ -8,6 +7,17 @@ import { MapPin, Search } from 'lucide-react';
 import { IPublicProvider } from '../../../types/Providers';
 import type { FiltersState } from './Sidebar';
 import { useProvidersDataQuery } from '@/state/services/public/publicService';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import { useState } from 'react';
+import Link from 'next/link';
 
 interface ProviderDataProps {
   filters: FiltersState;
@@ -111,30 +121,42 @@ const ProviderCard = ({
           </p>
         </div>
       </div>
+      <div className="mb-5">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
+          Starting from
+        </span>
+        <p className="text-xl font-bold text-gray-900">
+          ${provider.rate}
+          <span className="text-sm font-normal text-gray-400">
+            /{provider.rateType}
+          </span>
+        </p>
+      </div>
 
       {/* Footer */}
       <div className="flex items-center justify-between">
-        <div>
-          <span className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
-            Starting from
-          </span>
-          <p className="text-xl font-bold text-gray-900">
-            ${provider.rate}
-            <span className="text-sm font-normal text-gray-400">
-              /{provider.rateType}
-            </span>
-          </p>
+        <div className="flex items-center gap-2">
+          <Link href={`/providers/${provider._id}`}>
+            <button className="cursor-pointer rounded-xl border border-pink px-5 py-2.5 text-sm font-semibold text-charcoal shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+              View Profile
+            </button>
+          </Link>
         </div>
-        <button className="cursor-pointer rounded-xl bg-pink px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95">
-          Hire me
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="cursor-pointer rounded-xl bg-pink text-white px-5 py-2.5 text-sm font-semibold shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+            Hire Me
+          </button>
+        </div>
       </div>
     </motion.div>
   );
 };
 
 const ProviderData = ({ filters }: ProviderDataProps) => {
-  // const providers: Provider[] = providerData;
+  // page
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Fetch providers data based on filters and pagination
   const { data: providersInfo, isLoading: providerLoading } =
     useProvidersDataQuery({
       search: filters.search,
@@ -142,33 +164,16 @@ const ProviderData = ({ filters }: ProviderDataProps) => {
       priceMin: filters.priceMin,
       priceMax: filters.priceMax === Infinity ? '' : filters.priceMax,
       rating: filters.rating || '',
+      currentPage,
+      dataLimit: 10,
     });
 
-  const providersData: IPublicProvider[] = providersInfo?.data || [];
+  // Provider data sorted
+  const providersData: IPublicProvider[] = providersInfo?.data?.data || [];
+  // Total pages for pagination
+  const totalPages: number = providersInfo?.data?.pagination?.totalPages || 1;
 
-  console.log('Fetched Providers:', providersData);
-
-  // const filteredProviders = useMemo(() => {
-  //   return providers.filter((p) => {
-  //     const matchSearch =
-  //       !filters.search ||
-  //       p.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-  //       p.services.some((s) =>
-  //         s.toLowerCase().includes(filters.search.toLowerCase())
-  //       );
-
-  //     const matchCategory =
-  //       filters.category.length === 0 ||
-  //       p.services.some((s) => filters.category.includes(s));
-
-  //     const matchPrice =
-  //       p.price >= filters.priceMin && p.price <= filters.priceMax;
-
-  //     const matchRating = filters.rating === null || p.rating >= filters.rating;
-
-  //     return matchSearch && matchCategory && matchPrice && matchRating;
-  //   });
-  // }, [providers, filters]);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <div className="flex-1">
@@ -181,18 +186,52 @@ const ProviderData = ({ filters }: ProviderDataProps) => {
           {providersData.length === 1 ? 'provider' : 'providers'} found
         </p>
       </div>
-
       {/* Provider Grid */}
       {providersData.length > 0 ? (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {providersData.map((provider, index) => (
-            <ProviderCard
-              key={provider._id}
-              provider={provider}
-              index={index}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {providersData.map((provider, index) => (
+              <ProviderCard
+                key={provider._id}
+                provider={provider}
+                index={index}
+              />
+            ))}
+          </div>
+          <div className="w-full mt-6 flex items-center justify-end">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    className="w-30"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                  />
+                </PaginationItem>
+
+                {pages.map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={currentPage === page}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    className="w-22"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </>
       ) : (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
