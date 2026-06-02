@@ -22,12 +22,12 @@ export const sidebarConfig = {
     },
     {
       label: 'View Offers',
-      href: '/dashboard/offers',
+      href: '/dashboard/user/offers',
       icon: <BsClipboardCheck />,
     },
     {
-      label: 'Select Provider',
-      href: '/dashboard/user/select_provider',
+      label: 'Selected Provider',
+      href: '/dashboard/user/selected_provider',
       icon: <FaUserCog />,
     },
     { label: 'Chat', href: '/dashboard/user/chat', icon: <MdChat /> },

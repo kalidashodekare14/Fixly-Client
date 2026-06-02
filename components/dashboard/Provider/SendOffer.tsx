@@ -4,13 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import {
   MapPin,
-  Clock,
   DollarSign,
-  Send,
   Search,
   X,
   Loader2,
-  User,
+  Edit3,
+  MessageSquare,
+  Calendar,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -26,94 +26,85 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 import {
-  useIncomingRequestsQuery,
+  useSendOfferdQuery,
   useSendOfferMutation,
 } from '@/state/services/provider/RequestService';
 
-interface IIncomingRequest {
+interface IOffer {
   _id: string;
-  user: {
+  request: {
     _id: string;
-    name: string;
+    title: string;
+    category: string;
+    description: string;
     image: string;
+    budget: number;
+    deadline: string;
+    location: {
+      address: string;
+      city: string;
+      division: string;
+    };
+    user: {
+      _id: string;
+      name: string;
+      image: string;
+    };
   };
-  image: string;
-  title: string;
-  category: string;
-  description: string;
-  budget: number;
-  deadline: string;
-  location: {
-    address: string;
-    city: string;
-    division: string;
-  };
-  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
+  offeredPrice: number;
+  message: string;
+  estimatedTime: string;
+  status: 'pending' | 'accepted' | 'rejected' | 'withdrawn';
 }
 
-const categories = [
-  'All',
-  'AC Repair',
-  'Plumbing',
-  'Electrical',
-  'Cleaning',
-  'Painting',
-];
-const urgencyColors: Record<string, string> = {
-  pending: 'bg-[#FFC6C6] text-[#3F3F3F] border-red-200',
-  assigned: 'bg-amber-50 text-amber-600 border-amber-200',
-  in_progress: 'bg-green-50 text-green-600 border-green-200',
-  completed: 'bg-blue-50 text-green-600 border-green-200',
-  cancelled: 'bg-yellow-50 text-green-600 border-green-200',
+const statusColors: Record<string, string> = {
+  pending: 'bg-amber-50 text-amber-600 border-amber-200',
+  accepted: 'bg-green-50 text-green-600 border-green-200',
+  rejected: 'bg-red-50 text-red-600 border-red-200',
+  withdrawn: 'bg-gray-50 text-gray-600 border-gray-200',
 };
 
-const IncomingRequest = () => {
+const SendOffer = () => {
   const [search, setSearch] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedRequest, setSelectedRequest] =
-    useState<IIncomingRequest | null>(null);
+  const [selectedOffer, setSelectedOffer] = useState<IOffer | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [offerPrice, setOfferPrice] = useState('');
-  const [offerDate, setOfferDate] = useState('');
-  const [offerMessage, setOfferMessage] = useState('');
-  const [sending, setSending] = useState(false);
+  const [editPrice, setEditPrice] = useState('');
+  const [editDate, setEditDate] = useState('');
+  const [editMessage, setEditMessage] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  console.log('checking selected', selectedRequest);
-
-  // incoming request data of rtk query
   const {
-    data: incomingRequest,
-    isLoading: requestLoading,
-    error: requestError,
-  } = useIncomingRequestsQuery();
+    data: sendOfferdData,
+    isLoading: offeredLoading,
+    error: offeredError,
+  } = useSendOfferdQuery();
 
-  // send offer
+  // update offers
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
 
-  const requestData = incomingRequest?.data || [];
+  const myOfferes = sendOfferdData?.data || [];
+  console.log('checking offeres', myOfferes);
 
-  console.log('checking incoming request', incomingRequest);
+  console.log('checking offer id', selectedOffer);
 
-  const openSendOffer = (req: any) => {
-    setSelectedRequest(req?.request);
-    setOfferPrice('');
-    setOfferDate('');
-    setOfferMessage('');
+  const openEditOffer = (offer: IOffer) => {
+    setSelectedOffer(offer);
+    setEditPrice(String(offer.offeredPrice));
+    setEditDate(offer.estimatedTime);
+    setEditMessage(offer.message);
     setDialogOpen(true);
   };
 
-  const handleSendOffer = async () => {
+  const handleSaveEdit = async () => {
     const sendData = {
-      offeredPrice: offerPrice,
-      message: offerMessage,
-      estimatedTime: offerDate,
-      requestId: selectedRequest?._id,
+      offeredPrice: editPrice,
+      message: editMessage,
+      estimatedTime: editDate,
+      requestId: selectedOffer?.request?._id,
     };
-
     try {
-      setSending(true);
+      setSaving(true);
       const send = await sendOffer(sendData).unwrap();
       if (send.success) {
         setDialogOpen(false);
@@ -121,7 +112,7 @@ const IncomingRequest = () => {
     } catch (error: any) {
       console.log(error.message);
     } finally {
-      setSending(false);
+      setSaving(false);
       setDialogOpen(false);
     }
   };
@@ -132,49 +123,46 @@ const IncomingRequest = () => {
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Incoming Requests
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900">Sent Offers</h1>
             <p className="mt-1 text-sm text-gray-500">
-              Browse requests from clients and send your offers
+              Manage and edit offers you have sent to clients
             </p>
           </div>
         </div>
 
-        {/* Search & Filter */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
-            <Input
-              placeholder="Search requests or clients..."
-              className="h-11 w-80 border-gray-200 pl-9"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+        {/* Search */}
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+          <Input
+            placeholder="Search by request or client name..."
+            className="h-11 w-80 border-gray-200 pl-9"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
-        {/* Request Cards Grid */}
-        {requestData < 1 && !requestLoading && (
+        {/* Offers Grid */}
+        {myOfferes.length < 1 && !offeredLoading && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
-              No requests found matching your search.
+              No offers found matching your search.
             </p>
           </div>
         )}
-        {requestData && (
+
+        {myOfferes.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {requestData.map((req: any) => (
+            {myOfferes.map((offer: any) => (
               <Card
-                key={req._id}
+                key={offer._id}
                 className="group overflow-hidden border-0 shadow-sm transition-shadow hover:shadow-md"
               >
                 {/* Image */}
                 <div className="relative h-44 bg-gray-100">
                   <Image
-                    src={req.request.image}
-                    alt={req.title}
+                    src={offer?.request?.image}
+                    alt={offer?.request?.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -182,12 +170,9 @@ const IncomingRequest = () => {
                   <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3">
                     <Badge
-                      className={cn(
-                        'border px-2 py-0.5 text-xs font-medium capitalize',
-                        urgencyColors[req.request.status]
-                      )}
+                      className={`border px-2 py-0.5 text-xs font-medium capitalize ${statusColors[offer.status]}`}
                     >
-                      {req.request.status}
+                      {offer.status}
                     </Badge>
                   </div>
                 </div>
@@ -196,46 +181,52 @@ const IncomingRequest = () => {
                   {/* Title & Category */}
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold text-gray-900 line-clamp-1">
-                      {req.request.title}
+                      {offer?.request?.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {req.request.category}
+                      {offer?.request?.category}
                     </span>
                   </div>
 
                   {/* Description */}
                   <p className="line-clamp-2 text-sm leading-relaxed text-gray-500">
-                    {req.request.description}
+                    {offer?.request?.description}
                   </p>
 
                   {/* Client Info */}
                   <div className="flex items-center gap-2">
                     <div className="relative size-6 shrink-0 overflow-hidden rounded-full">
                       <Image
-                        src={req.request.user.image}
-                        alt={req.request.user.name}
+                        src={offer?.request?.user?.image}
+                        alt={offer?.request?.user?.name}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <span className="text-xs text-gray-600">
-                      {req.request.user.name}
+                      {offer?.request?.user?.name}
                     </span>
                   </div>
 
-                  {/* Budget & Deadline */}
-                  <div className="flex items-center justify-between border-t pt-3 text-sm">
-                    <div className="flex items-center gap-1.5">
-                      <DollarSign className="size-4 text-pink-600" />
-                      <span className="font-semibold text-gray-900">
-                        ৳{req.request.budget.toLocaleString()}
-                      </span>
+                  {/* Offer Details Section */}
+                  <div className="space-y-2 rounded-lg bg-pink-50/50 p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <DollarSign className="size-4 text-pink-600" />
+                        <span className="text-sm font-semibold text-gray-900">
+                          ৳{offer?.offeredPrice.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-gray-500">
+                        <Calendar className="size-3.5" />
+                        <span className="text-xs">
+                          {new Date(offer?.estimatedTime).toDateString()}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1.5 text-gray-500">
-                      <Clock className="size-3.5" />
-                      <span className="text-xs">
-                        {new Date(req.request.deadline).toDateString()}
-                      </span>
+                    <div className="flex items-start gap-1.5 text-xs text-gray-500">
+                      <MessageSquare className="mt-0.5 size-3 shrink-0" />
+                      <span className="line-clamp-2">{offer?.message}</span>
                     </div>
                   </div>
 
@@ -243,27 +234,28 @@ const IncomingRequest = () => {
                   <div className="flex items-start gap-1.5 text-xs text-gray-400">
                     <MapPin className="mt-0.5 size-3 shrink-0" />
                     <span className="line-clamp-1">
-                      {req.request.location.address},{' '}
-                      {req.request.location.city},{' '}
-                      {req.request.location.division}
+                      {offer?.request?.location?.address},{' '}
+                      {offer?.request?.location?.city},{' '}
+                      {offer?.request?.location?.division}
                     </span>
                   </div>
 
-                  {/* Action */}
+                  {/* Edit Action */}
                   <Button
-                    onClick={() => openSendOffer(req)}
+                    onClick={() => openEditOffer(offer)}
                     className="h-11 w-full gap-2 bg-pink-600 text-white hover:bg-pink-700"
                   >
-                    <Send className="size-4" />
-                    Send Offer
+                    <Edit3 className="size-4" />
+                    Edit Offer
                   </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
         )}
+
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {requestLoading &&
+          {offeredLoading &&
             Array.from({ length: 5 }).map((_, i) => (
               <Card key={i} className="animate-pulse">
                 <CardContent className="space-y-3">
@@ -277,77 +269,75 @@ const IncomingRequest = () => {
         </div>
       </div>
 
-      {/* Send Offer Dialog */}
+      {/* Edit Offer Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Send Offer</DialogTitle>
+            <DialogTitle>Edit Offer</DialogTitle>
             <DialogDescription>
-              Submit your offer for{' '}
+              Update your offer for{' '}
               <span className="font-medium text-gray-900">
-                {selectedRequest?.title}
+                {selectedOffer?.request.title}
               </span>
             </DialogDescription>
           </DialogHeader>
 
-          {selectedRequest && (
+          {selectedOffer && (
             <div className="space-y-4">
               {/* Request Summary */}
               <div className="rounded-lg bg-gray-50 p-3">
                 <div className="flex items-center gap-3">
                   <div className="relative size-10 shrink-0 overflow-hidden rounded-lg">
                     <Image
-                      src={selectedRequest.image}
-                      alt={selectedRequest.title}
+                      src={selectedOffer.request.image}
+                      alt={selectedOffer.request.title}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-gray-900">
-                      {selectedRequest.title}
+                      {selectedOffer.request.title}
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <User className="size-3" />
-                      <span>{selectedRequest.user.name}</span>
-                      <span>|</span>
-                      <span>৳{selectedRequest.budget}</span>
-                    </div>
+                    <p className="text-xs text-gray-500">
+                      {selectedOffer.request.user.name} | ৳
+                      {selectedOffer.request.budget.toLocaleString()}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="offerPrice">Your Price (৳)</Label>
+                <Label htmlFor="editPrice">Offered Price (৳)</Label>
                 <Input
-                  id="offerPrice"
+                  id="editPrice"
                   type="number"
                   className="h-11"
                   placeholder="Enter your offered price"
-                  value={offerPrice}
-                  onChange={(e) => setOfferPrice(e.target.value)}
+                  value={editPrice}
+                  onChange={(e) => setEditPrice(e.target.value)}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="offerDate">Estimated Completion</Label>
+                <Label htmlFor="editDate">Estimated Completion</Label>
                 <Input
-                  id="offerDate"
+                  id="editDate"
                   type="date"
                   className="h-11"
-                  value={offerDate}
-                  onChange={(e) => setOfferDate(e.target.value)}
+                  value={editDate ? editDate.split('T')[0] : ''}
+                  onChange={(e) => setEditDate(e.target.value)}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="offerMessage">Message</Label>
+                <Label htmlFor="editMessage">Message</Label>
                 <Textarea
-                  id="offerMessage"
+                  id="editMessage"
                   rows={4}
                   placeholder="Describe your service, timeline, and any guarantees..."
-                  value={offerMessage}
-                  onChange={(e) => setOfferMessage(e.target.value)}
+                  value={editMessage}
+                  onChange={(e) => setEditMessage(e.target.value)}
                 />
               </div>
             </div>
@@ -364,16 +354,16 @@ const IncomingRequest = () => {
               Cancel
             </Button>
             <Button
-              onClick={handleSendOffer}
-              disabled={!offerPrice || sending}
+              onClick={handleSaveEdit}
+              disabled={!editPrice || saving}
               className="bg-pink-600 text-white hover:bg-pink-700"
             >
-              {sending ? (
+              {saving ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
-                <Send className="size-4" />
+                <Edit3 className="size-4" />
               )}
-              {sending ? 'Sending...' : 'Send Offer'}
+              {saving ? 'Saving...' : 'Save Changes'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -382,4 +372,4 @@ const IncomingRequest = () => {
   );
 };
 
-export default IncomingRequest;
+export default SendOffer;

@@ -4,11 +4,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import OfferDrawer from './OfferDrawer';
-import EditRequestModal from './EditRequestModal';
 
 import {
   useMyRequestQuery,
-  useViewOffersQuery,
+  useViewSelectedOfferForRequestQuery,
 } from '@/state/services/user/RequestService';
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
@@ -21,32 +20,27 @@ const statusColor = {
   completed: 'bg-green-100 text-green-700',
   cancelled: 'bg-red-100 text-red-700',
 };
+const SelectedOffers = () => {
+  const [offerDrawer, setOfferDraser] = useState<boolean>(false);
+  const [selectedRequestId, setSelectedRequestId] = useState<string>('');
 
-export default function MyRequests() {
-  const [editModal, setEditModal] = useState<boolean>(false);
-  const [selectedRequest, setSelectedRequest] = useState<IRequest | null>(null);
   const {
-    data: requestData,
-    isLoading: requestLoading,
-    error: requestError,
-  } = useMyRequestQuery();
+    data: viewSelectedOfferForRequest,
+    isLoading: viewSelectedOfferLoading,
+  } = useViewSelectedOfferForRequestQuery();
 
-  const requests: IRequest[] = requestData?.data || [];
+  const selectedRequestOffer: IRequest[] =
+    viewSelectedOfferForRequest?.data || [];
 
-  const handleEdit = (id: string) => {
-    const selectedData = requests.find((data: IRequest) => data._id === id);
-
-    if (selectedData) {
-      setSelectedRequest(selectedData);
-    }
-    setEditModal(true);
-    console.log(selectedData);
+  const handleViewOffer = (id: string) => {
+    setSelectedRequestId(id);
+    setOfferDraser(true);
   };
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
-      <h2 className="text-2xl font-semibold mb-6">My Requests</h2>
-      {requests?.length < 1 && !requestLoading && (
+      <h2 className="text-2xl font-semibold mb-6">Selected Providers</h2>
+      {selectedRequestOffer?.length < 1 && !viewSelectedOfferLoading && (
         <div className="flex flex-col items-center justify-center py-20">
           <Search className="size-12 text-gray-300" />
           <p className="mt-3 text-sm text-gray-500">
@@ -55,8 +49,8 @@ export default function MyRequests() {
         </div>
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {requests &&
-          requests.map((req) => (
+        {selectedRequestOffer &&
+          selectedRequestOffer.map((req: IRequest) => (
             <div
               key={req._id}
               className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden"
@@ -86,9 +80,7 @@ export default function MyRequests() {
                   </span>
 
                   <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      statusColor[req.status]
-                    }`}
+                    className={`text-xs px-2 py-1 rounded-full ${statusColor[req.status]}`}
                   >
                     {req.status}
                   </span>
@@ -109,20 +101,18 @@ export default function MyRequests() {
 
                 {/* ACTION BUTTONS */}
                 <div className="flex gap-2 pt-3">
-                  {/* Edit */}
+                  {/* View Offers */}
                   <Button
-                    disabled={req.status !== 'pending'}
-                    onClick={() => handleEdit(req._id)}
-                    variant="outline"
-                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] hover:text-white text-white rounded-xl"
+                    onClick={() => handleViewOffer(req._id)}
+                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
                   >
-                    Edit
+                    View Offers
                   </Button>
                 </div>
               </div>
             </div>
           ))}
-        {requestLoading &&
+        {viewSelectedOfferLoading &&
           Array.from({ length: 5 }).map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardContent className="space-y-3">
@@ -133,14 +123,14 @@ export default function MyRequests() {
               </CardContent>
             </Card>
           ))}
-        <EditRequestModal
-          editRequestProps={{
-            editModal,
-            setEditModal,
-            selectedRequest,
-          }}
+        <OfferDrawer
+          selectedRequestId={selectedRequestId}
+          offerDrawer={offerDrawer}
+          setOfferDraser={setOfferDraser}
         />
       </div>
     </div>
   );
-}
+};
+
+export default SelectedOffers;

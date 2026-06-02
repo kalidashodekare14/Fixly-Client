@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import Link from "next/link";
+import { motion } from 'motion/react';
+import Link from 'next/link';
 
 const GetStarted = () => {
   return (
@@ -13,7 +13,7 @@ const GetStarted = () => {
         </p>
       </div>
       <div className="space-x-3">
-        <Link href={"/signin"}>
+        <Link href={'/signin'}>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -22,7 +22,7 @@ const GetStarted = () => {
             Login
           </motion.button>
         </Link>
-        <Link href={"/signin"}>
+        <Link href={'/signin'}>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

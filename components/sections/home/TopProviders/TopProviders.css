@@ -1,0 +1,21 @@
+.custom-pagination .swiper-wrapper {
+  padding-bottom: 8px;
+}
+.custom-pagination .swiper-pagination {
+  position: static;
+  margin-top: 12px;
+}
+.custom-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #d1d5db;
+  transition: all 0.2s;
+  opacity: 1;
+  margin: 0 4px;
+}
+.custom-pagination .swiper-pagination-bullet-active {
+  width: 24px;
+  background: #f72585;
+  border-radius: 9999px;
+}

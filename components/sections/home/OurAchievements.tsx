@@ -1,4 +1,6 @@
 "use client";
+
+import { motion } from "motion/react";
 import {
   Accordion,
   AccordionContent,
@@ -6,77 +8,130 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+const achievements = [
+  { value: "5000+", label: "Service Providers" },
+  { value: "10000+", label: "Order Served" },
+  { value: "3000+", label: "5 Star Received" },
+  { value: "5000+", label: "Friendly Shop" },
+] as const;
+
+const faqs = [
+  {
+    value: "ratings",
+    question: "Can I trust the 5-star ratings?",
+    answer:
+      "Yes! Ratings are based on real customer feedback from completed orders.",
+  },
+  {
+    value: "friendly-shop",
+    question: "What is “Friendly Shop”?",
+    answer:
+      "Friendly Shop represents providers who offer reliable, approachable, and customer-focused services.",
+  },
+  {
+    value: "questions",
+    question: "How can I ask a question before ordering?",
+    answer:
+      "You can use the Question & Answer section to directly message the provider before placing an order.",
+  },
+] as const;
+
 const OurAchievements = () => {
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 flex lg:flex-row flex-col items-center  gap-10 py-10 lg:h-130">
-      {/* left side info */}
-      <div className="xl:w-[55%] lg:w-[50%] space-y-5">
-        <p className="text-[#E9237E] font-semibold">Our Achievements</p>
-        <h1 className="text-3xl font-bold">
-          How do I know the service provider is verified?
-        </h1>
-        <p className="text-charcoal">
-          All service providers are verified through our quality checks and
-          community reviews.
-        </p>
-        <div>
-          <Accordion defaultValue={["shipping"]} className="w-full">
-            <AccordionItem value="shipping">
-              <AccordionTrigger
-                className={"hover:no-underline focus:no-underline text-[16px]"}
+    <section className="relative overflow-hidden py-16 lg:py-24">
+      <div className="mx-auto flex max-w-7xl flex-col-reverse items-center gap-12 px-5 lg:flex-row lg:px-8">
+        {/* Left — FAQ */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full space-y-6 lg:w-1/2"
+        >
+          <div className="space-y-4">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            >
+              Our Achievements
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            >
+              How do I know the service provider is verified?
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base leading-relaxed text-charcoal"
+            >
+              All service providers are verified through our quality checks and
+              community reviews.
+            </motion.p>
+          </div>
+
+          <Accordion
+            defaultValue={["ratings"]}
+            className="w-full space-y-2"
+          >
+            {faqs.map((faq) => (
+              <AccordionItem
+                key={faq.value}
+                value={faq.value}
+                className="rounded-xl border border-gray-100 bg-white px-5 shadow-xs transition-shadow"
               >
-                Can I trust the 5-star ratings?
-              </AccordionTrigger>
-              <AccordionContent className={"text-charcoal"}>
-                Yes! Ratings are based on real customer feedback from completed
-                orders.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="returns">
-              <AccordionTrigger
-                className={"hover:no-underline focus:no-underline text-[16px]"}
-              >
-                What is “Friendly Shop”?
-              </AccordionTrigger>
-              <AccordionContent className={"text-charcoal"}>
-                Friendly Shop represents providers who offer reliable,
-                approachable, and customer-focused services.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="support">
-              <AccordionTrigger
-                className={"hover:no-underline focus:no-underline text-[16px]"}
-              >
-                How can I ask a question before ordering?
-              </AccordionTrigger>
-              <AccordionContent className={"text-charcoal"}>
-                You can use the Question & Answer section to directly message
-                the provider before placing an order.
-              </AccordionContent>
-            </AccordionItem>
+                <AccordionTrigger className="py-4 text-sm font-semibold text-gray-900 hover:no-underline focus:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="pb-4 text-sm leading-relaxed text-charcoal">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
           </Accordion>
-        </div>
+        </motion.div>
+
+        {/* Right — Stats grid */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full lg:w-1/2"
+        >
+          <div className="grid grid-cols-2 overflow-hidden rounded-2xl bg-pastel_pink shadow-sm">
+            {achievements.map((item, index) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className={`flex flex-col items-center justify-center gap-1.5 p-6 text-center ${
+                  index % 2 === 0 ? "border-r border-gray-200" : ""
+                } ${index < 2 ? "border-b border-gray-200" : ""}`}
+              >
+                <span className="text-3xl font-bold tracking-tight text-pink sm:text-4xl">
+                  {item.value}
+                </span>
+                <span className="text-sm font-medium text-charcoal">
+                  {item.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
-      {/* right side info */}
-      <div className="xl:w-[45%] lg:w-[50%] grid grid-cols-2 xl:grid-cols-2 lg:grid-cols-2  bg-pastel_pink p-5 rounded-2xl">
-        <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-b border-[#bbb]">
-          <h1 className="text-3xl font-bold text-pink">5000+</h1>
-          <p className="text-charcoal text-xl">Service Providers</p>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-2 p-5 border-b border-[#bbb]">
-          <h1 className="text-3xl font-bold text-pink">10000+</h1>
-          <p className="text-charcoal text-xl">Order Served</p>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-2 p-5 border-r border-[#bbb]">
-          <h1 className="text-3xl font-bold text-pink">3000+</h1>
-          <p className="text-charcoal text-xl">5 Star Received</p>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-2 p-5">
-          <h1 className="text-3xl font-bold text-pink">5000+</h1>
-          <p className="text-charcoal text-xl">Friendly Shop</p>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 };
 

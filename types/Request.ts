@@ -3,7 +3,7 @@ export interface IRequest {
   image: string;
   title: string;
   category: string;
-  status: 'pending' | 'accepted' | 'completed';
+  status: 'pending' | 'assigned' | 'in_progress' | 'completed' | 'cancelled';
   description: string;
   budget: number;
   deadline: string;
@@ -12,6 +12,6 @@ export interface IRequest {
     city: string;
     division: string;
     postalCode: string;
-    coordinates: [];
+    coordinates: [number, number];
   };
 }

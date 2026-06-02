@@ -1,8 +1,15 @@
+import { Card, CardContent } from '@/components/ui/card';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
+import {
+  useSelectOfferMutation,
+  useViewOffersQuery,
+} from '@/state/services/user/RequestService';
+import { Search } from 'lucide-react';
 
 interface IOfferDrawer {
   offerDrawer: boolean;
   setOfferDraser: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedRequestId: string;
 }
 
 // Offer data
@@ -99,7 +106,36 @@ const offers = [
   },
 ];
 
-const OfferDrawer = ({ offerDrawer, setOfferDraser }: IOfferDrawer) => {
+const OfferDrawer = ({
+  selectedRequestId,
+  offerDrawer,
+  setOfferDraser,
+}: IOfferDrawer) => {
+  // view offers data of rtk query
+  const {
+    data: offersData,
+    isLoading: offerLoading,
+    error: offerError,
+  } = useViewOffersQuery({ requestId: selectedRequestId });
+
+  const viewOffers = offersData?.data || [];
+
+  // selected offer of rtk query
+  const [selectOffer, { isLoading: selectedOfferLoading }] =
+    useSelectOfferMutation();
+
+  // selected offer
+  const handleSelectedOffer = async (offerId: string) => {
+    try {
+      const res = await selectOffer({ offerId }).unwrap();
+      if (res?.success) {
+        setOfferDraser(false);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Drawer direction="right" open={offerDrawer} onOpenChange={setOfferDraser}>
       <DrawerContent className="w-105 p-0 bg-white flex flex-col">
@@ -113,64 +149,99 @@ const OfferDrawer = ({ offerDrawer, setOfferDraser }: IOfferDrawer) => {
 
         {/* BODY */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {offers.map((offer) => (
-            <div
-              key={offer.id}
-              className="border rounded-xl p-4 space-y-3 hover:shadow-md transition bg-white"
-            >
-              {/* Provider */}
-              <div className="flex items-center gap-3">
-                <img
-                  className="w-11 h-11 rounded-full object-cover"
-                  src={offer.image}
-                  alt={offer.name}
-                />
+          {viewOffers.length > 0 &&
+            viewOffers.map((offer: any) => (
+              <div
+                key={offer?._id}
+                className="border rounded-xl p-4 space-y-3 hover:shadow-md transition bg-white"
+              >
+                {/* Provider */}
+                <div className="flex items-center gap-3">
+                  <img
+                    className="w-11 h-11 rounded-full object-cover"
+                    src={offer?.provider?.user?.image}
+                    alt={offer?.provider?.user?.name}
+                  />
 
-                <div className="leading-tight">
-                  <h3 className="font-semibold text-sm">{offer.name}</h3>
+                  <div className="leading-tight">
+                    <h3 className="font-semibold text-sm">
+                      {offer?.provider?.user?.name}
+                    </h3>
 
-                  <span className="text-xs px-2 py-0.5 bg-gray-100 rounded-full">
-                    {offer.role}
-                  </span>
+                    <span className="text-xs px-2 py-0.5 bg-gray-100 rounded-full">
+                      {offer?.provider?.user?.role}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Message */}
-              <p className="text-sm text-gray-600 line-clamp-2">
-                {offer.message}
-              </p>
+                {/* Message */}
+                <p className="text-sm text-gray-600 line-clamp-2">
+                  {offer.message}
+                </p>
 
-              {/* Price + Time */}
-              <div className="flex justify-between text-sm pt-2 border-t">
-                {/* Price */}
+                {/* Price + Time */}
+                <div className="flex justify-between text-sm pt-2 border-t">
+                  {/* Price */}
+                  <div>
+                    <p className="text-xs text-gray-500">Price Offer</p>
+                    <p className="font-semibold text-[#E91E63]">
+                      ৳ {offer.offeredPrice}
+                    </p>
+                  </div>
+
+                  {/* Time */}
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500">Estimated Time</p>
+                    <p className="font-medium">
+                      {new Date(offer.estimatedTime).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action */}
+
                 <div>
-                  <p className="text-xs text-gray-500">Price Offer</p>
-                  <p className="font-semibold text-[#E91E63]">
-                    ৳ {offer.offeredPrice}
-                  </p>
+                  {offer.status === 'accepted' && (
+                    <p className="text-[#E91E63] mt-2">
+                      You selected this offer
+                    </p>
+                  )}
                 </div>
-
-                {/* Time */}
-                <div className="text-right">
-                  <p className="text-xs text-gray-500">Estimated Time</p>
-                  <p className="font-medium">
-                    {new Date(offer.estimatedTime).toLocaleString()}
-                  </p>
+                <div className="flex items-center gap-5">
+                  <button
+                    onClick={() => handleSelectedOffer(offer?._id)}
+                    className={`${offer.status === 'accepted' && 'hidden'} w-full mt-2 py-2 cursor-pointer rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition`}
+                  >
+                    Select
+                  </button>
+                  <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-[#E91E63]  text-sm hover:bg-[#ffedf4] transition">
+                    View Profile
+                  </button>
                 </div>
               </div>
+            ))}
 
-              {/* Action */}
-
-              <div className="flex items-center gap-5">
-                <button className="w-full mt-2 py-2 cursor-pointer rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition">
-                  Select
-                </button>
-                <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-[#E91E63]  text-sm hover:bg-[#ffedf4] transition">
-                  View Profile
-                </button>
-              </div>
+          {viewOffers.length < 1 && !offerLoading && (
+            <div className="flex flex-col items-center justify-center py-20">
+              <Search className="size-12 text-gray-300" />
+              <p className="mt-3 text-sm text-gray-500">
+                No requests found matching your search.
+              </p>
             </div>
-          ))}
+          )}
+        </div>
+        <div className="space-y-2">
+          {offerLoading &&
+            Array.from({ length: 5 }).map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <CardContent className="space-y-3">
+                  <div className="h-30 w-full bg-gray-200 rounded"></div>
+                  <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
+                  <div className="h-3 w-full bg-gray-200 rounded"></div>
+                  <div className="h-3 w-3/4 bg-gray-200 rounded"></div>
+                </CardContent>
+              </Card>
+            ))}
         </div>
       </DrawerContent>
     </Drawer>

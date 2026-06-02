@@ -1,155 +1,103 @@
-import { motion } from "motion/react";
-import Image from "next/image";
-import { FaArrowRightLong } from "react-icons/fa6";
+'use client';
+
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { FaArrowRightLong } from 'react-icons/fa6';
+
+const categories = [
+  { name: 'Electrician', image: '/category/electrician.jpg' },
+  { name: 'Plumber', image: '/category/plumber.jpg' },
+  { name: 'Painter', image: '/category/painter.jpg' },
+  { name: 'Cleaner', image: '/category/cleaner.jpg' },
+  { name: 'Security', image: '/category/security.jpg' },
+  { name: 'Carpenter', image: '/category/carpenter.jpg' },
+] as const;
 
 const CategorySection = () => {
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto px-5 lg:px-0 lg:h-130">
-      {/* Header info */}
-      <div className="flex lg:flex-row flex-col items-end justify-between">
-        <div className="lg:w-110 space-y-5">
-          <p className="text-pink">Top categories</p>
-          <h1 className="text-4xl font-bold">Browse by service type</h1>
-          <p className="text-charcoal">
-            From quick fixes to major renovations — find specialists in every
-            home service category.
-          </p>
+    <section className="relative overflow-hidden py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        {/* Header */}
+        <div className="mb-12 flex flex-col items-end justify-between gap-6 lg:flex-row lg:mb-16">
+          <div className="max-w-lg space-y-4">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            >
+              Top categories
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            >
+              Browse by service type
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base leading-relaxed text-charcoal"
+            >
+              From quick fixes to major renovations — find specialists in every
+              home service category.
+            </motion.p>
+          </div>
+          <motion.a
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            href="#"
+            className="group flex shrink-0 items-center gap-2 text-sm font-medium text-pink transition-colors hover:text-pink/80"
+          >
+            See more
+            <FaArrowRightLong className="transition-transform duration-200 group-hover:translate-x-1" />
+          </motion.a>
         </div>
-        <div className="flex items-center gap-2 text-pink">
-          <p className="cursor-pointer">See more</p>
-          <FaArrowRightLong />
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 lg:gap-5">
+          {categories.map((cat, index) => (
+            <motion.a
+              key={cat.name}
+              href="#"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              whileHover={{ y: -6 }}
+              className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-lg"
+            >
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  src={cat.image}
+                  width={500}
+                  height={300}
+                  alt={cat.name}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+              </div>
+              <div className="flex items-center justify-between px-4 py-3.5">
+                <span className="text-sm font-semibold text-gray-900">
+                  {cat.name}
+                </span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pastel_pink text-xs text-pink transition-transform duration-200 group-hover:translate-x-0.5">
+                  <FaArrowRightLong />
+                </span>
+              </div>
+            </motion.a>
+          ))}
         </div>
       </div>
-      {/* Services */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-5 my-10">
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/electrician.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Electrician</h1>
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/plumber.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Plumber</h1>
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/painter.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Painter</h1>
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/cleaner.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Cleaner</h1>
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/security.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Security</h1>
-          </div>
-        </motion.div>
-        <motion.div
-          whileHover={{
-            y: -5,
-            boxShadow: "3px 3px 10px #bbbb",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className="flex flex-col justify-center items-center rounded-xl"
-        >
-          <Image
-            className="w-full h-36 rounded-t-xl"
-            src={"/category/carpenter.jpg"}
-            width={500}
-            height={300}
-            alt="Electrician"
-          />
-          <div className="bg-pink  p-3 w-full text-center text-[16px] text-white rounded-b-xl">
-            <h1 className="">Carpenter</h1>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+    </section>
   );
 };
 

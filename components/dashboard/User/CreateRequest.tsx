@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/select';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useCreateRequestMutation } from '@/state/services/user/RequestService';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MapPin, Crosshair } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
 type Inputs = {
@@ -28,7 +28,13 @@ type Inputs = {
 
 export default function CreateRequest() {
   const [file, setFile] = useState<File | null>(null);
-  const [location, setLocation] = useState<any>(null);
+  // TODO: Location state fields — split like Provider Profile
+  const [address, setAddress] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [division, setDivision] = useState<string>('');
+  const [postalCode, setPostalCode] = useState<string>('');
+  const [latitude, setLatitude] = useState<string>('');
+  const [longitude, setLongitude] = useState<string>('');
   const [locationLoading, setLocationLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [fileError, setFileError] = useState<boolean>(false);
@@ -37,48 +43,47 @@ export default function CreateRequest() {
 
   console.log(fileError);
 
+  // TODO: getLocation — using Nominatim (same as Provider Profile), no API key needed
   const getLocation = () => {
-    setLocationLoading(true);
-
     if (!navigator.geolocation) {
       alert('Geolocation not supported');
-      setLocationLoading(false);
       return;
     }
 
+    setLocationLoading(true);
+
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
 
-        const res = await fetch(
-          `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`
-        );
+        setLatitude(lat.toString());
+        setLongitude(lng.toString());
 
-        const data = await res.json();
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=en`,
+            { headers: { 'User-Agent': 'Fixly-Client/1.0' } }
+          );
+          const data = await res.json();
+          const addr = data.address || {};
 
-        const result = data.features?.[0]?.properties;
-
-        const formattedLocation = {
-          address: result.address_line1 || '',
-
-          city: result.city || result.town || result.village || '',
-
-          division: result.state || '',
-
-          postalCode: result.postcode || '',
-
-          coordinates: [lon, lat],
-        };
-
-        console.log(data);
-
-        setLocation(formattedLocation);
+          setAddress(
+            [addr.road, addr.house_number, addr.suburb]
+              .filter(Boolean)
+              .join(', ')
+          );
+          setCity(addr.city || addr.town || addr.village || addr.county || '');
+          setDivision(addr.state || '');
+          setPostalCode(addr.postcode || '');
+        } catch (err) {
+          console.error('Reverse geocoding failed:', err);
+        }
 
         setLocationLoading(false);
       },
-      (err) => {
-        console.log(err.message);
+      (error) => {
+        console.error('Error getting location:', error);
         setLocationLoading(false);
       }
     );
@@ -105,7 +110,17 @@ export default function CreateRequest() {
       formData.append('description', data.description);
       formData.append('budget', data.budget);
       formData.append('deadline', data.deadline);
-      formData.append('location', JSON.stringify(location));
+      // TODO: Construct location object from individual fields (like Provider Profile)
+      formData.append(
+        'location',
+        JSON.stringify({
+          address,
+          city,
+          division,
+          postalCode,
+          coordinates: [longitude, latitude],
+        })
+      );
 
       if (file) {
         formData.append('image', file);
@@ -244,14 +259,103 @@ export default function CreateRequest() {
           )}
         </div>
 
-        <Button type="button" onClick={getLocation}>
-          Set Location
-        </Button>
-        {location && (
-          <pre className="mt-4 bg-gray-100 p-4 rounded">
-            {JSON.stringify(location, null, 2)}
-          </pre>
-        )}
+        {/* ------------------------------------------------------------------ */}
+        {/* TODO: 1. Location section — using individual state fields (like Provider Profile) */}
+        {/* ------------------------------------------------------------------ */}
+        <div className="border rounded-xl p-5 bg-gray-50/50 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <MapPin className="size-5 text-[#E91E63]" />
+              <h3 className="font-semibold text-gray-800">Service Location</h3>
+            </div>
+
+            {/* TODO: 2. Detect button — Nominatim (same as Provider Profile), no API key */}
+            <Button
+              type="button"
+              onClick={getLocation}
+              disabled={locationLoading}
+              className="h-10 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl text-sm gap-2"
+            >
+              {locationLoading ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <Crosshair className="size-4" />
+              )}
+              {locationLoading ? 'Detecting...' : 'Detect My Location'}
+            </Button>
+          </div>
+
+          {/* TODO: 3. Location inputs — bound to individual state fields */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <Label>Address</Label>
+              <Input
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="Street address"
+              />
+            </div>
+
+            <div>
+              <Label>City</Label>
+              <Input
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="City"
+              />
+            </div>
+
+            <div>
+              <Label>Division</Label>
+              <Input
+                value={division}
+                onChange={(e) => setDivision(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="Division"
+              />
+            </div>
+
+            <div>
+              <Label>Postal Code</Label>
+              <Input
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="Postal code"
+              />
+            </div>
+
+            <div>
+              <Label>Latitude</Label>
+              <Input
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="Latitude"
+              />
+            </div>
+
+            <div>
+              <Label>Longitude</Label>
+              <Input
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                className="h-11 mt-1.5"
+                placeholder="Longitude"
+              />
+            </div>
+          </div>
+
+          {!address && !latitude && (
+            <p className="text-xs text-gray-400 flex items-center gap-1">
+              <MapPin className="size-3" />
+              Click &quot;Detect My Location&quot; to auto-fill from your
+              browser, or type manually.
+            </p>
+          )}
+        </div>
         {/* Submit */}
         <Button
           type="submit"

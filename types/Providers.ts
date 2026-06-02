@@ -15,3 +15,23 @@ export interface IUserResponse {
   message: string;
   data: '';
 }
+
+export interface IPublicProvider {
+  _id: number;
+  image: string;
+  name: string;
+  user: {
+    name: string;
+    image: string;
+  };
+  location: {
+    address: string;
+  };
+  services: string[];
+  rating: number;
+  price: number;
+  rate: number;
+  rateType: string;
+  availableStatus: boolean;
+  experience: number;
+}

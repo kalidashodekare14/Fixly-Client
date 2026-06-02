@@ -1,94 +1,254 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { FaStar } from "react-icons/fa";
-import providerData from "../../../data/providers.json";
-import type { Provider } from "../../../types/Providers";
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { FaStar } from 'react-icons/fa';
+import { MapPin, Search } from 'lucide-react';
+import { IPublicProvider } from '../../../types/Providers';
+import type { FiltersState } from './Sidebar';
+import { useProvidersDataQuery } from '@/state/services/public/publicService';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import { useState } from 'react';
+import Link from 'next/link';
+
+interface ProviderDataProps {
+  filters: FiltersState;
+}
 
 // -------------------- Provider Card Component -------------------
-const ProviderCard = ({ provider }: { provider: Provider }) => {
+const ProviderCard = ({
+  provider,
+  index,
+}: {
+  provider: IPublicProvider;
+  index: number;
+}) => {
   return (
-    <div className="relative border p-5 rounded-2xl">
-      {/* Online and Ofline */}
-      <div className="absolute top-5 right-5">
-        {provider.available ? (
-          // Online
-          <div className="w-22 flex items-center gap-1 bg-[#ccf7e9bb] text-charcoal px-2  rounded-2xl">
-            <p className="w-2 h-2 bg-[#08eca8bb] rounded-full"></p>
-            <p className="text-[#0fbd88bb]">Online</p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: index * 0.05 }}
+      className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-xs transition-all hover:shadow-md"
+    >
+      {/* Online / Offline Badge */}
+      <div className="absolute top-1 right-2 z-10">
+        {provider.availableStatus ? (
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+            </span>
+            <span className="text-[11px] font-medium text-emerald-600">
+              Online
+            </span>
           </div>
         ) : (
-          // Offline
-          <div className="w-22 flex items-center gap-1 bg-[#e0e0e0bb] text-charcoal px-2  rounded-2xl">
-            <p className="w-2 h-2 bg-[#b4b4b4bb] rounded-full"></p>
-            <p className="text-[#4b4b4bbb]">Offline</p>
+          <div className="flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1">
+            <span className="size-2 rounded-full bg-gray-400" />
+            <span className="text-[11px] font-medium text-gray-500">
+              Offline
+            </span>
           </div>
         )}
       </div>
-      {/* Header: Image + Name +  Location */}
-      <div className="flex items-center gap-3 border-b border-[#c5c5c5bb] p-4">
-        <Image
-          className="w-18 h-18 rounded-full"
-          src={provider.image}
-          width={500}
-          height={300}
-          alt={provider.name}
-        />
+
+      {/* Header */}
+      <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
+        <div className="relative shrink-0">
+          <Image
+            className="size-16 rounded-full object-cover ring-2 ring-gray-100"
+            src={provider?.user?.image}
+            width={64}
+            height={64}
+            alt={provider?.user?.name}
+          />
+          <div
+            className={`absolute -bottom-0.5 -right-0.5 size-4 rounded-full border-2 border-white ${
+              provider.availableStatus ? 'bg-emerald-500' : 'bg-gray-400'
+            }`}
+          />
+        </div>
+        <div className="min-w-0">
+          <h3 className="truncate text-[16px] font-bold text-gray-900">
+            {provider?.user.name}
+          </h3>
+          <p className="flex items-center gap-1 text-[13px] text-gray-500">
+            <MapPin className="size-3" />
+            {provider.location.address}
+          </p>
+        </div>
+      </div>
+
+      {/* Services */}
+      <div className="flex flex-wrap gap-2 py-3">
+        {provider.services.map((service, i) => (
+          <span
+            key={i}
+            className="rounded-full bg-pastel_pink/60 px-3 py-1 text-[12px] font-medium text-pink/90"
+          >
+            {service}
+          </span>
+        ))}
+      </div>
+
+      {/* Rating & Jobs */}
+      <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-4 text-sm">
         <div>
-          <h3 className="font-bold text-[18px]">{provider.name}</h3>
-          <p className="text-charcoal text-[15px]">{provider.location}</p>
-        </div>
-      </div>
-      {/* Main: Services + Rating + Job done */}
-      <div className="border-b border-[#c5c5c5bb] py-3">
-        {/* Service */}
-        <div className="flex flex-wrap gap-3">
-          {provider.services.map((service, index) => (
-            <p
-              className="border px-3 py-0.75 rounded-full bg-pastel_pink text-charcoal text-[15px]"
-              key={index}
-            >
-              {service}
-            </p>
-          ))}
-        </div>
-        {/* Rating and Jobs Done */}
-        <div className="flex items-center gap-5 mt-3 text-[15px]">
-          <div>
-            <h3>Rating</h3>
-            <div className="flex items-center gap-1 text-charcoal">
-              <FaStar className="text-[#ddb60a]" />
-              <p>{provider.rating}</p>
-            </div>
-          </div>
-          <div>
-            <h3>Jobs done</h3>
-            <p className="text-charcoal">{provider.job_done}</p>
+          <p className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
+            Rating
+          </p>
+          <div className="mt-0.5 flex items-center gap-1.5">
+            <FaStar className="size-4 text-amber-400" />
+            <span className="font-semibold text-gray-900">
+              {provider.rating}
+            </span>
           </div>
         </div>
+        <div className="text-right">
+          <p className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
+            Jobs done
+          </p>
+          <p className="mt-0.5 font-semibold text-gray-900">
+            {provider.experience} yrs
+          </p>
+        </div>
       </div>
-      {/* Footer: Price + Hire Button */}
-      <div className="flex justify-between items-center mt-5">
-        <p>${provider.price}</p>
-        <button className="bg-pink cursor-pointer text-white px-4 py-2 rounded-2xl">
-          Hire me
-        </button>
+      <div className="mb-5">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
+          Starting from
+        </span>
+        <p className="text-xl font-bold text-gray-900">
+          ${provider.rate}
+          <span className="text-sm font-normal text-gray-400">
+            /{provider.rateType}
+          </span>
+        </p>
       </div>
-    </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Link href={`/providers/${provider._id}`}>
+            <button className="cursor-pointer rounded-xl border border-pink px-5 py-2.5 text-sm font-semibold text-charcoal shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+              View Profile
+            </button>
+          </Link>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="cursor-pointer rounded-xl bg-pink text-white px-5 py-2.5 text-sm font-semibold shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+            Hire Me
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-const ProviderData = () => {
-  const providers: Provider[] = providerData;
+const ProviderData = ({ filters }: ProviderDataProps) => {
+  // page
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Fetch providers data based on filters and pagination
+  const { data: providersInfo, isLoading: providerLoading } =
+    useProvidersDataQuery({
+      search: filters.search,
+      category: filters.category.join(','),
+      priceMin: filters.priceMin,
+      priceMax: filters.priceMax === Infinity ? '' : filters.priceMax,
+      rating: filters.rating || '',
+      currentPage,
+      dataLimit: 10,
+    });
+
+  // Provider data sorted
+  const providersData: IPublicProvider[] = providersInfo?.data?.data || [];
+  // Total pages for pagination
+  const totalPages: number = providersInfo?.data?.pagination?.totalPages || 1;
+
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto">
-      {/* Provider Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 gap-5 mt-10">
-        {providers.map((provider) => (
-          <ProviderCard key={provider.id} provider={provider} />
-        ))}
+    <div className="flex-1">
+      {/* Results header */}
+      <div className="mb-5 flex items-center justify-between">
+        <p className="text-sm text-gray-500">
+          <span className="font-semibold text-gray-900">
+            {providersData.length}
+          </span>{' '}
+          {providersData.length === 1 ? 'provider' : 'providers'} found
+        </p>
       </div>
+      {/* Provider Grid */}
+      {providersData.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {providersData.map((provider, index) => (
+              <ProviderCard
+                key={provider._id}
+                provider={provider}
+                index={index}
+              />
+            ))}
+          </div>
+          <div className="w-full mt-6 flex items-center justify-end">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    className="w-30"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                  />
+                </PaginationItem>
+
+                {pages.map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={currentPage === page}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    className="w-22"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        </>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 py-20"
+        >
+          <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-gray-100">
+            <Search className="size-6 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900">
+            No providers found
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Try adjusting your filters to see more results.
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 };
