@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaTools } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import {
   DropdownMenu,
@@ -69,8 +69,12 @@ const Navbar = () => {
         {/* ---------- Left: Logo + Desktop Nav ------------ */}
         <div className="flex items-center gap-20">
           {/* Logo */}
-          <h1 className="text-3xl">Fixly</h1>
-
+          <Link href={'/'} className="flex items-center gap-2">
+            <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-[#E91E63] text-white text-2xl rounded-xl">
+              <FaTools className="" />
+            </div>
+            <h2 className="font-semibold text-xl">Fixly</h2>
+          </Link>
           {/* Desktop Menu */}
           <ul className="hidden lg:flex items-center gap-5 text-[16px] font-normal">
             {NAV_ITEMS.map((navi) => (
