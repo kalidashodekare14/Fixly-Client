@@ -104,17 +104,30 @@ const Navbar = () => {
                   <UserIcon />
                   Profile
                 </DropdownMenuItem>
-                <Link href={'/dashboard'}>
-                  <DropdownMenuItem>
-                    <LayoutDashboardIcon />
-                    Dashboard
-                  </DropdownMenuItem>
-                </Link>
-
-                <DropdownMenuItem>
-                  <CreditCardIcon />
-                  Billing
-                </DropdownMenuItem>
+                {session.user?.role === 'admin' && (
+                  <Link href={'/dashboard/admin'}>
+                    <DropdownMenuItem>
+                      <LayoutDashboardIcon />
+                      Dashboard
+                    </DropdownMenuItem>
+                  </Link>
+                )}
+                {session.user?.role === 'provider' && (
+                  <Link href={'/dashboard/provider'}>
+                    <DropdownMenuItem>
+                      <LayoutDashboardIcon />
+                      Dashboard
+                    </DropdownMenuItem>
+                  </Link>
+                )}
+                {session.user?.role === 'user' && (
+                  <Link href={'/dashboard/user'}>
+                    <DropdownMenuItem>
+                      <LayoutDashboardIcon />
+                      Dashboard
+                    </DropdownMenuItem>
+                  </Link>
+                )}
                 <DropdownMenuItem>
                   <SettingsIcon />
                   Settings
