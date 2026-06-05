@@ -59,7 +59,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
     user,
     bio,
     location,
-    services,
+    skills,
     rate,
     rateType,
     isVerified,
@@ -220,15 +220,15 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                {services && services.length > 0 ? (
-                  services.map((service: string, i: number) => (
+                {skills && skills.length > 0 ? (
+                  skills.map((skill: any, i: number) => (
                     <div
                       key={i}
                       className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
                     >
                       <Wrench className="size-4 text-[#DA5A96]" />
                       <span className="text-sm font-medium text-gray-700">
-                        {service}
+                        {skill.label}
                       </span>
                     </div>
                   ))

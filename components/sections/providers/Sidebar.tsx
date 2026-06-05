@@ -101,7 +101,7 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
             const active = filters.category.includes(cat._id);
             return (
               <button
-                key={cat}
+                key={cat._id}
                 onClick={() => toggleCategory(cat._id)}
                 className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
                   active

@@ -681,7 +681,7 @@ const Profile = () => {
                 {categories
                   ? categories.map((cat) => (
                       <label
-                        key={cat.value}
+                        key={cat._id}
                         className={cn(
                           'flex items-center gap-2 rounded-md border px-3 py-2 text-sm cursor-pointer transition-colors',
                           skills?.includes(cat._id)
