@@ -8,6 +8,7 @@ export const requestService = baseApi.injectEndpoints({
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
     }),
 
     sendOffer: builder.mutation({
@@ -25,6 +26,7 @@ export const requestService = baseApi.injectEndpoints({
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
     }),
 
     jobsInfo: builder.query<any, void>({

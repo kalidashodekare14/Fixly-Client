@@ -75,16 +75,13 @@ const SendOffer = () => {
   const [saving, setSaving] = useState(false);
 
   const {
-    data: sendOfferdData,
+    data: myOfferes,
     isLoading: offeredLoading,
     error: offeredError,
   } = useSendOfferdQuery();
 
   // update offers
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
-
-  const myOfferes = sendOfferdData?.data || [];
-  console.log('checking offeres', myOfferes);
 
   console.log('checking offer id', selectedOffer);
 
@@ -184,7 +181,7 @@ const SendOffer = () => {
                       {offer?.request?.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {offer?.request?.category}
+                      {offer?.request?.category?.label}
                     </span>
                   </div>
 
