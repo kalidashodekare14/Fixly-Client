@@ -27,7 +27,12 @@ export interface IPublicProvider {
   location: {
     address: string;
   };
-  services: string[];
+  skills: [
+    {
+      _id: string;
+      label: string;
+    },
+  ];
   rating: number;
   price: number;
   rate: number;

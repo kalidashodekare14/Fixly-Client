@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/pagination';
 import { useState } from 'react';
 import Link from 'next/link';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface ProviderDataProps {
   filters: FiltersState;
@@ -89,12 +90,12 @@ const ProviderCard = ({
 
       {/* Services */}
       <div className="flex flex-wrap gap-2 py-3">
-        {provider.services.map((service, i) => (
+        {provider.skills.map((skill, i) => (
           <span
             key={i}
             className="rounded-full bg-pastel_pink/60 px-3 py-1 text-[12px] font-medium text-pink/90"
           >
-            {service}
+            {skill?.label}
           </span>
         ))}
       </div>
@@ -186,8 +187,42 @@ const ProviderData = ({ filters }: ProviderDataProps) => {
           {providersData.length === 1 ? 'provider' : 'providers'} found
         </p>
       </div>
+      {/* Loading Skselection */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {providerLoading &&
+          Array.from({ length: 5 }).map((_, i) => (
+            <Card key={i} className="animate-pulse">
+              <CardContent className="space-y-3">
+                <div className="h-30 w-full bg-gray-200 rounded"></div>
+                <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
+                <div className="h-3 w-full bg-gray-200 rounded"></div>
+                <div className="h-3 w-3/4 bg-gray-200 rounded"></div>
+              </CardContent>
+            </Card>
+          ))}
+      </div>
+
+      {/* No data found */}
+      {!providerLoading && (!providersData || providersData.length < 1) && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 py-20"
+        >
+          <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-gray-100">
+            <Search className="size-6 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900">
+            No providers found
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Try adjusting your filters to see more results.
+          </p>
+        </motion.div>
+      )}
+
       {/* Provider Grid */}
-      {providersData.length > 0 ? (
+      {providersData && (
         <>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
             {providersData.map((provider, index) => (
@@ -232,22 +267,6 @@ const ProviderData = ({ filters }: ProviderDataProps) => {
             </Pagination>
           </div>
         </>
-      ) : (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 py-20"
-        >
-          <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-gray-100">
-            <Search className="size-6 text-gray-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900">
-            No providers found
-          </h3>
-          <p className="mt-1 text-sm text-gray-500">
-            Try adjusting your filters to see more results.
-          </p>
-        </motion.div>
       )}
     </div>
   );

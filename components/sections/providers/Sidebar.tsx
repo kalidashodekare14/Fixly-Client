@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import providerData from '../../../data/providers.json';
 import type { Provider } from '../../../types/Providers';
+import { useGetCategoriesQuery } from '@/state/services/public/publicService';
 
 export interface FiltersState {
   search: string;
@@ -30,7 +31,10 @@ const allCategories = [
 const RATING_OPTIONS = [5, 4, 3, 2, 1];
 
 const Sidebar = ({ filters, setFilters }: SidebarProps) => {
+  // mobile response
   const [mobileOpen, setMobileOpen] = useState(false);
+  // category data fetch
+  const { data: categories = [], isLoading } = useGetCategoriesQuery();
 
   const toggleCategory = (cat: string) => {
     setFilters((prev) => ({
@@ -93,19 +97,19 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
           Category
         </h3>
         <div className="flex flex-wrap gap-2">
-          {allCategories.map((cat) => {
-            const active = filters.category.includes(cat);
+          {categories.map((cat: any) => {
+            const active = filters.category.includes(cat._id);
             return (
               <button
                 key={cat}
-                onClick={() => toggleCategory(cat)}
+                onClick={() => toggleCategory(cat._id)}
                 className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
                   active
                     ? 'bg-pink text-white shadow-sm'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
-                {cat}
+                {cat.label}
               </button>
             );
           })}
