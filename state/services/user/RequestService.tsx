@@ -45,12 +45,13 @@ export const requestService = baseApi.injectEndpoints({
       transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
 
-    viewSelectedOfferForRequest: builder.query<any, void>({
+    viewSelectedOfferForRequest: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request/selected_offer',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
 
     viewOffers: builder.query<any, { requestId: string }>({
