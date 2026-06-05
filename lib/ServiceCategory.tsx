@@ -1,15 +1,19 @@
-export const serviceCategories = [
+export const coreServiceCategories = [
   {
     value: 'electrical',
     label: 'Electrical Repair',
   },
   {
     value: 'plumbing',
-    label: 'Plumbing',
+    label: 'Plumbing Service',
   },
   {
-    value: 'ac_service',
-    label: 'AC Service & Repair',
+    value: 'ac_repair',
+    label: 'AC Repair & Service',
+  },
+  {
+    value: 'appliance_repair',
+    label: 'Home Appliance Repair',
   },
   {
     value: 'cleaning',
@@ -17,34 +21,26 @@ export const serviceCategories = [
   },
   {
     value: 'painting',
-    label: 'Painting',
+    label: 'Painting Service',
   },
   {
     value: 'carpentry',
-    label: 'Carpentry',
+    label: 'Carpentry & Furniture Repair',
   },
   {
-    value: 'appliance_repair',
-    label: 'Appliance Repair',
+    value: 'door_lock_service',
+    label: 'Door & Lock Service',
   },
   {
-    value: 'internet_network',
-    label: 'Internet & WiFi Setup',
+    value: 'water_pump_repair',
+    label: 'Water Pump Service',
+  },
+  {
+    value: 'tile_floor_repair',
+    label: 'Tile & Floor Repair',
   },
   {
     value: 'pest_control',
     label: 'Pest Control',
-  },
-  {
-    value: 'cctv_security',
-    label: 'CCTV & Security System',
-  },
-  {
-    value: 'generator_ups',
-    label: 'Generator & UPS Service',
-  },
-  {
-    value: 'water_filter',
-    label: 'Water Filter Service',
   },
 ];

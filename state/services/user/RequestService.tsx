@@ -1,4 +1,11 @@
 import { baseApi } from '@/state/baseApi';
+import { IRequest } from '@/types/Request';
+
+interface IResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,12 +18,13 @@ export const requestService = baseApi.injectEndpoints({
       invalidatesTags: ['Request'],
     }),
 
-    myRequest: builder.query<any, void>({
+    myRequest: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
     updateRequest: builder.mutation({
       query: (updateData) => ({

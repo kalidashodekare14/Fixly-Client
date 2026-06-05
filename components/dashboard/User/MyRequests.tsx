@@ -26,15 +26,13 @@ export default function MyRequests() {
   const [editModal, setEditModal] = useState<boolean>(false);
   const [selectedRequest, setSelectedRequest] = useState<IRequest | null>(null);
   const {
-    data: requestData,
+    data: requests,
     isLoading: requestLoading,
     error: requestError,
   } = useMyRequestQuery();
 
-  const requests: IRequest[] = requestData?.data || [];
-
   const handleEdit = (id: string) => {
-    const selectedData = requests.find((data: IRequest) => data._id === id);
+    const selectedData = requests?.find((data: IRequest) => data._id === id);
 
     if (selectedData) {
       setSelectedRequest(selectedData);
@@ -46,7 +44,7 @@ export default function MyRequests() {
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">My Requests</h2>
-      {requests?.length < 1 && !requestLoading && (
+      {!requestLoading && (!requests || requests.length === 0) && (
         <div className="flex flex-col items-center justify-center py-20">
           <Search className="size-12 text-gray-300" />
           <p className="mt-3 text-sm text-gray-500">
@@ -82,7 +80,7 @@ export default function MyRequests() {
                 {/* Category + Status */}
                 <div className="flex items-center justify-between">
                   <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">
-                    {req.category}
+                    {req.category?.label}
                   </span>
 
                   <span

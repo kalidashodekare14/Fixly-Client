@@ -10,6 +10,7 @@ import { signIn } from 'next-auth/react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Spinner } from '../ui/spinner';
 
 type Inputs = {
   email: string;
@@ -19,6 +20,7 @@ type Inputs = {
 const Signin = () => {
   const router = useRouter();
   const [errorHandle, setErrorHandle] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -29,6 +31,7 @@ const Signin = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
+      setLoading(true);
       const loginData = {
         email: data.email,
         password: data.password,
@@ -48,6 +51,8 @@ const Signin = () => {
     } catch (error) {
       console.error(error);
       toast.error('Login Failed ❌');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,7 +108,14 @@ const Signin = () => {
               type="submit"
               className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
             >
-              Sign In
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <Spinner className="size-6" />
+                  <span>SignIn...</span>
+                </div>
+              ) : (
+                `Sign In`
+              )}
             </Button>
             {/* Or Sign Up */}
             <div className="flex items-center gap-3 my-5">

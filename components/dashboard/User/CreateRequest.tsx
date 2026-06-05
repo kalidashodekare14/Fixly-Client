@@ -17,6 +17,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useCreateRequestMutation } from '@/state/services/user/RequestService';
 import { Loader2, MapPin, Crosshair } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useGetCategoriesQuery } from '@/state/services/public/publicService';
+import { watch } from 'fs';
 
 type Inputs = {
   category: string;
@@ -40,10 +42,9 @@ export default function CreateRequest() {
   const [fileError, setFileError] = useState<boolean>(false);
   const [createRequest, { isLoading: createLoading }] =
     useCreateRequestMutation();
+  const { data: categories, isLoading } = useGetCategoriesQuery();
 
-  console.log(fileError);
-
-  // TODO: getLocation — using Nominatim (same as Provider Profile), no API key needed
+  // TODO: getLocation
   const getLocation = () => {
     if (!navigator.geolocation) {
       alert('Geolocation not supported');
@@ -94,6 +95,7 @@ export default function CreateRequest() {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -159,17 +161,23 @@ export default function CreateRequest() {
             <Label>Service Category</Label>
             <Select
               onValueChange={(value) => setValue('category', value as string)}
+              value={watch('category')}
             >
               <SelectTrigger className="w-full h-12! mt-2">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="Select category">
+                  {categories?.find((c) => c._id === watch('category'))?.label}
+                </SelectValue>
               </SelectTrigger>
 
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="electric">Electric Repair</SelectItem>
-                  <SelectItem value="plumbing">Plumbing</SelectItem>
-                  <SelectItem value="ac">AC Service</SelectItem>
-                  <SelectItem value="cleaning">Home Cleaning</SelectItem>
+                  {categories
+                    ? categories.map((category) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.label}
+                        </SelectItem>
+                      ))
+                    : 'N/A'}
                 </SelectGroup>
               </SelectContent>
             </Select>

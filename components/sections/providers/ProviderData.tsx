@@ -143,7 +143,7 @@ const ProviderCard = ({
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          <button className="cursor-pointer rounded-xl bg-pink text-white px-5 py-2.5 text-sm font-semibold shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+          <button className="cursor-pointer rounded-xl border border-pink bg-pink text-white px-5 py-2.5 text-sm font-semibold shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
             Hire Me
           </button>
         </div>
