@@ -47,11 +47,11 @@ import {
   ToolCase,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { serviceCategories } from '../../../lib/ServiceCategory';
 import {
   useProfileInfoQuery,
   useProfileInfoUpdateMutation,
 } from '@/state/services/provider/ProfileService';
+import { useGetCategoriesQuery } from '@/state/services/public/publicService';
 
 type Inputs = {
   name: string;
@@ -69,6 +69,8 @@ const Profile = () => {
   const [profileInfoUpdate, { isLoading: updateLoading }] =
     useProfileInfoUpdateMutation();
 
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+
   console.log('checking provider data', profileInfo?.data);
 
   const {
@@ -76,7 +78,7 @@ const Profile = () => {
     image,
     bio,
     location,
-    services,
+    skills: providerSkills,
     rate,
     rateType,
     review,
@@ -89,8 +91,8 @@ const Profile = () => {
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(image);
-  const [selectedServices, setSelectedServices] = useState<string[]>([]);
-
+  const [skills, setSkills] = useState<string[]>([]);
+  console.log('checking skills', skills);
   // Location state fields — address, city, division, lat, lng
   const [address, setAddress] = useState<string>('');
   const [city, setCity] = useState<string>('');
@@ -186,9 +188,10 @@ const Profile = () => {
       setLatitude(provider.location?.coordinates[0]);
       setLongitude(provider.location?.coordinates[1]);
 
-      const cats = (provider as any).services;
+      const cats = (provider as any).skills.map((skills: any) => skills._id);
+
       if (cats) {
-        setSelectedServices(cats);
+        setSkills(cats);
       }
 
       setValue('rate', (provider as any).rate ?? 0);
@@ -209,7 +212,7 @@ const Profile = () => {
       formData.append('rate', String(data.rate));
       formData.append('rateType', data.rateType);
       formData.append('availableStatus', data.availableStatus);
-      formData.append('services', JSON.stringify(selectedServices));
+      formData.append('skills', JSON.stringify(skills));
 
       // Append location fields to form data
       formData.append(
@@ -399,23 +402,23 @@ const Profile = () => {
             <Separator className="mx-4 w-auto" />
             {/* Services Offered */}
             <CardHeader>
-              <CardTitle>Services Offered</CardTitle>
+              <CardTitle>Skills</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                {services ? (
-                  services.map((service: string[], i: number) => (
+                {providerSkills ? (
+                  providerSkills.map((skill: any, i: number) => (
                     <div
                       key={i}
                       className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
                     >
                       <span className="text-sm font-medium text-gray-700">
-                        {service}
+                        {skill?.label}
                       </span>
                     </div>
                   ))
                 ) : (
-                  <p>No Service Data</p>
+                  <p>No Skills</p>
                 )}
               </div>
             </CardContent>
@@ -675,33 +678,35 @@ const Profile = () => {
             <div className="space-y-2">
               <Label>Service Categories</Label>
               <div className="grid grid-cols-2 gap-2 max-h-30 overflow-y-auto border rounded-lg p-3">
-                {serviceCategories.map((cat) => (
-                  <label
-                    key={cat.value}
-                    className={cn(
-                      'flex items-center gap-2 rounded-md border px-3 py-2 text-sm cursor-pointer transition-colors',
-                      selectedServices.includes(cat.value)
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
-                    )}
-                  >
-                    <input
-                      type="checkbox"
-                      className="sr-only"
-                      checked={selectedServices.includes(cat.value)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedServices((prev) => [...prev, cat.value]);
-                        } else {
-                          setSelectedServices((prev) =>
-                            prev.filter((v) => v !== cat.value)
-                          );
-                        }
-                      }}
-                    />
-                    {cat.label}
-                  </label>
-                ))}
+                {categories
+                  ? categories.map((cat) => (
+                      <label
+                        key={cat.value}
+                        className={cn(
+                          'flex items-center gap-2 rounded-md border px-3 py-2 text-sm cursor-pointer transition-colors',
+                          skills?.includes(cat._id)
+                            ? 'border-pink-500 bg-pink-50 text-pink-700'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
+                        )}
+                      >
+                        <input
+                          type="checkbox"
+                          className="sr-only"
+                          checked={skills?.includes(cat._id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSkills((prev) => [...prev, cat._id]);
+                            } else {
+                              setSkills((prev) =>
+                                prev.filter((v) => v !== cat._id)
+                              );
+                            }
+                          }}
+                        />
+                        {cat.label}
+                      </label>
+                    ))
+                  : 'N/A'}
               </div>
             </div>
 
