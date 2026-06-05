@@ -18,6 +18,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useProviderDetailsQuery } from '@/state/services/public/publicService';
+import { useState } from 'react';
+import HireModal from './HireModal';
 
 interface ProviderUser {
   name?: string;
@@ -49,6 +51,9 @@ interface ProviderDetailsData {
 }
 
 const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
+  const [hireToggle, setHireToggle] = useState<boolean>(false);
+
+  //  Provider details info fetch of rtk query
   const {
     data: provider,
     isLoading,
@@ -171,7 +176,10 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
               </div>
 
               {/* Hire Button */}
-              <button className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95">
+              <button
+                onClick={() => setHireToggle(true)}
+                className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95"
+              >
                 Hire Me
               </button>
             </div>
@@ -340,6 +348,8 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
           </div>
         </div>
       </div>
+      {/* Hire modal */}
+      <HireModal hireToggle={hireToggle} setHireToggle={setHireToggle} />
     </div>
   );
 };
