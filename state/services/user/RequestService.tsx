@@ -36,12 +36,13 @@ export const requestService = baseApi.injectEndpoints({
     }),
 
     // open offers for a request
-    openOffers: builder.query<any, void>({
+    openOffers: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request/open_requests',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
 
     viewSelectedOfferForRequest: builder.query<any, void>({
