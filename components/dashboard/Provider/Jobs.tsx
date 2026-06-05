@@ -65,12 +65,10 @@ const Jobs = () => {
 
   // job data of rtk query
   const {
-    data: jobsInfo,
+    data: jobsData,
     isLoading: jobLoading,
     error: jobsError,
   } = useJobsInfoQuery();
-
-  const jobsData = jobsInfo?.data || [];
 
   // job status change of rtk query
   const [jobStatusChange, { isLoading: jobStatusLoading }] =
@@ -109,7 +107,7 @@ const Jobs = () => {
         </div>
 
         {/* Jobs Grid */}
-        {jobsData.length < 1 && !jobLoading && (
+        {!jobLoading && (!jobsData || jobsData.length < 1) && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
@@ -118,7 +116,7 @@ const Jobs = () => {
           </div>
         )}
 
-        {jobsData.length > 0 && (
+        {!jobLoading && (jobsData || jobsData.length > 0) && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {jobsData.map((job: any) => {
               return (
@@ -152,7 +150,7 @@ const Jobs = () => {
                         {job.request.title}
                       </h3>
                       <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                        {job.request.category}
+                        {job.request.category?.label}
                       </span>
                     </div>
 

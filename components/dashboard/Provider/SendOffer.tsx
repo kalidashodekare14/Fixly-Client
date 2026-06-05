@@ -139,7 +139,7 @@ const SendOffer = () => {
         </div>
 
         {/* Offers Grid */}
-        {myOfferes.length < 1 && !offeredLoading && (
+        {!offeredLoading && (!myOfferes || myOfferes.length < 1) && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
@@ -148,7 +148,7 @@ const SendOffer = () => {
           </div>
         )}
 
-        {myOfferes.length > 0 && (
+        {!offeredLoading && (myOfferes || myOfferes.length > 0) && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {myOfferes.map((offer: any) => (
               <Card
