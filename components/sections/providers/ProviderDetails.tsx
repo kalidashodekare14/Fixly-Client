@@ -18,6 +18,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useProviderDetailsQuery } from '@/state/services/public/publicService';
+import { useState } from 'react';
+import HireModal from './HireModal';
 
 interface ProviderUser {
   name?: string;
@@ -49,6 +51,9 @@ interface ProviderDetailsData {
 }
 
 const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
+  const [hireToggle, setHireToggle] = useState<boolean>(false);
+
+  //  Provider details info fetch of rtk query
   const {
     data: provider,
     isLoading,
@@ -59,7 +64,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
     user,
     bio,
     location,
-    services,
+    skills,
     rate,
     rateType,
     isVerified,
@@ -171,7 +176,10 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
               </div>
 
               {/* Hire Button */}
-              <button className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95">
+              <button
+                onClick={() => setHireToggle(true)}
+                className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95"
+              >
                 Hire Me
               </button>
             </div>
@@ -220,15 +228,15 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                {services && services.length > 0 ? (
-                  services.map((service: string, i: number) => (
+                {skills && skills.length > 0 ? (
+                  skills.map((skill: any, i: number) => (
                     <div
                       key={i}
                       className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
                     >
                       <Wrench className="size-4 text-[#DA5A96]" />
                       <span className="text-sm font-medium text-gray-700">
-                        {service}
+                        {skill.label}
                       </span>
                     </div>
                   ))
@@ -340,6 +348,8 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
           </div>
         </div>
       </div>
+      {/* Hire modal */}
+      <HireModal hireToggle={hireToggle} setHireToggle={setHireToggle} />
     </div>
   );
 };

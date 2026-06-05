@@ -65,12 +65,12 @@ const Jobs = () => {
 
   // job data of rtk query
   const {
-    data: jobsInfo,
+    data: jobsData,
     isLoading: jobLoading,
     error: jobsError,
   } = useJobsInfoQuery();
 
-  const jobsData = jobsInfo?.data || [];
+  console.log('checking jobs data', jobsData);
 
   // job status change of rtk query
   const [jobStatusChange, { isLoading: jobStatusLoading }] =
@@ -109,7 +109,7 @@ const Jobs = () => {
         </div>
 
         {/* Jobs Grid */}
-        {jobsData.length < 1 && !jobLoading && (
+        {!jobLoading && (!jobsData || jobsData.length < 1) && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
@@ -118,7 +118,7 @@ const Jobs = () => {
           </div>
         )}
 
-        {jobsData.length > 0 && (
+        {!jobLoading && (jobsData || jobsData.length > 0) && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {jobsData.map((job: any) => {
               return (
@@ -129,8 +129,8 @@ const Jobs = () => {
                   {/* Image */}
                   <div className="relative h-44 bg-gray-100">
                     <Image
-                      src={job.request.image}
-                      alt={job.request.title}
+                      src={job.image}
+                      alt={job.title}
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -149,34 +149,34 @@ const Jobs = () => {
                     {/* Title & Category */}
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="font-semibold text-gray-900 line-clamp-1">
-                        {job.request.title}
+                        {job.title}
                       </h3>
                       <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                        {job.request.category}
+                        {job.category?.label}
                       </span>
                     </div>
 
                     {/* Description */}
                     <p className="line-clamp-2 text-sm leading-relaxed text-gray-500">
-                      {job.request.description}
+                      {job.description}
                     </p>
 
                     {/* Client Info */}
                     <div className="flex items-center gap-2">
                       <div className="relative size-6 shrink-0 overflow-hidden rounded-full">
                         <Image
-                          src={job.request.user.image}
-                          alt={job.request.user.name}
+                          src={job.user.image}
+                          alt={job.user.name}
                           fill
                           className="object-cover"
                         />
                       </div>
                       <span className="text-xs text-gray-600">
-                        {job.request.user.name}
+                        {job.user.name}
                       </span>
                     </div>
 
-                    {/* Offer Summary */}
+                    {/* Offer Summary
                     <div className="space-y-2 rounded-lg bg-pink-50/50 p-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
@@ -196,21 +196,20 @@ const Jobs = () => {
                         <MessageSquare className="mt-0.5 size-3 shrink-0" />
                         <span className="line-clamp-2">{job.message}</span>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Location */}
                     <div className="flex items-start gap-1.5 text-xs text-gray-400">
                       <MapPin className="mt-0.5 size-3 shrink-0" />
                       <span className="line-clamp-1">
-                        {job.request.location.address},{' '}
-                        {job.request.location.city},{' '}
-                        {job.request.location.division}
+                        {job.location.address}, {job.location.city},{' '}
+                        {job.location.division}
                       </span>
                     </div>
 
                     {/* Status Update */}
-                    {job?.request?.status === 'completed' ||
-                    job?.request?.status === 'cancelled' ? (
+                    {job.status === 'completed' ||
+                    job.status === 'cancelled' ? (
                       <Button
                         disabled
                         className="h-11 w-full gap-2 bg-gray-100 text-[#000000]"
@@ -221,7 +220,7 @@ const Jobs = () => {
                       <DropdownMenu>
                         <DropdownMenuTrigger className={'w-full '}>
                           <Button className={'w-full bg-pink-600 capitalize'}>
-                            {job?.request?.status}
+                            {job?.status}
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-48">

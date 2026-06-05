@@ -24,13 +24,8 @@ const SelectedOffers = () => {
   const [offerDrawer, setOfferDraser] = useState<boolean>(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string>('');
 
-  const {
-    data: viewSelectedOfferForRequest,
-    isLoading: viewSelectedOfferLoading,
-  } = useViewSelectedOfferForRequestQuery();
-
-  const selectedRequestOffer: IRequest[] =
-    viewSelectedOfferForRequest?.data || [];
+  const { data: selectedRequestOffer, isLoading: viewSelectedOfferLoading } =
+    useViewSelectedOfferForRequestQuery();
 
   const handleViewOffer = (id: string) => {
     setSelectedRequestId(id);
@@ -40,14 +35,15 @@ const SelectedOffers = () => {
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">Selected Providers</h2>
-      {selectedRequestOffer?.length < 1 && !viewSelectedOfferLoading && (
-        <div className="flex flex-col items-center justify-center py-20">
-          <Search className="size-12 text-gray-300" />
-          <p className="mt-3 text-sm text-gray-500">
-            No requests found matching your search.
-          </p>
-        </div>
-      )}
+      {!viewSelectedOfferLoading &&
+        (!selectedRequestOffer || selectedRequestOffer?.length < 1) && (
+          <div className="flex flex-col items-center justify-center py-20">
+            <Search className="size-12 text-gray-300" />
+            <p className="mt-3 text-sm text-gray-500">
+              No requests found matching your search.
+            </p>
+          </div>
+        )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {selectedRequestOffer &&
           selectedRequestOffer.map((req: IRequest) => (
@@ -76,7 +72,7 @@ const SelectedOffers = () => {
                 {/* Category + Status */}
                 <div className="flex items-center justify-between">
                   <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">
-                    {req.category}
+                    {req.category?.label}
                   </span>
 
                   <span

@@ -1,4 +1,11 @@
 import { baseApi } from '@/state/baseApi';
+import { IRequest } from '@/types/Request';
+
+interface IResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,12 +18,13 @@ export const requestService = baseApi.injectEndpoints({
       invalidatesTags: ['Request'],
     }),
 
-    myRequest: builder.query<any, void>({
+    myRequest: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
     updateRequest: builder.mutation({
       query: (updateData) => ({
@@ -28,20 +36,22 @@ export const requestService = baseApi.injectEndpoints({
     }),
 
     // open offers for a request
-    openOffers: builder.query<any, void>({
+    openOffers: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request/open_requests',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
 
-    viewSelectedOfferForRequest: builder.query<any, void>({
+    viewSelectedOfferForRequest: builder.query<IRequest[], void>({
       query: () => ({
         url: '/api/request/selected_offer',
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
     }),
 
     viewOffers: builder.query<any, { requestId: string }>({

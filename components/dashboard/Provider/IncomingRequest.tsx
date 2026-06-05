@@ -84,17 +84,13 @@ const IncomingRequest = () => {
 
   // incoming request data of rtk query
   const {
-    data: incomingRequest,
+    data: requestData,
     isLoading: requestLoading,
     error: requestError,
   } = useIncomingRequestsQuery();
 
   // send offer
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
-
-  const requestData = incomingRequest?.data || [];
-
-  console.log('checking incoming request', incomingRequest);
 
   const openSendOffer = (req: any) => {
     setSelectedRequest(req?.request);
@@ -199,7 +195,7 @@ const IncomingRequest = () => {
                       {req.request.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {req.request.category}
+                      {req.request.category?.label}
                     </span>
                   </div>
 

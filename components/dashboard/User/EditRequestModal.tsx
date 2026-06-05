@@ -10,6 +10,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectGroup,
   SelectValue,
 } from '@/components/ui/select';
 import { IRequest } from '@/types/Request';
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { useUpdateRequestMutation } from '@/state/services/user/RequestService';
 import toast from 'react-hot-toast';
 import { Loader2, MapPin, Crosshair } from 'lucide-react';
+import { useGetCategoriesQuery } from '@/state/services/public/publicService';
 
 interface IEditRequestModal {
   editModal: boolean;
@@ -54,7 +56,9 @@ const EditRequestModal = ({
     { isLoading: requestReqLoading, error: updateReqError },
   ] = useUpdateRequestMutation();
 
-  // TODO: getLocation — using Nominatim (same as Provider Profile), no API key needed
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+
+  // TODO: getLocation
   const getLocation = () => {
     if (!navigator.geolocation) {
       alert('Geolocation not supported');
@@ -125,7 +129,7 @@ const EditRequestModal = ({
         title: request?.title ?? '',
         budget: request?.budget ?? 0,
         deadline: request?.deadline ?? '',
-        category: request?.category ?? '',
+        category: request?.category?.label ?? '',
         description: request?.description ?? '',
       });
 
@@ -210,22 +214,32 @@ const EditRequestModal = ({
 
               {/* Category */}
               <div className="w-full">
-                <Label>Category</Label>
+                <Label>Service Category</Label>
                 <Select
-                  value={watch('category')}
                   onValueChange={(value) =>
                     setValue('category', value as string)
                   }
+                  value={watch('category')}
                 >
                   <SelectTrigger className="w-full h-12! mt-2">
-                    <SelectValue placeholder="Select category" />
+                    <SelectValue placeholder="Select category">
+                      {
+                        categories?.find((c) => c._id === watch('category'))
+                          ?.label
+                      }
+                    </SelectValue>
                   </SelectTrigger>
 
                   <SelectContent>
-                    <SelectItem value="ac">AC Service</SelectItem>
-                    <SelectItem value="plumbing">Plumbing</SelectItem>
-                    <SelectItem value="electric">Electric</SelectItem>
-                    <SelectItem value="cleaning">Cleaning</SelectItem>
+                    <SelectGroup>
+                      {categories
+                        ? categories.map((category) => (
+                            <SelectItem key={category._id} value={category._id}>
+                              {category.label}
+                            </SelectItem>
+                          ))
+                        : 'N/A'}
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>

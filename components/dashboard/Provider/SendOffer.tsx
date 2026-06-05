@@ -75,16 +75,13 @@ const SendOffer = () => {
   const [saving, setSaving] = useState(false);
 
   const {
-    data: sendOfferdData,
+    data: myOfferes,
     isLoading: offeredLoading,
     error: offeredError,
   } = useSendOfferdQuery();
 
   // update offers
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
-
-  const myOfferes = sendOfferdData?.data || [];
-  console.log('checking offeres', myOfferes);
 
   console.log('checking offer id', selectedOffer);
 
@@ -142,7 +139,7 @@ const SendOffer = () => {
         </div>
 
         {/* Offers Grid */}
-        {myOfferes.length < 1 && !offeredLoading && (
+        {!offeredLoading && (!myOfferes || myOfferes.length < 1) && (
           <div className="flex flex-col items-center justify-center py-20">
             <Search className="size-12 text-gray-300" />
             <p className="mt-3 text-sm text-gray-500">
@@ -151,7 +148,7 @@ const SendOffer = () => {
           </div>
         )}
 
-        {myOfferes.length > 0 && (
+        {!offeredLoading && (myOfferes || myOfferes.length > 0) && (
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {myOfferes.map((offer: any) => (
               <Card
@@ -184,7 +181,7 @@ const SendOffer = () => {
                       {offer?.request?.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {offer?.request?.category}
+                      {offer?.request?.category?.label}
                     </span>
                   </div>
 
