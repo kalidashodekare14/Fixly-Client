@@ -15,7 +15,7 @@ export const requestService = baseApi.injectEndpoints({
         method: 'GET',
       }),
       providesTags: ['Request'],
-      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
+      transformResponse: (response: any) => response?.data,
     }),
 
     createRequest: builder.mutation({

@@ -2,6 +2,15 @@ import { baseApi } from '@/state/baseApi';
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    overviewInfo: builder.query<any, void>({
+      query: () => ({
+        url: '/api/provider/provider_overview',
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
+    }),
+
     incomingRequests: builder.query<any, void>({
       query: () => ({
         url: '/api/provider/requests',
@@ -50,6 +59,7 @@ export const requestService = baseApi.injectEndpoints({
 });
 
 export const {
+  useOverviewInfoQuery,
   useIncomingRequestsQuery,
   useSendOfferMutation,
   useSendOfferdQuery,

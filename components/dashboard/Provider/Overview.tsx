@@ -17,7 +17,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { FaStar, FaToolbox } from 'react-icons/fa';
-import { MdPending } from 'react-icons/md';
+import { Skeleton } from '@/components/ui/skeleton';
+import { MdPending, MdTaskAlt } from 'react-icons/md';
+import { useOverviewInfoQuery } from '@/state/services/provider/RequestService';
 
 const monthlyEarnings = [
   { month: 'Jan', amount: 3200 },
@@ -38,41 +40,6 @@ const categoryData = [
 
 const COLORS = ['#F72585', '#A855F7', '#6366F1', '#EC4899'];
 
-// KPI Cards Data
-const kpiCards = [
-  {
-    id: 1,
-    label: 'Active Jobs',
-    value: '24',
-    icon: <FaToolbox />,
-    bgColor: 'bg-blue-50',
-    textColor: 'text-blue-600',
-  },
-  {
-    id: 2,
-    label: 'Total Earnings',
-    value: '+2%',
-    icon: <LucideDollarSign />,
-    bgColor: 'bg-green-50',
-    textColor: 'text-green-600',
-  },
-  {
-    id: 3,
-    label: 'Rating',
-    value: '$3,400',
-    icon: <FaStar />,
-    bgColor: 'bg-purple-50',
-    textColor: 'text-purple-600',
-  },
-  {
-    id: 4,
-    label: 'Pending Requests',
-    value: '8',
-    icon: <MdPending />,
-    bgColor: 'bg-pink-50',
-    textColor: 'text-pink-600',
-  },
-];
 const recentRequests = [
   {
     id: '#REQ-1024',
@@ -115,6 +82,47 @@ const statusStyles: Record<string, string> = {
 };
 
 const Overview = () => {
+  const { data: overviewInfo, isLoading: overviewLoading } =
+    useOverviewInfoQuery();
+
+  console.log('checking overview data', overviewInfo);
+
+  // KPI Cards Data
+  const kpiCards = [
+    {
+      id: 1,
+      label: 'Active Jobs',
+      value: overviewInfo?.completedJobs || 0,
+      icon: <FaToolbox />,
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-600',
+    },
+    {
+      id: 2,
+      label: 'Total Earnings',
+      value: `$${overviewInfo?.completedEarnings?.total || 0}`,
+      icon: <LucideDollarSign />,
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-600',
+    },
+    {
+      id: 3,
+      label: 'Completed Jobs',
+      value: overviewInfo?.completedJobs || 0,
+      icon: <MdTaskAlt />,
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-600',
+    },
+    {
+      id: 4,
+      label: 'Pending Requests',
+      value: overviewInfo?.pendingRequests || 0,
+      icon: <MdPending />,
+      bgColor: 'bg-pink-50',
+      textColor: 'text-pink-600',
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="mx-auto max-w-7xl space-y-6">
@@ -135,21 +143,31 @@ const Overview = () => {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {kpiCards.map((card) => (
-            <div
-              key={card.id}
-              className={`bg-[#FFFFFF] rounded-lg p-6 shadow-sm`}
-            >
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {!overviewLoading &&
+            kpiCards.map((card) => (
               <div
-                className={`${card.bgColor} w-14 h-14 flex items-center justify-center rounded-2xl mb-3`}
+                key={card.id}
+                className={`bg-[#FFFFFF] rounded-lg p-6 shadow-sm`}
               >
-                <span className="text-2xl">{card.icon}</span>
+                <div
+                  className={`${card.bgColor} w-14 h-14 flex items-center justify-center rounded-2xl mb-3`}
+                >
+                  <span className="text-2xl">{card.icon}</span>
+                </div>
+                <p className="text-gray-600 text-sm font-medium">
+                  {card.label}
+                </p>
+                <p className={`text-2xl font-bold mt-2 `}>{card.value}</p>
               </div>
-              <p className="text-gray-600 text-sm font-medium">{card.label}</p>
-              <p className={`text-2xl font-bold mt-2 `}>{card.value}</p>
-            </div>
-          ))}
+            ))}
+
+          {overviewLoading &&
+            Array.from({ length: 4 }).map((_, id) => (
+              <div>
+                <Skeleton className="h-40 w-full lg:w-60 bg-gray-200 border border-gray-300" />
+              </div>
+            ))}
         </div>
 
         {/* Charts Section */}
@@ -164,7 +182,7 @@ const Overview = () => {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={monthlyEarnings}>
+                <BarChart data={overviewInfo?.monthlyEarnings}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                   <XAxis
                     dataKey="month"
@@ -198,7 +216,7 @@ const Overview = () => {
               <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
                   <Pie
-                    data={categoryData}
+                    data={overviewInfo?.categoryStats}
                     cx="50%"
                     cy="50%"
                     innerRadius={55}
@@ -226,7 +244,7 @@ const Overview = () => {
               </ResponsiveContainer>
 
               <div className="mt-4 space-y-2.5">
-                {categoryData.map((cat, i) => (
+                {overviewInfo?.categoryStats?.map((cat: any, i: number) => (
                   <div key={cat.name} className="flex items-center gap-3">
                     <div
                       className="size-3 rounded-full"
