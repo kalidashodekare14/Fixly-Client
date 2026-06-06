@@ -89,6 +89,8 @@ const IncomingRequest = () => {
     error: requestError,
   } = useIncomingRequestsQuery();
 
+  console.log('checking request', requestData);
+
   // send offer
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
 
@@ -169,7 +171,7 @@ const IncomingRequest = () => {
                 {/* Image */}
                 <div className="relative h-44 bg-gray-100">
                   <Image
-                    src={req.request.image}
+                    src={req?.request?.image}
                     alt={req.title}
                     fill
                     className="object-cover"
@@ -180,10 +182,10 @@ const IncomingRequest = () => {
                     <Badge
                       className={cn(
                         'border px-2 py-0.5 text-xs font-medium capitalize',
-                        urgencyColors[req.request.status]
+                        urgencyColors[req?.request?.status]
                       )}
                     >
-                      {req.request.status}
+                      {req?.request?.status}
                     </Badge>
                   </div>
                 </div>
@@ -192,30 +194,30 @@ const IncomingRequest = () => {
                   {/* Title & Category */}
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold text-gray-900 line-clamp-1">
-                      {req.request.title}
+                      {req?.request?.title}
                     </h3>
                     <span className="shrink-0 rounded-full bg-pink-50 px-2.5 py-0.5 text-xs font-medium text-pink-600">
-                      {req.request.category?.label}
+                      {req?.request?.category?.label}
                     </span>
                   </div>
 
                   {/* Description */}
                   <p className="line-clamp-2 text-sm leading-relaxed text-gray-500">
-                    {req.request.description}
+                    {req?.request?.description}
                   </p>
 
                   {/* Client Info */}
                   <div className="flex items-center gap-2">
                     <div className="relative size-6 shrink-0 overflow-hidden rounded-full">
                       <Image
-                        src={req.request.user.image}
-                        alt={req.request.user.name}
+                        src={req?.request?.user?.image}
+                        alt={req?.request?.user?.name}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <span className="text-xs text-gray-600">
-                      {req.request.user.name}
+                      {req?.request?.user?.name}
                     </span>
                   </div>
 
@@ -224,13 +226,13 @@ const IncomingRequest = () => {
                     <div className="flex items-center gap-1.5">
                       <DollarSign className="size-4 text-pink-600" />
                       <span className="font-semibold text-gray-900">
-                        ৳{req.request.budget.toLocaleString()}
+                        ৳{req?.request?.budget.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 text-gray-500">
                       <Clock className="size-3.5" />
                       <span className="text-xs">
-                        {new Date(req.request.deadline).toDateString()}
+                        {new Date(req?.request?.deadline).toDateString()}
                       </span>
                     </div>
                   </div>
@@ -239,9 +241,9 @@ const IncomingRequest = () => {
                   <div className="flex items-start gap-1.5 text-xs text-gray-400">
                     <MapPin className="mt-0.5 size-3 shrink-0" />
                     <span className="line-clamp-1">
-                      {req.request.location.address},{' '}
-                      {req.request.location.city},{' '}
-                      {req.request.location.division}
+                      {req?.request?.location?.address},{' '}
+                      {req?.request?.location?.city},{' '}
+                      {req?.request?.location?.division}
                     </span>
                   </div>
 
@@ -305,9 +307,9 @@ const IncomingRequest = () => {
                     </p>
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <User className="size-3" />
-                      <span>{selectedRequest.user.name}</span>
+                      <span>{selectedRequest?.user.name}</span>
                       <span>|</span>
-                      <span>৳{selectedRequest.budget}</span>
+                      <span>৳{selectedRequest?.budget}</span>
                     </div>
                   </div>
                 </div>
