@@ -1,7 +1,9 @@
 'use client';
+import { useOverviewInfoQuery } from '@/state/services/user/RequestService';
 import { LucideDollarSign } from 'lucide-react';
 import { FaTools } from 'react-icons/fa';
 import { FaCodePullRequest } from 'react-icons/fa6';
+import { MdTaskAlt } from 'react-icons/md';
 import { RiMobileDownloadFill } from 'react-icons/ri';
 import {
   BarChart,
@@ -18,6 +20,11 @@ import {
 } from 'recharts';
 
 const Overview = () => {
+  const { data: overviewInfo, isLoading: overviewLoading } =
+    useOverviewInfoQuery();
+
+  console.log('checking overview info', overviewInfo);
+
   // Monthly budget data for bar chart
   const monthlyData = [
     { month: 'Jan', amount: 4000 },
@@ -44,31 +51,39 @@ const Overview = () => {
     {
       id: 1,
       label: 'Total Requests',
-      value: '24',
+      value: overviewInfo?.totalRequests || 0,
       icon: <FaCodePullRequest />,
       bgColor: 'bg-blue-50',
       textColor: 'text-blue-600',
     },
     {
       id: 2,
-      label: 'Active Jobs',
-      value: '+2%',
+      label: 'Completed Jobs',
+      value: overviewInfo?.pendingRequests || 0,
+      icon: <MdTaskAlt />,
+      bgColor: 'bg-pink-50',
+      textColor: 'text-pink-600',
+    },
+    {
+      id: 3,
+      label: 'Assigned Jobs',
+      value: overviewInfo?.assignedJobs || 0,
       icon: <FaTools />,
       bgColor: 'bg-green-50',
       textColor: 'text-green-600',
     },
     {
-      id: 3,
+      id: 4,
       label: 'Budget Summary',
-      value: '$3,400',
+      value: overviewInfo?.budgetSummary?.totalBudget || 0,
       icon: <LucideDollarSign />,
       bgColor: 'bg-purple-50',
       textColor: 'text-purple-600',
     },
     {
-      id: 4,
-      label: 'Pending Orders',
-      value: '8',
+      id: 5,
+      label: 'Pending Requests',
+      value: overviewInfo?.pendingRequests || 0,
       icon: <RiMobileDownloadFill />,
       bgColor: 'bg-pink-50',
       textColor: 'text-pink-600',

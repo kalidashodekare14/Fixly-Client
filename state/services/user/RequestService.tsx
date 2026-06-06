@@ -9,6 +9,15 @@ interface IResponse<T> {
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    overviewInfo: builder.query<any, void>({
+      query: () => ({
+        url: '/api/request/user_overivew',
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: IResponse<IRequest[]>) => response?.data,
+    }),
+
     createRequest: builder.mutation({
       query: (requestData) => ({
         url: '/api/request',
@@ -82,6 +91,7 @@ export const requestService = baseApi.injectEndpoints({
 });
 
 export const {
+  useOverviewInfoQuery,
   useCreateRequestMutation,
   useMyRequestQuery,
   useUpdateRequestMutation,
