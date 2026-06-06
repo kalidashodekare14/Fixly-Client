@@ -12,6 +12,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
 import { Search } from 'lucide-react';
+import SelectedProviderDrawer from './SelectedProviderDrawer';
 
 const statusColor = {
   pending: 'bg-yellow-100 text-yellow-700',
@@ -21,16 +22,18 @@ const statusColor = {
   cancelled: 'bg-red-100 text-red-700',
 };
 const SelectedOffers = () => {
-  const [offerDrawer, setOfferDraser] = useState<boolean>(false);
+  const [isDrawer, setIsDrawer] = useState<boolean>(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string>('');
 
   const { data: selectedRequestOffer, isLoading: viewSelectedOfferLoading } =
     useViewSelectedOfferForRequestQuery();
 
-  const handleViewOffer = (id: string) => {
+  const handleSelectedProvider = (id: string) => {
     setSelectedRequestId(id);
-    setOfferDraser(true);
+    setIsDrawer(true);
   };
+
+  console.log('checking selected request id', selectedRequestId);
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
@@ -99,7 +102,7 @@ const SelectedOffers = () => {
                 <div className="flex gap-2 pt-3">
                   {/* View Offers */}
                   <Button
-                    onClick={() => handleViewOffer(req._id)}
+                    onClick={() => handleSelectedProvider(req._id)}
                     className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
                   >
                     View Offers
@@ -119,11 +122,16 @@ const SelectedOffers = () => {
               </CardContent>
             </Card>
           ))}
-        <OfferDrawer
+        <SelectedProviderDrawer
+          selectedRequestId={selectedRequestId}
+          isDrawer={isDrawer}
+          setIsDrawer={setIsDrawer}
+        />
+        {/* <OfferDrawer
           selectedRequestId={selectedRequestId}
           offerDrawer={offerDrawer}
           setOfferDraser={setOfferDraser}
-        />
+        /> */}
       </div>
     </div>
   );

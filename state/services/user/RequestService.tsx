@@ -62,12 +62,13 @@ export const requestService = baseApi.injectEndpoints({
       providesTags: ['Request'],
     }),
 
-    selectedOffers: builder.query<any, { requestId: string }>({
+    selectedProvider: builder.query<any, { requestId: string }>({
       query: ({ requestId }) => ({
-        url: `/api/request/${requestId}/accepted`,
+        url: `/api/request/${requestId}/selected_provider`,
         method: 'GET',
       }),
       providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
     }),
 
     selectOffer: builder.mutation<any, { offerId: string }>({
@@ -87,6 +88,6 @@ export const {
   useViewOffersQuery,
   useOpenOffersQuery,
   useSelectOfferMutation,
-  useSelectedOffersQuery,
+  useSelectedProviderQuery,
   useViewSelectedOfferForRequestQuery,
 } = requestService;

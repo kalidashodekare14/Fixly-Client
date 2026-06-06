@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useProviderDetailsQuery } from '@/state/services/public/publicService';
 import { useState } from 'react';
+import { useCreateRequestMutation } from '@/state/services/user/RequestService';
 import HireModal from './HireModal';
 
 interface ProviderUser {
@@ -50,8 +51,16 @@ interface ProviderDetailsData {
   availableStatus?: boolean;
 }
 
+interface ISelectData {
+  _id: string;
+  skills: string[];
+  rate: number;
+  rateType: string;
+}
+
 const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
   const [hireToggle, setHireToggle] = useState<boolean>(false);
+  const [seletedData, setSelectedData] = useState<ISelectData | null>(null);
 
   //  Provider details info fetch of rtk query
   const {
@@ -60,7 +69,11 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
     error,
   } = useProviderDetailsQuery(paramsId);
 
+  const [createRequest, { isLoading: createLoading }] =
+    useCreateRequestMutation();
+
   const {
+    _id,
     user,
     bio,
     location,
@@ -103,6 +116,17 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
       bg: 'bg-purple-50',
     },
   ];
+
+  const handleHireMe = () => {
+    const selectData = {
+      _id,
+      skills,
+      rate,
+      rateType,
+    };
+    setSelectedData(selectData);
+    setHireToggle(true);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
@@ -177,7 +201,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
 
               {/* Hire Button */}
               <button
-                onClick={() => setHireToggle(true)}
+                onClick={() => handleHireMe()}
                 className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95"
               >
                 Hire Me
@@ -349,7 +373,11 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
         </div>
       </div>
       {/* Hire modal */}
-      <HireModal hireToggle={hireToggle} setHireToggle={setHireToggle} />
+      <HireModal
+        hireToggle={hireToggle}
+        setHireToggle={setHireToggle}
+        seletedData={seletedData}
+      />
     </div>
   );
 };
