@@ -115,7 +115,7 @@ const ProviderCard = ({
         </div>
         <div className="text-right">
           <p className="text-[11px] font-medium uppercase tracking-wider text-gray-400">
-            Jobs done
+            Experience
           </p>
           <p className="mt-0.5 font-semibold text-gray-900">
             {provider.experience} yrs
@@ -135,20 +135,11 @@ const ProviderCard = ({
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link href={`/providers/${provider._id}`}>
-            <button className="cursor-pointer rounded-xl border border-pink px-5 py-2.5 text-sm font-semibold text-charcoal shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
-              View Profile
-            </button>
-          </Link>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="cursor-pointer rounded-xl border border-pink bg-pink text-white px-5 py-2.5 text-sm font-semibold shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
-            Hire Me
-          </button>
-        </div>
-      </div>
+      <Link href={`/providers/${provider._id}`}>
+        <button className=" cursor-pointer rounded-xl border border-pink px-5 py-2.5 text-sm font-semibold text-charcoal shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+          View Profile
+        </button>
+      </Link>
     </motion.div>
   );
 };
