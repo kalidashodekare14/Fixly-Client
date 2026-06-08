@@ -160,7 +160,7 @@ export default function Signup() {
               <div className="space-y-2">
                 <Label className="text-charcoal">Last Name (Optional)</Label>
                 <Input
-                  {...register('last_name', { required: true })}
+                  {...register('last_name')}
                   className={`p-6 ${errors.last_name && 'border-red-400'}`}
                   placeholder="Doe"
                 />
