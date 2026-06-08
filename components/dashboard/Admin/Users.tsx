@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,6 +32,14 @@ import {
   useManageUserQuery,
   useStatusChangeMutation,
 } from '@/state/services/admin/AdminService';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 interface User {
   _id: string;
@@ -50,140 +57,6 @@ interface User {
   completedJobs?: number;
   rating?: number;
 }
-
-// const allUsers: User[] = [
-//   {
-//     _id: '#USR-001',
-//     name: 'Rahul Sharma',
-//     email: 'rahul.sharma@email.com',
-//     role: 'user',
-//     status: 'active',
-//     phone: '+91 98765 43210',
-//     location: 'Mumbai, India',
-//     createdAt: '2026-06-01',
-//     totalRequests: 12,
-//     completedJobs: 8,
-//     rating: 4.5,
-//   },
-//   {
-//     _id: '#USR-002',
-//     name: 'Priya Das',
-//     email: 'priya.das@email.com',
-//     role: 'provider',
-//     status: 'active',
-//     phone: '+91 87654 32109',
-//     location: 'Kolkata, India',
-//     createdAt: '2026-05-28',
-//     totalRequests: 45,
-//     completedJobs: 40,
-//     rating: 4.8,
-//   },
-//   {
-//     _id: '#USR-003',
-//     name: 'Amit Khan',
-//     email: 'amit.khan@email.com',
-//     role: 'user',
-//     status: 'suspended',
-//     phone: '+91 76543 21098',
-//     location: 'Delhi, India',
-//     createdAt: '2026-05-25',
-//     totalRequests: 3,
-//     completedJobs: 0,
-//     rating: 2.0,
-//   },
-//   {
-//     _id: '#USR-004',
-//     name: 'Sneha Roy',
-//     email: 'sneha.roy@email.com',
-//     role: 'provider',
-//     status: 'active',
-//     phone: '+91 65432 10987',
-//     location: 'Bangalore, India',
-//     createdAt: '2026-05-22',
-//     totalRequests: 28,
-//     completedJobs: 25,
-//     rating: 4.9,
-//   },
-//   {
-//     _id: '#USR-005',
-//     name: 'Vikram Singh',
-//     email: 'vikram.singh@email.com',
-//     role: 'user',
-//     status: 'pending',
-//     phone: '+91 54321 09876',
-//     location: 'Pune, India',
-//     createdAt: '2026-05-20',
-//     totalRequests: 1,
-//     completedJobs: 0,
-//     rating: 0,
-//   },
-//   {
-//     _id: '#USR-006',
-//     name: 'Ananya Patel',
-//     email: 'ananya.patel@email.com',
-//     role: 'provider',
-//     status: 'active',
-//     phone: '+91 43210 98765',
-//     location: 'Ahmedabad, India',
-//     createdAt: '2026-05-18',
-//     totalRequests: 18,
-//     completedJobs: 15,
-//     rating: 4.6,
-//   },
-//   {
-//     _id: '#USR-007',
-//     name: 'Ravi Verma',
-//     email: 'ravi.verma@email.com',
-//     role: 'admin',
-//     status: 'active',
-//     phone: '+91 32109 87654',
-//     location: 'Chennai, India',
-//     createdAt: '2026-05-15',
-//     totalRequests: 0,
-//     completedJobs: 0,
-//     rating: 5.0,
-//   },
-//   {
-//     _id: '#USR-008',
-//     name: 'Neha Gupta',
-//     email: 'neha.gupta@email.com',
-//     role: 'user',
-//     status: 'active',
-//     phone: '+91 21098 76543',
-//     location: 'Hyderabad, India',
-//     createdAt: '2026-05-12',
-//     totalRequests: 7,
-//     completedJobs: 5,
-//     rating: 4.2,
-//   },
-//   {
-//     _id: '#USR-009',
-//     name: 'Deepak Joshi',
-//     email: 'deepak.joshi@email.com',
-//     role: 'provider',
-//     status: 'suspended',
-//     phone: '+91 10987 65432',
-//     location: 'Jaipur, India',
-//     createdAt: '2026-05-10',
-//     totalRequests: 10,
-//     completedJobs: 6,
-//     rating: 3.5,
-//   },
-//   {
-//     _id: '#USR-010',
-//     name: 'Kavita Reddy',
-//     email: 'kavita.reddy@email.com',
-//     role: 'user',
-//     status: 'active',
-//     phone: '+91 01987 65432',
-//     location: 'Lucknow, India',
-//     createdAt: '2026-05-08',
-//     totalRequests: 5,
-//     completedJobs: 3,
-//     rating: 4.0,
-//   },
-// ];
-
 const statusStyles: Record<string, string> = {
   active: 'bg-emerald-50 text-emerald-600 border-emerald-200',
   suspended: 'bg-red-50 text-red-600 border-red-200',
@@ -212,13 +85,20 @@ const Users = () => {
   const [confirmAction, setConfirmAction] = useState<
     'suspend' | 'active' | 'delete' | null
   >(null);
-  const isLoading = false;
+  // page
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { data: usersManage, isLoading: manageLoading } = useManageUserQuery({
     role: roleFilter,
     search: searchQuery,
+    currentPage,
   });
   console.log('checking user manage', usersManage);
+
+  // Total pages for pagination
+  const totalPages: number = usersManage?.pagination?.totalPages || 1;
+
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   // status update
   const [statusChange, { isLoading: statusLoading }] =
@@ -226,16 +106,16 @@ const Users = () => {
 
   const stats = useMemo(
     () => ({
-      total: usersManage?.length,
-      active:
-        usersManage &&
-        usersManage.filter((u: any) => u.status === 'active').length,
-      suspended:
-        usersManage &&
-        usersManage.filter((u: any) => u.status === 'suspended').length,
+      total: usersManage?.statsInfo ? usersManage?.statsInfo?.totalUsers : 0,
+      active: usersManage?.statsInfo
+        ? usersManage?.statsInfo?.totalActiveUsers
+        : 0,
+      suspended: usersManage?.statsInfo
+        ? usersManage?.statsInfo?.totalSuspendUsers
+        : 0,
       pending:
-        usersManage &&
-        usersManage.filter((u: any) => u.status === 'pending').length,
+        usersManage?.data &&
+        usersManage?.data?.filter((u: any) => u.status === 'pending').length,
     }),
     []
   );
@@ -302,35 +182,28 @@ const Users = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5">
             {[
               {
                 label: 'Total',
-                value: stats.total,
+                value: usersManage?.statsInfo?.totalUsers || 0,
                 color: 'text-gray-900',
                 bg: 'bg-gray-50',
                 icon: <FaUsers className="text-gray-500" />,
               },
               {
                 label: 'Active',
-                value: stats.active,
+                value: usersManage?.statsInfo?.totalActiveUsers || 0,
                 color: 'text-emerald-600',
                 bg: 'bg-emerald-50',
                 icon: <FaUserCheck className="text-emerald-500" />,
               },
               {
                 label: 'Suspended',
-                value: stats.suspended,
+                value: usersManage?.statsInfo?.totalSuspendUsers || 0,
                 color: 'text-red-600',
                 bg: 'bg-red-50',
                 icon: <ShieldOff className="text-red-500" />,
-              },
-              {
-                label: 'Pending',
-                value: stats.pending,
-                color: 'text-amber-600',
-                bg: 'bg-amber-50',
-                icon: <FaShieldAlt className="text-amber-500" />,
               },
             ].map((stat) => (
               <div
@@ -398,8 +271,8 @@ const Users = () => {
           <>
             {/* Mobile Cards */}
             <div className="sm:hidden space-y-3">
-              {usersManage.length > 0 ? (
-                usersManage.map((user: any) => (
+              {usersManage?.data?.length > 0 ? (
+                usersManage?.data?.map((user: any) => (
                   <div
                     key={user._id}
                     className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100/50"
@@ -512,8 +385,8 @@ const Users = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {usersManage.length > 0 ? (
-                      usersManage.map((user: any) => (
+                    {usersManage?.data?.length > 0 ? (
+                      usersManage?.data?.map((user: any) => (
                         <tr
                           key={user._id}
                           className="border-b border-gray-50 transition-colors last:border-0 hover:bg-gray-50/50"
@@ -637,6 +510,40 @@ const Users = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            <div className="w-full mt-6 flex items-center justify-end">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      className="w-30"
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.max(prev - 1, 1))
+                      }
+                    />
+                  </PaginationItem>
+
+                  {pages.map((page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        isActive={currentPage === page}
+                        onClick={() => setCurrentPage(page)}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      className="w-22"
+                      onClick={() =>
+                        setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </>
         ) : (
