@@ -46,6 +46,7 @@ export default function Signup() {
       email: data.email,
       password: data.password,
       role: accountType,
+      status: 'active',
     };
 
     if (password !== confirmPassword) {
