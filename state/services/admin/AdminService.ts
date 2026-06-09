@@ -27,6 +27,15 @@ export const adminService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Admin'],
     }),
+    manageRequests: builder.query({
+      query: (params) => ({
+        url: '/api/admin/manage_requests',
+        method: 'GET',
+        params,
+      }),
+      providesTags: ['Admin'],
+      transformResponse: (response: any) => response?.data,
+    }),
   }),
 });
 
@@ -34,4 +43,5 @@ export const {
   useOverviewInfoQuery,
   useManageUserQuery,
   useStatusChangeMutation,
+  useManageRequestsQuery,
 } = adminService;
