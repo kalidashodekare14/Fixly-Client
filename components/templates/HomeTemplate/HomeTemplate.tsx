@@ -2,6 +2,7 @@
 
 import BannerSection from '@/components/sections/home/BannerSection';
 import CategorySection from '@/components/sections/home/CategorySection';
+import FaqSection from '@/components/sections/home/FaqSection';
 import GetServices from '@/components/sections/home/GetServices';
 import GetStarted from '@/components/sections/home/GetStarted';
 import OurAchievements from '@/components/sections/home/OurAchievements';
@@ -21,6 +22,7 @@ const HomeTemplate = () => {
       <SmartGuard />
       <TopProviders />
       <OurAchievements />
+      <FaqSection />
       <Testimonial />
       <SubscribeSection />
       <GetStarted />
