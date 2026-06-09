@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ProviderData from '@/components/sections/providers/ProviderData';
 import Sidebar from '@/components/sections/providers/Sidebar';
-import HeaderSection from '@/components/shared/HeaderSection';
+import HeaderSection from '@/components/shared/HeaderSection/HeaderSection';
 import type { FiltersState } from '@/components/sections/providers/Sidebar';
 
 const ProvidersTemplate = () => {

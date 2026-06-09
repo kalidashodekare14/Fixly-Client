@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 const OurAbout = () => {
   return (
@@ -9,7 +9,7 @@ const OurAbout = () => {
       <div className="lg:w-[45%] relative">
         <Image
           className="w-full h-90 rounded-2xl"
-          src={"/about/img1.jpg"}
+          src={'/about/img1.jpg'}
           width={500}
           height={300}
           alt="Image1"
