@@ -112,6 +112,7 @@ export default function CreateRequest() {
       formData.append('description', data.description);
       formData.append('budget', data.budget);
       formData.append('deadline', data.deadline);
+      formData.append('requestType', 'normal');
       // TODO: Construct location object from individual fields (like Provider Profile)
       formData.append(
         'location',

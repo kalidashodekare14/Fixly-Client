@@ -14,7 +14,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, MapPin, Crosshair, Upload } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useCreateRequestMutation } from '@/state/services/user/RequestService';
+import {
+  useCreateRequestMutation,
+  useInitPaymentMutation,
+} from '@/state/services/user/RequestService';
 import toast, { Toaster } from 'react-hot-toast';
 
 interface ISelectData {
@@ -49,10 +52,10 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
   const [locationLoading, setLocationLoading] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  console.log('checking provider id', seletedData);
-
   const [createRequest, { isLoading: createLoading }] =
     useCreateRequestMutation();
+
+  const [initPayment] = useInitPaymentMutation();
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -132,23 +135,33 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
       }
       setSubmitLoading(true);
       const res = await createRequest(formData).unwrap();
-      if (res?.success) {
-        toast.success('Request Create Successfully🎉');
-        // reset input filed
+      console.log('checking res data', res);
 
-        reset();
-        // modal close
-        setHireToggle(false);
-
-        // reset state
-        setFile(null);
-        setDivision('');
-        setAddress('');
-        setCity('');
-        setLongitude('');
-        setLatitude('');
-        setPostalCode('');
+      if (res?.success && res?.data?.request?._id) {
+        const paymentRes = await initPayment({
+          requestId: res.data?.request?._id,
+        }).unwrap();
+        console.log('created successfully');
+        window.location.href = paymentRes?.data?.paymentUrl;
       }
+
+      // if (res?.success) {
+      //   toast.success('Request Create Successfully🎉');
+
+      //   // reset input filed
+      //   reset();
+      //   // modal close
+      //   setHireToggle(false);
+
+      //   // reset state
+      //   setFile(null);
+      //   setDivision('');
+      //   setAddress('');
+      //   setCity('');
+      //   setLongitude('');
+      //   setLatitude('');
+      //   setPostalCode('');
+      // }
     } catch (error: any) {
       console.log(error.message);
     } finally {

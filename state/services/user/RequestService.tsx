@@ -87,6 +87,14 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    initPayment: builder.mutation({
+      query: (paymentInfo) => ({
+        url: `/api/request/ssl_payment`,
+        method: 'POST',
+        body: paymentInfo,
+      }),
+      invalidatesTags: ['Request'],
+    }),
   }),
 });
 
@@ -100,4 +108,5 @@ export const {
   useSelectOfferMutation,
   useSelectedProviderQuery,
   useViewSelectedOfferForRequestQuery,
+  useInitPaymentMutation,
 } = requestService;
