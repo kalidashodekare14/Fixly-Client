@@ -13,6 +13,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
 import { Search } from 'lucide-react';
 import SelectedProviderDrawer from './SelectedProviderDrawer';
+import GiveReviewModal from './GiveReviewModal';
 
 const statusColor = {
   pending: 'bg-yellow-100 text-yellow-700',
@@ -23,7 +24,10 @@ const statusColor = {
 };
 const SelectedOffers = () => {
   const [isDrawer, setIsDrawer] = useState<boolean>(false);
+  const [reviewDrawer, setReviewDrawer] = useState<boolean>(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string>('');
+  const [selectedRequestIdForReview, setSelectedRequestIdForReview] =
+    useState<string>('');
 
   const { data: selectedRequestOffer, isLoading: viewSelectedOfferLoading } =
     useViewSelectedOfferForRequestQuery();
@@ -31,6 +35,11 @@ const SelectedOffers = () => {
   const handleSelectedProvider = (id: string) => {
     setSelectedRequestId(id);
     setIsDrawer(true);
+  };
+
+  const handleGiveReview = (id: string) => {
+    setSelectedRequestIdForReview(id);
+    setReviewDrawer(true);
   };
 
   console.log('checking selected request id', selectedRequestId);
@@ -99,14 +108,24 @@ const SelectedOffers = () => {
                 </div>
 
                 {/* ACTION BUTTONS */}
-                <div className="flex gap-2 pt-3">
-                  {/* View Offers */}
-                  <Button
-                    onClick={() => handleSelectedProvider(req._id)}
-                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
-                  >
-                    View Offers
-                  </Button>
+                <div className="flex items-center gap-10">
+                  <div className="flex gap-2 pt-3">
+                    {/* View Offers */}
+                    <Button
+                      onClick={() => handleSelectedProvider(req._id)}
+                      className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+                    >
+                      Selected provider
+                    </Button>
+                  </div>
+                  <div className="flex gap-2 pt-3">
+                    <Button
+                      onClick={() => handleGiveReview(req._id)}
+                      className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+                    >
+                      Give Review
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,11 +146,11 @@ const SelectedOffers = () => {
           isDrawer={isDrawer}
           setIsDrawer={setIsDrawer}
         />
-        {/* <OfferDrawer
-          selectedRequestId={selectedRequestId}
-          offerDrawer={offerDrawer}
-          setOfferDraser={setOfferDraser}
-        /> */}
+        <GiveReviewModal
+          reviewDrawer={reviewDrawer}
+          setReviewDrawer={setReviewDrawer}
+          selectedRequestIdForReview={selectedRequestIdForReview}
+        />
       </div>
     </div>
   );

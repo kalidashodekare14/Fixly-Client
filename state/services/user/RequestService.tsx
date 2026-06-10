@@ -95,6 +95,15 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    // give review
+    giveReview: builder.mutation({
+      query: (reviewInfo) => ({
+        url: `/api/review`,
+        method: 'POST',
+        body: reviewInfo,
+      }),
+      invalidatesTags: ['Request'],
+    }),
   }),
 });
 
@@ -109,4 +118,5 @@ export const {
   useSelectedProviderQuery,
   useViewSelectedOfferForRequestQuery,
   useInitPaymentMutation,
+  useGiveReviewMutation,
 } = requestService;
