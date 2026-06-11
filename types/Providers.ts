@@ -40,3 +40,25 @@ export interface IPublicProvider {
   availableStatus: boolean;
   experience: number;
 }
+
+export interface IProviderReview {
+  _id: string;
+  comment: string;
+  createdAt: string;
+  rating: number;
+
+  request: {
+    category: {
+      label: string;
+    };
+  };
+
+  user: {
+    _id: string;
+    name: string;
+    image: string;
+    location: {
+      address: string;
+    };
+  };
+}

@@ -62,6 +62,11 @@ export const sidebarConfig = {
       href: '/dashboard/provider/profile',
       icon: <FaUsers />,
     },
+    {
+      label: 'Reviews',
+      href: '/dashboard/provider/reviews',
+      icon: <MdOutlineFeedback />,
+    },
   ],
 
   admin: [

@@ -1,4 +1,12 @@
 import { baseApi } from '@/state/baseApi';
+import { IProviderReview } from '@/types/Providers';
+import { IReview } from '@/types/Review';
+
+interface IResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -55,6 +63,15 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    providerReviews: builder.query<IProviderReview[], void>({
+      query: () => ({
+        url: '/api/provider/provider-reviews',
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: IResponse<IProviderReview[]>) =>
+        response?.data,
+    }),
   }),
 });
 
@@ -65,4 +82,5 @@ export const {
   useSendOfferdQuery,
   useJobsInfoQuery,
   useJobStatusChangeMutation,
+  useProviderReviewsQuery,
 } = requestService;
