@@ -15,6 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import {
   useGetReviewsQuery,
@@ -219,8 +220,41 @@ const MyReviews = () => {
         />
       </div>
 
-      {/* Reviews Grid */}
-      {myReviews.length > 0 ? (
+      {/* Loading Skeleton */}
+      {reviewLoading ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-white border rounded-2xl overflow-hidden"
+            >
+              <div className="p-5 pb-3 space-y-3">
+                <div className="flex items-center gap-3">
+                  <Skeleton className="size-12 rounded-full" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-3 w-36" />
+                  </div>
+                  <Skeleton className="h-3 w-16" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Skeleton className="h-5 w-24" />
+                  <Skeleton className="h-5 w-20 rounded-full" />
+                </div>
+              </div>
+              <div className="border-t" />
+              <div className="p-5 pt-3 space-y-2">
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-5/6" />
+                <Skeleton className="h-3 w-4/6" />
+              </div>
+              <div className="p-5 pt-0">
+                <Skeleton className="h-10 w-full rounded-xl" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : myReviews.length > 0 ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {myReviews.map((review) => (
             <div
