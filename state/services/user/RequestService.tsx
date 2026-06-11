@@ -1,5 +1,6 @@
 import { baseApi } from '@/state/baseApi';
 import { IRequest } from '@/types/Request';
+import { IReview } from '@/types/Review';
 
 interface IResponse<T> {
   success: boolean;
@@ -104,6 +105,22 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    getReviews: builder.query<IReview[], void>({
+      query: () => ({
+        url: `/api/review`,
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: IResponse<IReview[]>) => response?.data,
+    }),
+    updateReview: builder.mutation({
+      query: ({ reviewId, reviewData }) => ({
+        url: `/api/review/${reviewId}`,
+        method: 'PUT',
+        body: reviewData,
+      }),
+      invalidatesTags: ['Request'],
+    }),
   }),
 });
 
@@ -119,4 +136,6 @@ export const {
   useViewSelectedOfferForRequestQuery,
   useInitPaymentMutation,
   useGiveReviewMutation,
+  useGetReviewsQuery,
+  useUpdateReviewMutation,
 } = requestService;

@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Star, Loader2 } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { Rating } from '@smastrom/react-rating';
+import '@smastrom/react-rating/style.css';
+import { Loader2 } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useGiveReviewMutation } from '@/state/services/user/RequestService';
 
 interface IDrawerProps {
@@ -93,29 +95,16 @@ const GiveReviewModal = ({
             <div className="space-y-2">
               <p className="text-sm font-medium">Your Rating</p>
               <div className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setRating(star)}
-                    onMouseEnter={() => setHoveredRating(star)}
-                    onMouseLeave={() => setHoveredRating(0)}
-                    className="cursor-pointer transition-transform hover:scale-110 active:scale-95"
-                  >
-                    <Star
-                      className={`size-7 ${
-                        star <= (hoveredRating || rating)
-                          ? 'fill-yellow-400 text-yellow-400'
-                          : 'text-gray-300'
-                      }`}
-                    />
-                  </button>
-                ))}
-
+                <Rating
+                  style={{ maxWidth: 200 }}
+                  value={rating}
+                  onChange={setRating}
+                  onHoverChange={setHoveredRating}
+                />
                 <span className="ml-2 text-sm text-muted-foreground">
-                  {rating > 0
-                    ? ['', 'Bad', 'Okay', 'Good', 'Great', 'Excellent'][rating]
-                    : 'Select'}
+                  {['', 'Bad', 'Okay', 'Good', 'Great', 'Excellent'][
+                    hoveredRating || rating
+                  ] || 'Select'}
                 </span>
               </div>
             </div>
@@ -157,6 +146,7 @@ const GiveReviewModal = ({
           </div>
         </form>
       </DialogContent>
+      <Toaster />
     </Dialog>
   );
 };

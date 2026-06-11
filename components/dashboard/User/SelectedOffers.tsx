@@ -3,15 +3,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import OfferDrawer from './OfferDrawer';
 
-import {
-  useMyRequestQuery,
-  useViewSelectedOfferForRequestQuery,
-} from '@/state/services/user/RequestService';
+import { useViewSelectedOfferForRequestQuery } from '@/state/services/user/RequestService';
 import { Card, CardContent } from '@/components/ui/card';
 import { IRequest } from '@/types/Request';
-import { Search } from 'lucide-react';
+import { Search, CalendarDays, User, Star } from 'lucide-react';
 import SelectedProviderDrawer from './SelectedProviderDrawer';
 import GiveReviewModal from './GiveReviewModal';
 
@@ -61,71 +57,85 @@ const SelectedOffers = () => {
           selectedRequestOffer.map((req: IRequest) => (
             <div
               key={req._id}
-              className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden"
+              className="bg-white border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden group"
             >
               {/* IMAGE */}
-              <div className="h-40 w-full relative bg-gray-100">
+              <div className="h-44 w-full relative bg-gray-100 overflow-hidden">
                 <Image
                   src={req.image}
                   alt={req.title}
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
+                <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
+                <span
+                  className={`absolute top-3 right-3 text-xs font-medium px-2.5 py-1 rounded-full shadow-sm ${statusColor[req.status]}`}
+                >
+                  {req.status.replace('_', ' ')}
+                </span>
               </div>
 
               {/* CONTENT */}
-              <div className="p-4 space-y-3">
+              <div className="p-5 space-y-4">
                 {/* Title */}
-                <h3 className="font-semibold text-lg line-clamp-1">
+                <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-[#E91E63] transition-colors duration-200">
                   {req.title}
                 </h3>
 
-                {/* Category + Status */}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">
+                {/* Category */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium px-2.5 py-0.5 bg-gray-100 rounded-full">
                     {req.category?.label}
-                  </span>
-
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full ${statusColor[req.status]}`}
-                  >
-                    {req.status}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-500 line-clamp-2">
+                <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
                   {req.description}
                 </p>
 
                 {/* Budget + Deadline */}
-                <div className="flex justify-between text-sm pt-2 border-t">
-                  <p className="font-semibold">৳ {req.budget}</p>
-                  <p className="text-gray-500">
-                    {new Date(req.deadline).toDateString()}
-                  </p>
+                <div className="flex items-center justify-between text-sm pt-3 border-t border-gray-100">
+                  <span className="font-bold text-lg text-gray-800">
+                    ৳{req.budget}
+                  </span>
+                  <div className="flex items-center gap-1.5 text-gray-500">
+                    <CalendarDays className="size-3.5" />
+                    <span>{new Date(req.deadline).toDateString()}</span>
+                  </div>
                 </div>
 
                 {/* ACTION BUTTONS */}
-                <div className="flex items-center gap-10">
-                  <div className="flex gap-2 pt-3">
-                    {/* View Offers */}
-                    <Button
-                      onClick={() => handleSelectedProvider(req._id)}
-                      className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
-                    >
-                      Selected provider
-                    </Button>
-                  </div>
-                  <div className="flex gap-2 pt-3">
+                <div className="flex gap-3 pt-1">
+                  <Button
+                    onClick={() => handleSelectedProvider(req._id)}
+                    className="flex-1 h-11 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl text-sm font-medium"
+                  >
+                    <User className="size-4 mr-1.5" />
+                    Provider
+                  </Button>
+                  {req.status === 'completed' && !req.isReviewed && (
                     <Button
                       onClick={() => handleGiveReview(req._id)}
-                      className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+                      variant="outline"
+                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-[#E91E63] text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
                     >
-                      Give Review
+                      <Star className="size-4 mr-1.5" />
+                      Review
                     </Button>
-                  </div>
+                  )}
+                  {req.status === 'completed' && req.isReviewed && (
+                    <Button
+                      disabled
+                      onClick={() => handleGiveReview(req._id)}
+                      variant="outline"
+                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-[#E91E63] text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
+                    >
+                      <Star className="size-4 mr-1.5" />
+                      Reviewed ✓
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

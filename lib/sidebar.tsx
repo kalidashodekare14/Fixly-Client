@@ -33,8 +33,8 @@ export const sidebarConfig = {
     { label: 'Chat', href: '/dashboard/user/chat', icon: <MdChat /> },
     { label: 'Profile', href: '/dashboard/user/profile', icon: <FaUsers /> },
     {
-      label: 'Feedback',
-      href: '/dashboard/user/feedback',
+      label: 'My Reviews',
+      href: '/dashboard/user/my_reviews',
       icon: <MdOutlineFeedback />,
     },
   ],
