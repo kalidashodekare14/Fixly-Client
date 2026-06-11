@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import {
+  useInitPaymentMutation,
   useSelectOfferMutation,
   useViewOffersQuery,
 } from '@/state/services/user/RequestService';
@@ -124,12 +125,21 @@ const OfferDrawer = ({
   const [selectOffer, { isLoading: selectedOfferLoading }] =
     useSelectOfferMutation();
 
+  const [initPayment] = useInitPaymentMutation();
+
   // selected offer
   const handleSelectedOffer = async (offerId: string) => {
     try {
-      const res = await selectOffer({ offerId }).unwrap();
+      const paymentInfo = {
+        offerId,
+        requestId: selectedRequestId,
+      };
+      // const res = await selectOffer({ offerId }).unwrap();
+      const res = await initPayment(paymentInfo).unwrap();
+      console.log('check payment data', res);
       if (res?.success) {
-        setOfferDraser(false);
+        // setOfferDraser(false);
+        window.location.href = res?.data?.paymentUrl;
       }
     } catch (error: any) {
       console.log(error.message);
@@ -212,7 +222,7 @@ const OfferDrawer = ({
                     onClick={() => handleSelectedOffer(offer?._id)}
                     className={`${offer.status === 'accepted' && 'hidden'} w-full mt-2 py-2 cursor-pointer rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition`}
                   >
-                    Select
+                    Confirm & Pay
                   </button>
                   <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-[#E91E63]  text-sm hover:bg-[#ffedf4] transition">
                     View Profile

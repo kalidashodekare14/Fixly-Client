@@ -4,7 +4,7 @@ import OurAbout from '@/components/sections/about/OurAbout';
 import GetServices from '@/components/sections/home/GetServices';
 import SmartGuard from '@/components/sections/home/SmartGuard';
 import Testimonial from '@/components/sections/home/Testimonial/Testimonial';
-import HeaderSection from '@/components/shared/HeaderSection';
+import HeaderSection from '@/components/shared/HeaderSection/HeaderSection';
 
 const AboutTemplate = () => {
   return (

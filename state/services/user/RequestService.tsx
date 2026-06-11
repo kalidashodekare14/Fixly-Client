@@ -1,5 +1,6 @@
 import { baseApi } from '@/state/baseApi';
 import { IRequest } from '@/types/Request';
+import { IReview } from '@/types/Review';
 
 interface IResponse<T> {
   success: boolean;
@@ -87,6 +88,50 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    initPayment: builder.mutation({
+      query: (paymentInfo) => ({
+        url: `/api/request/ssl_payment`,
+        method: 'POST',
+        body: paymentInfo,
+      }),
+      invalidatesTags: ['Request'],
+    }),
+    // Payment History
+    myPayments: builder.query({
+      query: (params) => ({
+        url: `/api/request/my-payments`,
+        method: 'GET',
+        params,
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
+    }),
+
+    // give review
+    giveReview: builder.mutation({
+      query: (reviewInfo) => ({
+        url: `/api/review`,
+        method: 'POST',
+        body: reviewInfo,
+      }),
+      invalidatesTags: ['Request'],
+    }),
+    getReviews: builder.query<IReview[], void>({
+      query: () => ({
+        url: `/api/review`,
+        method: 'GET',
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: IResponse<IReview[]>) => response?.data,
+    }),
+    updateReview: builder.mutation({
+      query: ({ reviewId, reviewData }) => ({
+        url: `/api/review/${reviewId}`,
+        method: 'PUT',
+        body: reviewData,
+      }),
+      invalidatesTags: ['Request'],
+    }),
   }),
 });
 
@@ -100,4 +145,9 @@ export const {
   useSelectOfferMutation,
   useSelectedProviderQuery,
   useViewSelectedOfferForRequestQuery,
+  useInitPaymentMutation,
+  useMyPaymentsQuery,
+  useGiveReviewMutation,
+  useGetReviewsQuery,
+  useUpdateReviewMutation,
 } = requestService;

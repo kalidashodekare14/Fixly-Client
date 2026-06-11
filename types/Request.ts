@@ -10,6 +10,7 @@ export interface IRequest {
   description: string;
   budget: number;
   deadline: string;
+  isReviewed: boolean;
   location: {
     address: string;
     city: string;
