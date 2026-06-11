@@ -11,10 +11,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 
 import providerData from '../../../../data/providers.json';
-import type { Provider } from '../../../../types/Providers';
 
 // custom css
 import './TopProviders.css';
+import { Provider } from '@/types/Providers';
 
 // -------------------- Provider Card Component -------------------
 const ProviderCard = ({ provider }: { provider: Provider }) => {

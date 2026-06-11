@@ -96,6 +96,17 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    // Payment History
+    myPayments: builder.query({
+      query: (params) => ({
+        url: `/api/request/my-payments`,
+        method: 'GET',
+        params,
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
+    }),
+
     // give review
     giveReview: builder.mutation({
       query: (reviewInfo) => ({
@@ -135,6 +146,7 @@ export const {
   useSelectedProviderQuery,
   useViewSelectedOfferForRequestQuery,
   useInitPaymentMutation,
+  useMyPaymentsQuery,
   useGiveReviewMutation,
   useGetReviewsQuery,
   useUpdateReviewMutation,

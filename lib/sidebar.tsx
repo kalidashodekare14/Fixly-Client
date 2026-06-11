@@ -4,6 +4,7 @@ import { CiViewList } from 'react-icons/ci';
 import { FaUserCog, FaUsers } from 'react-icons/fa';
 import { BsClipboardCheck, BsSend } from 'react-icons/bs';
 import { RiSettings3Line } from 'react-icons/ri';
+import { FaSackDollar } from 'react-icons/fa6';
 
 export type Role = 'user' | 'provider' | 'admin';
 
@@ -32,6 +33,11 @@ export const sidebarConfig = {
     },
     { label: 'Chat', href: '/dashboard/user/chat', icon: <MdChat /> },
     { label: 'Profile', href: '/dashboard/user/profile', icon: <FaUsers /> },
+    {
+      label: 'My Payments',
+      href: '/dashboard/user/my_payment',
+      icon: <FaSackDollar />,
+    },
     {
       label: 'My Reviews',
       href: '/dashboard/user/my_reviews',
