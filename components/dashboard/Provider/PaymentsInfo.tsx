@@ -132,7 +132,9 @@ const PaymentsInfo = () => {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Total Earnings
                   </p>
-                  <p className="text-2xl font-bold mt-1.5">৳{500}</p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    ৳{paymentInfo?.statsInfo?.totalEarnings[0]?.total || 0}
+                  </p>
                 </div>
                 <div className="size-11 rounded-2xl bg-green-50 flex items-center justify-center">
                   <Banknote className="size-5 text-green-600" />
@@ -158,7 +160,9 @@ const PaymentsInfo = () => {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Paid
                   </p>
-                  <p className="text-2xl font-bold mt-1.5">{500}</p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {paymentInfo?.statsInfo?.totalPaid || 0}
+                  </p>
                 </div>
                 <div className="size-11 rounded-2xl bg-blue-50 flex items-center justify-center">
                   <CheckCircle2 className="size-5 text-blue-600" />
@@ -184,7 +188,9 @@ const PaymentsInfo = () => {
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Pending
                   </p>
-                  <p className="text-2xl font-bold mt-1.5">{200}</p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {paymentInfo?.statsInfo?.totalPending || 0}
+                  </p>
                 </div>
                 <div className="size-11 rounded-2xl bg-yellow-50 flex items-center justify-center">
                   <Clock className="size-5 text-yellow-600" />
@@ -208,9 +214,39 @@ const PaymentsInfo = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Failed
+                  </p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {paymentInfo?.statsInfo?.totalFailed || 0}
+                  </p>
+                </div>
+                <div className="size-11 rounded-2xl bg-purple-50 flex items-center justify-center">
+                  <Receipt className="size-5 text-purple-600" />
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-sm">
+          <CardContent className="p-5">
+            {paymentLoading ? (
+              <div className="flex items-center justify-between">
+                <div className="space-y-3">
+                  <Skeleton className="h-3 w-20" />
+                  <Skeleton className="h-7 w-20" />
+                </div>
+                <Skeleton className="size-11 rounded-2xl" />
+              </div>
+            ) : (
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Cancelled
                   </p>
-                  <p className="text-2xl font-bold mt-1.5">{300}</p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {paymentInfo?.statsInfo?.totalCancelled || 0}
+                  </p>
                 </div>
                 <div className="size-11 rounded-2xl bg-purple-50 flex items-center justify-center">
                   <Receipt className="size-5 text-purple-600" />
@@ -295,7 +331,7 @@ const PaymentsInfo = () => {
       )}
 
       {/* Payments Table (Desktop) */}
-      {!paymentLoading && paymentInfo?.length > 0 && (
+      {!paymentLoading && paymentInfo?.payments.length > 0 && (
         <div className="hidden md:block bg-white rounded-2xl border shadow-sm overflow-hidden">
           <Table>
             <TableHeader>
@@ -308,7 +344,7 @@ const PaymentsInfo = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paymentInfo.map((payment: any) => (
+              {paymentInfo?.payments.map((payment: any) => (
                 <TableRow key={payment._id}>
                   <TableCell>
                     <div className="flex items-center gap-3 max-w-56">
@@ -361,7 +397,7 @@ const PaymentsInfo = () => {
           <div className="px-4 py-2.5 border-t bg-gray-50/50 text-[11px] text-gray-400 flex items-center gap-1">
             <Hash className="size-3" />
             Job IDs:
-            {paymentInfo.map((p: any) => (
+            {paymentInfo?.payments.map((p: any) => (
               <span key={p._id} className="font-mono ml-1.5">
                 {p._id}
               </span>
@@ -371,9 +407,9 @@ const PaymentsInfo = () => {
       )}
 
       {/* Payments Cards (Mobile) */}
-      {!paymentLoading && paymentInfo.length > 0 && (
+      {!paymentLoading && paymentInfo?.payments.length > 0 && (
         <div className="md:hidden space-y-4">
-          {paymentInfo.map((payment: any) => (
+          {paymentInfo?.payments.map((payment: any) => (
             <div
               key={payment._id}
               className="bg-white border rounded-2xl shadow-sm overflow-hidden"
