@@ -11,6 +11,7 @@ import SubscribeSection from '@/components/sections/home/SubscribeSection';
 import SuccessInfo from '@/components/sections/home/SuccessInfo';
 import Testimonial from '@/components/sections/home/Testimonial/Testimonial';
 import TopProviders from '@/components/sections/home/TopProviders/TopProviders';
+import WhyChoose from '@/components/sections/home/WhyChoose';
 
 const HomeTemplate = () => {
   return (
@@ -18,6 +19,7 @@ const HomeTemplate = () => {
       <BannerSection />
       <SuccessInfo />
       <GetServices />
+      <WhyChoose />
       <CategorySection />
       <SmartGuard />
       <TopProviders />
