@@ -93,73 +93,113 @@ const MyPayment = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <Card className="border-0 shadow-sm">
           <CardContent className="p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Total Spent
-                </p>
-                <p className="text-2xl font-bold mt-1.5">
-                  ৳{payments?.kpiInfo?.totalSpent[0]?.total || 0}
-                </p>
+            {isLoading ? (
+              <div className="flex items-center justify-between">
+                <div className="space-y-3">
+                  <Skeleton className="h-3 w-20" />
+                  <Skeleton className="h-7 w-24" />
+                </div>
+                <Skeleton className="size-11 rounded-2xl" />
               </div>
-              <div className="size-11 rounded-2xl bg-green-50 flex items-center justify-center">
-                <Banknote className="size-5 text-green-600" />
+            ) : (
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Total Spent
+                  </p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    ৳{payments?.kpiInfo?.totalSpent[0]?.total || 0}
+                  </p>
+                </div>
+                <div className="size-11 rounded-2xl bg-green-50 flex items-center justify-center">
+                  <Banknote className="size-5 text-green-600" />
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
 
         <Card className="border-0 shadow-sm">
           <CardContent className="p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Paid
-                </p>
-                <p className="text-2xl font-bold mt-1.5">
-                  {payments?.kpiInfo?.totalPaid || 0}
-                </p>
+            {isLoading ? (
+              <div className="flex items-center justify-between">
+                <div className="space-y-3">
+                  <Skeleton className="h-3 w-16" />
+                  <Skeleton className="h-7 w-20" />
+                </div>
+                <Skeleton className="size-11 rounded-2xl" />
               </div>
-              <div className="size-11 rounded-2xl bg-blue-50 flex items-center justify-center">
-                <CheckCircle2 className="size-5 text-blue-600" />
+            ) : (
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Paid
+                  </p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {payments?.kpiInfo?.totalPaid || 0}
+                  </p>
+                </div>
+                <div className="size-11 rounded-2xl bg-blue-50 flex items-center justify-center">
+                  <CheckCircle2 className="size-5 text-blue-600" />
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
 
         <Card className="border-0 shadow-sm">
           <CardContent className="p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Pending
-                </p>
-                <p className="text-2xl font-bold mt-1.5">
-                  {payments?.kpiInfo?.totalPending || 0}
-                </p>
+            {isLoading ? (
+              <div className="flex items-center justify-between">
+                <div className="space-y-3">
+                  <Skeleton className="h-3 w-16" />
+                  <Skeleton className="h-7 w-20" />
+                </div>
+                <Skeleton className="size-11 rounded-2xl" />
               </div>
-              <div className="size-11 rounded-2xl bg-yellow-50 flex items-center justify-center">
-                <Clock className="size-5 text-yellow-600" />
+            ) : (
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Pending
+                  </p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {payments?.kpiInfo?.totalPending || 0}
+                  </p>
+                </div>
+                <div className="size-11 rounded-2xl bg-yellow-50 flex items-center justify-center">
+                  <Clock className="size-5 text-yellow-600" />
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
 
         <Card className="border-0 shadow-sm">
           <CardContent className="p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  Cancelled
-                </p>
-                <p className="text-2xl font-bold mt-1.5">
-                  {payments?.kpiInfo?.totalFailed || 0}
-                </p>
+            {isLoading ? (
+              <div className="flex items-center justify-between">
+                <div className="space-y-3">
+                  <Skeleton className="h-3 w-20" />
+                  <Skeleton className="h-7 w-20" />
+                </div>
+                <Skeleton className="size-11 rounded-2xl" />
               </div>
-              <div className="size-11 rounded-2xl bg-purple-50 flex items-center justify-center">
-                <Receipt className="size-5 text-purple-600" />
+            ) : (
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Cancelled
+                  </p>
+                  <p className="text-2xl font-bold mt-1.5">
+                    {payments?.kpiInfo?.totalFailed || 0}
+                  </p>
+                </div>
+                <div className="size-11 rounded-2xl bg-purple-50 flex items-center justify-center">
+                  <Receipt className="size-5 text-purple-600" />
+                </div>
               </div>
-            </div>
+            )}
           </CardContent>
         </Card>
       </div>
