@@ -69,6 +69,11 @@ export const sidebarConfig = {
       icon: <FaUsers />,
     },
     {
+      label: 'Payments',
+      href: '/dashboard/provider/payments',
+      icon: <FaSackDollar />,
+    },
+    {
       label: 'Reviews',
       href: '/dashboard/provider/reviews',
       icon: <MdOutlineFeedback />,

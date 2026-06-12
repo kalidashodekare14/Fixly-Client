@@ -63,6 +63,16 @@ export const requestService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Request'],
     }),
+    paymentHistory: builder.query({
+      query: (params) => ({
+        url: '/api/provider/provider_payments',
+        method: 'GET',
+        params,
+      }),
+      providesTags: ['Request'],
+      transformResponse: (response: any) => response?.data,
+    }),
+
     providerReviews: builder.query<IProviderReview[], void>({
       query: () => ({
         url: '/api/provider/provider-reviews',
@@ -82,5 +92,6 @@ export const {
   useSendOfferdQuery,
   useJobsInfoQuery,
   useJobStatusChangeMutation,
+  usePaymentHistoryQuery,
   useProviderReviewsQuery,
 } = requestService;
