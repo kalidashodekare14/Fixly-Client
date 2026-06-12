@@ -1,7 +1,12 @@
 import { IoCreateOutline } from 'react-icons/io5';
 import { MdDashboard, MdChat, MdOutlineFeedback } from 'react-icons/md';
 import { CiViewList } from 'react-icons/ci';
-import { FaUserCog, FaUsers } from 'react-icons/fa';
+import {
+  FaCommentDollar,
+  FaComments,
+  FaUserCog,
+  FaUsers,
+} from 'react-icons/fa';
 import { BsClipboardCheck, BsSend } from 'react-icons/bs';
 import { RiSettings3Line } from 'react-icons/ri';
 import { FaSackDollar } from 'react-icons/fa6';
@@ -91,6 +96,16 @@ export const sidebarConfig = {
       label: 'Manage Requests & Offers',
       href: '/dashboard/admin/requests',
       icon: <CiViewList />,
+    },
+    {
+      label: 'Payments',
+      href: '/dashboard/admin/payments',
+      icon: <FaCommentDollar />,
+    },
+    {
+      label: 'Reviews',
+      href: '/dashboard/admin/reviews',
+      icon: <FaComments />,
     },
     {
       label: 'Platform Settings',
