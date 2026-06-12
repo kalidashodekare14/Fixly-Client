@@ -1,39 +1,39 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { FaShieldHalved, FaStar, FaHandshake, FaBolt, FaCircleCheck, FaHeadset } from 'react-icons/fa6';
+import { FaStar, FaHandshake, FaBolt, FaCircleCheck, FaHeadset, FaSackDollar } from 'react-icons/fa6';
 import { GoDotFill } from 'react-icons/go';
 
 const benefits = [
   {
-    icon: FaShieldHalved,
-    title: 'Secure Payments',
-    desc: 'Funds are held securely and only released when the job is completed to your satisfaction.',
+    icon: FaBolt,
+    title: 'Fast Booking',
+    desc: 'Post your request in minutes and get matched with available providers near you instantly.',
+  },
+  {
+    icon: FaHandshake,
+    title: 'Easy Compare',
+    desc: 'Review multiple offers side by side and pick the provider that best fits your needs.',
   },
   {
     icon: FaCircleCheck,
     title: 'Verified Providers',
-    desc: 'Every provider undergoes identity verification and quality checks before joining the platform.',
-  },
-  {
-    icon: FaHandshake,
-    title: 'Compare & Choose',
-    desc: 'Receive multiple competitive offers and pick the provider that best fits your needs and budget.',
-  },
-  {
-    icon: FaStar,
-    title: 'Real Reviews',
-    desc: 'Make informed decisions with authentic ratings and detailed feedback from real customers.',
-  },
-  {
-    icon: FaBolt,
-    title: 'Fast & Easy',
-    desc: 'Post a request in under 2 minutes and get matched with available providers in your area.',
+    desc: 'All providers go through identity verification and quality checks before joining.',
   },
   {
     icon: FaHeadset,
     title: '24/7 Support',
-    desc: 'Our dedicated support team is always ready to help with any questions or concerns.',
+    desc: 'Our team is always available to help you with any questions or concerns, anytime.',
+  },
+  {
+    icon: FaSackDollar,
+    title: 'Transparent Pricing',
+    desc: 'See clear upfront pricing with no hidden fees. Pay only for what you agree on.',
+  },
+  {
+    icon: FaStar,
+    title: 'Trusted Ratings & Reviews',
+    desc: 'Choose with confidence using honest feedback and ratings from real customers.',
   },
 ] as const;
 

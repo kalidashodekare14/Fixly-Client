@@ -2,29 +2,28 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import { FaArrowRightLong } from 'react-icons/fa6';
+import { FaArrowRightLong, FaEye } from 'react-icons/fa6';
 import { IoShieldCheckmark } from 'react-icons/io5';
 import { MdOutlineStarPurple500 } from 'react-icons/md';
 import { TbCurrencyDollar } from 'react-icons/tb';
-import { HiOutlineStar } from 'react-icons/hi2';
 import { BsShieldCheck } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 
 const features = [
   {
     icon: TbCurrencyDollar,
-    title: 'Secure Payment',
-    desc: 'Only release payment when the work is completed and meets your full satisfaction.',
-  },
-  {
-    icon: HiOutlineStar,
-    title: 'Trusted ratings & reviews',
-    desc: 'Choose the right person for your task based on real ratings and honest user reviews.',
+    title: 'Secure Payment Protection',
+    desc: 'Your funds are held safely and only released when the job is completed to your satisfaction.',
   },
   {
     icon: IoShieldCheckmark,
-    title: 'Insurance for peace of mind',
-    desc: "Every task is covered — so you're protected from start to finish, no matter what.",
+    title: 'Verified & Background-Checked Providers',
+    desc: 'Every provider undergoes thorough identity and background verification before joining.',
+  },
+  {
+    icon: FaEye,
+    title: 'Real-Time Booking Monitoring',
+    desc: 'Track your booking status in real time with live updates from start to finish.',
   },
 ] as const;
 
