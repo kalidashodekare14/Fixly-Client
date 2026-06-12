@@ -112,7 +112,7 @@ export default function MyRequests() {
                     disabled={req.status !== 'pending'}
                     onClick={() => handleEdit(req._id)}
                     variant="outline"
-                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] hover:text-white text-white rounded-xl"
+                    className="flex-1 h-12 cursor-pointer bg-primary hover:bg-primary-hover hover:text-white text-white rounded-xl"
                   >
                     Edit
                   </Button>

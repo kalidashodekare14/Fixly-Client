@@ -212,14 +212,14 @@ const Jobs = () => {
                     job.status === 'cancelled' ? (
                       <Button
                         disabled
-                        className="h-11 w-full gap-2 bg-gray-100 text-[#000000]"
+                        className="h-11 w-full gap-2 bg-gray-100 text-black"
                       >
                         {job?.request?.status}
                       </Button>
                     ) : (
                       <DropdownMenu>
                         <DropdownMenuTrigger className={'w-full '}>
-                          <Button className={'w-full bg-pink-600 capitalize'}>
+                          <Button className={'w-full bg-primary capitalize'}>
                             {job?.status}
                           </Button>
                         </DropdownMenuTrigger>

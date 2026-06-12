@@ -42,13 +42,13 @@ const WhyChoose = () => {
     <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background decorative elements */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-40 -top-40 size-96 rounded-full bg-pink/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 size-80 rounded-full bg-pastel_pink/30 blur-3xl" />
+        <div className="absolute -right-40 -top-40 size-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 size-80 rounded-full bg-primary-light/30 blur-3xl" />
         <div className="absolute right-1/4 top-1/3 hidden lg:block">
-          <GoDotFill className="size-2 text-pink/20" />
+          <GoDotFill className="size-2 text-primary/20" />
         </div>
         <div className="absolute left-1/3 bottom-1/4 hidden lg:block">
-          <GoDotFill className="size-3 text-pink/15" />
+          <GoDotFill className="size-3 text-primary/15" />
         </div>
       </div>
 
@@ -60,7 +60,7 @@ const WhyChoose = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
             Why Fixly
           </motion.span>
@@ -78,7 +78,7 @@ const WhyChoose = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-3 text-base leading-relaxed text-charcoal"
+            className="mt-3 text-base leading-relaxed text-text-body"
           >
             We handle the trust, safety, and convenience so you can focus on getting the job done.
           </motion.p>
@@ -96,15 +96,15 @@ const WhyChoose = () => {
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 whileHover={{ y: -4 }}
-                className="group cursor-default rounded-2xl border border-gray-100 bg-white p-6 shadow-xs transition-all duration-300 hover:border-pink/20 hover:shadow-lg"
+                className="group cursor-default rounded-2xl border border-gray-100 bg-white p-6 shadow-xs transition-all duration-300 hover:border-primary/20 hover:shadow-lg"
               >
-                <span className="flex size-12 items-center justify-center rounded-xl bg-pastel_pink text-lg text-pink transition-all duration-300 group-hover:bg-pink group-hover:text-white group-hover:shadow-sm">
+                <span className="flex size-12 items-center justify-center rounded-xl bg-primary-light text-lg text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:shadow-sm">
                   <Icon />
                 </span>
                 <h3 className="mt-4 text-lg font-bold text-gray-900">
                   {item.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-charcoal">
+                <p className="mt-1.5 text-sm leading-relaxed text-text-body">
                   {item.desc}
                 </p>
               </motion.div>

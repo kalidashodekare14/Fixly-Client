@@ -100,7 +100,7 @@ export default function Offers() {
                   {/* View Offers */}
                   <Button
                     onClick={() => handleViewOffer(req._id)}
-                    className="flex-1 h-12 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+                    className="flex-1 h-12 cursor-pointer bg-primary hover:bg-primary-hover text-white rounded-xl"
                   >
                     View Offers
                   </Button>

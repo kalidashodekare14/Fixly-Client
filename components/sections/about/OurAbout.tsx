@@ -41,8 +41,8 @@ const OurAbout = () => {
   return (
     <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background decoration */}
-      <div className="absolute -left-48 top-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-pastel_pink/30 blur-3xl" />
-      <div className="absolute -right-48 top-3/4 h-80 w-80 -translate-y-1/2 rounded-full bg-pink/5 blur-3xl" />
+      <div className="absolute -left-48 top-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-primary-light/30 blur-3xl" />
+      <div className="absolute -right-48 top-3/4 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         {/* ─── Hero Section ─── */}
@@ -55,7 +55,7 @@ const OurAbout = () => {
             transition={{ duration: 0.6 }}
             className="relative w-full lg:w-[48%]"
           >
-            <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-pink/10 to-pastel_pink/50 blur-3xl" />
+            <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-primary/10 to-primary-light/50 blur-3xl" />
 
             <Image
               className="relative w-full rounded-2xl object-cover shadow-lg"
@@ -75,7 +75,7 @@ const OurAbout = () => {
             >
               <div className="flex items-center gap-2.5">
                 <Image
-                  className="h-12 w-12 rounded-full border-2 border-pink object-cover"
+                  className="h-12 w-12 rounded-full border-2 border-primary object-cover"
                   src="/about/img2.jpg"
                   width={48}
                   height={48}
@@ -86,7 +86,7 @@ const OurAbout = () => {
                     4.8
                     <MdOutlineStarPurple500 className="text-amber-400" />
                   </div>
-                  <p className="whitespace-nowrap text-xs text-charcoal">
+                  <p className="whitespace-nowrap text-xs text-text-body">
                     Customer rating
                   </p>
                 </div>
@@ -102,7 +102,7 @@ const OurAbout = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+                className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
               >
                 About Our Company
               </motion.span>
@@ -120,7 +120,7 @@ const OurAbout = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-base leading-relaxed text-charcoal"
+                className="text-base leading-relaxed text-text-body"
               >
                 Fixly is a trusted marketplace connecting homeowners with
                 verified local service professionals. Founded with a mission to
@@ -133,7 +133,7 @@ const OurAbout = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.25 }}
-                className="text-base leading-relaxed text-charcoal"
+                className="text-base leading-relaxed text-text-body"
               >
                 Whether it's plumbing, electrical work, cleaning, or repairs —
                 we ensure every job is done right, on time, and with complete
@@ -155,8 +155,8 @@ const OurAbout = () => {
                 'Dedicated support team available 24/7',
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <IoCheckmarkCircle className="mt-0.5 h-5 w-5 shrink-0 text-pink" />
-                  <span className="text-sm text-charcoal">{item}</span>
+                  <IoCheckmarkCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <span className="text-sm text-text-body">{item}</span>
                 </div>
               ))}
             </motion.div>
@@ -169,19 +169,19 @@ const OurAbout = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative mx-auto mt-20 grid gap-6 rounded-2xl border border-pink/10 bg-linear-to-br from-pastel_pink/30 to-white p-8 shadow-sm md:grid-cols-2 md:p-10"
+          className="relative mx-auto mt-20 grid gap-6 rounded-2xl border border-primary/10 bg-linear-to-br from-primary-light/30 to-white p-8 shadow-sm md:grid-cols-2 md:p-10"
         >
           {/* Glow */}
-          <div className="absolute -inset-2 rounded-[2.5rem] bg-pink/5 blur-xl" />
+          <div className="absolute -inset-2 rounded-[2.5rem] bg-primary/5 blur-xl" />
 
           {/* Mission */}
           <div className="relative z-10 flex items-start gap-4">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-pink text-white shadow-sm">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-sm">
               <TbTargetArrow className="text-xl" />
             </span>
             <div>
               <h3 className="text-lg font-bold text-gray-900">Our Mission</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-charcoal">
+              <p className="mt-1.5 text-sm leading-relaxed text-text-body">
                 To empower homeowners and service professionals with a seamless,
                 transparent platform that makes home maintenance stress-free and
                 creates meaningful work opportunities for skilled providers.
@@ -191,12 +191,12 @@ const OurAbout = () => {
 
           {/* Vision */}
           <div className="relative z-10 flex items-start gap-4">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-pink text-white shadow-sm">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-white shadow-sm">
               <MdOutlineVisibility className="text-xl" />
             </span>
             <div>
               <h3 className="text-lg font-bold text-gray-900">Our Vision</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-charcoal">
+              <p className="mt-1.5 text-sm leading-relaxed text-text-body">
                 To become the most trusted home services platform — where every
                 homeowner finds the right professional instantly, and every
                 provider builds a thriving business.
@@ -214,13 +214,13 @@ const OurAbout = () => {
             transition={{ duration: 0.5 }}
             className="mb-10 text-center"
           >
-            <span className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink">
+            <span className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
               What We Stand For
             </span>
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Our Core Values
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-charcoal">
+            <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-text-body">
               These principles guide everything we do — from how we vet
               providers to how we support our community.
             </p>
@@ -239,13 +239,13 @@ const OurAbout = () => {
                   whileHover={{ y: -4 }}
                   className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-pastel_pink text-lg text-pink transition-colors group-hover:bg-pink group-hover:text-white">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-lg text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                     <Icon />
                   </span>
                   <h3 className="mt-5 text-lg font-bold text-gray-900">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-charcoal">
+                  <p className="mt-2 text-sm leading-relaxed text-text-body">
                     {item.desc}
                   </p>
                 </motion.div>
@@ -260,7 +260,7 @@ const OurAbout = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-20 grid gap-5 rounded-2xl bg-gradient-to-br from-pink to-[#d0146a] p-8 shadow-lg md:grid-cols-4 md:p-10"
+          className="mt-20 grid gap-5 rounded-2xl bg-gradient-to-br from-primary to-primary-hover p-8 shadow-lg md:grid-cols-4 md:p-10"
         >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center text-white">
@@ -283,7 +283,7 @@ const OurAbout = () => {
           <h3 className="text-2xl font-bold text-gray-900 sm:text-3xl">
             Ready to get started?
           </h3>
-          <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-charcoal">
+          <p className="mx-auto mt-3 max-w-lg text-base leading-relaxed text-text-body">
             Join thousands of happy customers. Post your first task today and
             find the perfect professional for your needs.
           </p>
@@ -294,7 +294,7 @@ const OurAbout = () => {
             transition={{ duration: 0.4, delay: 0.2 }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="mt-6 flex cursor-pointer items-center gap-2.5 rounded-2xl bg-pink px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-shadow hover:shadow-md"
+            className="mt-6 flex cursor-pointer items-center gap-2.5 rounded-2xl bg-primary px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-shadow hover:shadow-md"
           >
             Post your task for free
             <FaArrowRightLong className="text-xs transition-transform duration-200 group-hover:translate-x-0.5" />

@@ -65,7 +65,7 @@ const GetServices = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            className="mb-4 inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
             How it works
           </motion.span>
@@ -83,7 +83,7 @@ const GetServices = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-base leading-relaxed text-charcoal"
+            className="mt-4 text-base leading-relaxed text-text-body"
           >
             Whether you want to receive competing offers or hire directly, Fixly
             makes it easy.
@@ -106,7 +106,7 @@ const GetServices = () => {
                 {toggle === tab && (
                   <motion.span
                     layoutId="activeTab"
-                    className="absolute inset-0 rounded-lg bg-pink"
+                    className="absolute inset-0 rounded-lg bg-primary"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -130,18 +130,18 @@ const GetServices = () => {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               whileHover={{ y: -4 }}
-              className="group relative cursor-default rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-pink/20"
+              className="group relative cursor-default rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary/20"
             >
               <div className="absolute right-4 top-4 text-5xl font-black text-gray-50/80 select-none">
                 {step.num}
               </div>
-              <span className="relative mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-pastel_pink text-lg font-bold text-pink transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+              <span className="relative mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-lg font-bold text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 {step.num}
               </span>
               <h3 className="relative mb-2 text-lg font-bold text-gray-900">
                 {step.title}
               </h3>
-              <p className="relative text-sm leading-relaxed text-charcoal">
+              <p className="relative text-sm leading-relaxed text-text-body">
                 {step.desc}
               </p>
             </motion.div>

@@ -55,7 +55,7 @@ function PaginationLink({
       className={cn(
         'cursor-pointer size-9 rounded-lg text-sm font-medium',
         isActive
-          ? 'bg-pink text-white shadow-sm hover:bg-pink/90 border-pink'
+          ? 'bg-primary text-white shadow-sm hover:bg-primary/90 border-primary'
           : 'text-gray-600 hover:bg-gray-100',
         className
       )}

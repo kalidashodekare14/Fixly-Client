@@ -410,7 +410,7 @@ const Profile = () => {
                   providerSkills.map((skill: any, i: number) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
+                      className="flex items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
                     >
                       <span className="text-sm font-medium text-gray-700">
                         {skill?.label}
@@ -780,7 +780,7 @@ const Profile = () => {
 
             <DialogFooter>
               <Button
-                className="border-[#E91E63] h-10"
+                className="border-primary h-10"
                 type="button"
                 variant="outline"
                 onClick={() => setOpen(false)}
@@ -788,7 +788,7 @@ const Profile = () => {
                 Cancel
               </Button>
               <Button
-                className="bg-[#E91E63] h-10"
+                className="bg-primary h-10"
                 type="submit"
                 disabled={saving}
               >

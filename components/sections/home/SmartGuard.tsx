@@ -32,13 +32,13 @@ const SmartGuard = () => {
     <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background decorative elements */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-40 -top-40 size-96 rounded-full bg-pink/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 size-80 rounded-full bg-pastel_pink/30 blur-3xl" />
+        <div className="absolute -right-40 -top-40 size-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 size-80 rounded-full bg-primary-light/30 blur-3xl" />
         <div className="absolute left-1/3 top-1/4 hidden lg:block">
-          <GoDotFill className="size-2 text-pink/20" />
+          <GoDotFill className="size-2 text-primary/20" />
         </div>
         <div className="absolute right-1/4 bottom-1/3 hidden lg:block">
-          <GoDotFill className="size-3 text-pink/15" />
+          <GoDotFill className="size-3 text-primary/15" />
         </div>
       </div>
 
@@ -54,7 +54,7 @@ const SmartGuard = () => {
           >
             {/* Main image */}
             <div className="relative">
-              <div className="absolute -inset-3 rounded-[2.5rem] bg-linear-to-br from-pink/20 to-pastel_pink/40 blur-2xl" />
+              <div className="absolute -inset-3 rounded-[2.5rem] bg-linear-to-br from-primary/20 to-primary-light/40 blur-2xl" />
               <div className="relative overflow-hidden rounded-2xl shadow-lg">
                 <Image
                   className="w-full object-cover"
@@ -77,7 +77,7 @@ const SmartGuard = () => {
               className="absolute -bottom-6 -right-4 z-10 w-52 rounded-xl border border-white/60 bg-white/95 p-4 shadow-xl backdrop-blur-sm lg:-right-8"
             >
               <div className="flex items-center gap-3">
-                <div className="size-14 shrink-0 overflow-hidden rounded-lg border-2 border-pink/20 shadow-xs">
+                <div className="size-14 shrink-0 overflow-hidden rounded-lg border-2 border-primary/20 shadow-xs">
                   <Image
                     className="h-full w-full object-cover"
                     src="/smart_guard/guard2.jpg"
@@ -112,7 +112,7 @@ const SmartGuard = () => {
                   {[0, 1, 2].map((j) => (
                     <div
                       key={j}
-                      className="size-1.5 rounded-full bg-pink/20"
+                      className="size-1.5 rounded-full bg-primary/20"
                     />
                   ))}
                 </div>
@@ -128,7 +128,7 @@ const SmartGuard = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
               >
                 <IoShieldCheckmark className="size-3.5" />
                 Smart Guard
@@ -140,14 +140,14 @@ const SmartGuard = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
               >
-                Reliable security for your <span className="text-pink">peace of mind</span>
+                Reliable security for your <span className="text-primary">peace of mind</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-base leading-relaxed text-charcoal"
+                className="text-base leading-relaxed text-text-body"
               >
                 Every booking on Fixly is protected end-to-end so you can hire with confidence, knowing you&apos;re covered every step of the way.
               </motion.p>
@@ -165,17 +165,17 @@ const SmartGuard = () => {
                     viewport={{ once: true, margin: '-30px' }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                     whileHover={{ x: 4 }}
-                    className="group cursor-default rounded-xl border border-gray-100 bg-white p-4 shadow-xs transition-all duration-300 hover:border-pink/20 hover:shadow-md"
+                    className="group cursor-default rounded-xl border border-gray-100 bg-white p-4 shadow-xs transition-all duration-300 hover:border-primary/20 hover:shadow-md"
                   >
                     <div className="flex items-start gap-4">
-                      <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-pastel_pink text-base text-pink transition-all duration-300 group-hover:bg-pink group-hover:text-white group-hover:shadow-sm">
+                      <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-base text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:shadow-sm">
                         <Icon />
                       </span>
                       <div>
                         <h3 className="text-base font-bold text-gray-900">
                           {item.title}
                         </h3>
-                        <p className="mt-0.5 text-sm leading-relaxed text-charcoal">
+                        <p className="mt-0.5 text-sm leading-relaxed text-text-body">
                           {item.desc}
                         </p>
                       </div>
@@ -192,7 +192,7 @@ const SmartGuard = () => {
               transition={{ duration: 0.4, delay: 0.4 }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="btn flex w-fit cursor-pointer items-center gap-2.5 rounded-2xl bg-pink px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-md"
+              className="btn flex w-fit cursor-pointer items-center gap-2.5 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-md"
             >
               Post your task for free
               <FaArrowRightLong className="text-xs transition-transform duration-200 group-hover:translate-x-0.5" />

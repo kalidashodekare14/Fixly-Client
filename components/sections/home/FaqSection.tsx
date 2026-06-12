@@ -44,8 +44,8 @@ const FaqSection = () => {
   return (
     <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background decoration */}
-      <div className="absolute -left-48 top-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-pastel_pink/30 blur-3xl" />
-      <div className="absolute -right-48 bottom-0 h-80 w-80 rounded-full bg-pink/5 blur-3xl" />
+      <div className="absolute -left-48 top-1/4 h-96 w-96 -translate-y-1/2 rounded-full bg-primary-light/30 blur-3xl" />
+      <div className="absolute -right-48 bottom-0 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="flex flex-col items-center gap-14 lg:flex-row lg:gap-16">
@@ -58,13 +58,13 @@ const FaqSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <span className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink">
+              <span className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
                 FAQ
               </span>
               <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Frequently asked questions
               </h2>
-              <p className="mt-3 text-base leading-relaxed text-charcoal">
+              <p className="mt-3 text-base leading-relaxed text-text-body">
                 Everything you need to know about how Fixly works.
               </p>
             </motion.div>
@@ -94,13 +94,13 @@ const FaqSection = () => {
                           'rounded-b-2xl overflow-hidden'
                       )}
                     >
-                      <AccordionTrigger className="group flex items-center gap-3 px-6 py-5 text-base font-semibold text-gray-900 hover:no-underline hover:bg-pastel_pink/30 transition-colors data-open:bg-pastel_pink/30">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-pastel_pink text-sm text-pink transition-colors group-hover:bg-pink group-hover:text-white">
+                      <AccordionTrigger className="group flex items-center gap-3 px-6 py-5 text-base font-semibold text-gray-900 hover:no-underline hover:bg-primary-light/30 transition-colors data-open:bg-primary-light/30">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-light text-sm text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                           <Icon />
                         </span>
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="px-6 pb-5 pl-18 text-charcoal leading-relaxed">
+                      <AccordionContent className="px-6 pb-5 pl-18 text-text-body leading-relaxed">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -117,9 +117,9 @@ const FaqSection = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mt-8 text-left"
             >
-              <p className="text-sm text-charcoal">
+              <p className="text-sm text-text-body">
                 Still have questions?{' '}
-                <span className="cursor-pointer font-semibold text-pink hover:underline">
+                <span className="cursor-pointer font-semibold text-primary hover:underline">
                   Contact support
                 </span>
               </p>
@@ -135,7 +135,7 @@ const FaqSection = () => {
             className="relative w-full lg:w-[40%]"
           >
             {/* Glow behind */}
-            <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-pink/10 to-pastel_pink/50 blur-3xl" />
+            <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-primary/10 to-primary-light/50 blur-3xl" />
 
             {/* Main image */}
             <div className="relative">
@@ -174,14 +174,14 @@ const FaqSection = () => {
               className="absolute -bottom-6 -left-4 z-10 rounded-xl border border-white/60 bg-white/90 px-5 py-3.5 shadow-xl backdrop-blur-sm"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pink text-white shadow-sm">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-sm">
                   <FaHeadset className="text-lg" />
                 </span>
                 <div>
                   <p className="text-sm font-bold text-gray-900">
                     24/7 Support
                   </p>
-                  <p className="flex items-center gap-1 text-xs text-charcoal">
+                  <p className="flex items-center gap-1 text-xs text-text-body">
                     <MdOutlineStarPurple500 className="text-amber-400" />
                     Avg. response: 2 min
                   </p>

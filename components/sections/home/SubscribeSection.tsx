@@ -7,14 +7,14 @@ const SubscribeSection = () => {
     <section className="relative overflow-hidden bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 py-20">
       {/* Decorative elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 size-96 rounded-full bg-pink-500/10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 size-96 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-40 -left-40 size-96 rounded-full bg-purple-500/10 blur-3xl" />
         <div className="absolute top-1/2 left-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-500/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-2xl px-5 text-center lg:px-8">
         {/* Icon */}
-        <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-linear-to-br bg-[#B50061] shadow-lg shadow-pink-500/25">
+        <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-linear-to-br bg-primary shadow-lg shadow-primary/25">
           <Mail className="size-7 text-white" />
         </div>
 
@@ -39,7 +39,7 @@ const SubscribeSection = () => {
               className="w-full bg-transparent py-2 text-sm text-white placeholder-gray-500 outline-none"
             />
           </div>
-          <button className="group flex shrink-0 cursor-pointer items-center gap-2 rounded-xl bg-[#B50061] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-pink-500/25 transition-all hover:shadow-pink-500/40 active:scale-95">
+          <button className="group flex shrink-0 cursor-pointer items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 active:scale-95">
             Subscribe
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </button>

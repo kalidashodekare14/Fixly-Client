@@ -274,7 +274,7 @@ export default function CreateRequest() {
         <div className="border rounded-xl p-5 bg-gray-50/50 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <MapPin className="size-5 text-[#E91E63]" />
+              <MapPin className="size-5 text-primary" />
               <h3 className="font-semibold text-gray-800">Service Location</h3>
             </div>
 
@@ -283,7 +283,7 @@ export default function CreateRequest() {
               type="button"
               onClick={getLocation}
               disabled={locationLoading}
-              className="h-10 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl text-sm gap-2"
+              className="h-10 cursor-pointer bg-primary hover:bg-primary-hover text-white rounded-xl text-sm gap-2"
             >
               {locationLoading ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -368,7 +368,7 @@ export default function CreateRequest() {
         {/* Submit */}
         <Button
           type="submit"
-          className="w-full h-12 bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+          className="w-full h-12 bg-primary hover:bg-primary-hover text-white rounded-xl"
         >
           {loading && <Loader2 className="size-4 animate-spin" />}
           Post Request

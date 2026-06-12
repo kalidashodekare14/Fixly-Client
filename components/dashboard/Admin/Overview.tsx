@@ -52,7 +52,7 @@ const categoryData = [
   { name: 'Other', value: 17 },
 ];
 
-const COLORS = ['#F72585', '#A855F7', '#6366F1', '#EC4899'];
+const COLORS = ['#B50061', '#A855F7', '#6366F1', '#EC4899'];
 
 const recentUsers = [
   {
@@ -142,7 +142,7 @@ const Overview = () => {
       value: OverviewInfo?.totalRequests || 0,
       icon: <LucideClipboardList />,
       bgColor: 'bg-pink-50',
-      textColor: 'text-pink-600',
+      textColor: 'text-primary',
       trend: '+15%',
       trendUp: true,
     },
@@ -173,8 +173,8 @@ const Overview = () => {
               </p>
             </div>
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-pink-50 rounded-full">
-              <span className="size-2 rounded-full bg-[#E91E63] animate-pulse" />
-              <span className="text-xs font-medium text-pink-600">Live</span>
+              <span className="size-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs font-medium text-primary">Live</span>
             </div>
           </div>
         </div>
@@ -259,7 +259,7 @@ const Overview = () => {
                     <Bar dataKey="users" fill="#6366F1" radius={[6, 6, 0, 0]} />
                     <Bar
                       dataKey="providers"
-                      fill="#F72585"
+                      fill="#B50061"
                       radius={[6, 6, 0, 0]}
                     />
                   </BarChart>
@@ -400,7 +400,7 @@ const Overview = () => {
                       <div key={user.id} className="p-4 space-y-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="size-10 rounded-full bg-linear-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-semibold shrink-0">
+                            <div className="size-10 rounded-full bg-linear-to-br from-primary to-purple-500 flex items-center justify-center text-white text-sm font-semibold shrink-0">
                               {user?.image ? (
                                 <img
                                   className="rounded-full"
@@ -475,7 +475,7 @@ const Overview = () => {
                           </td>
                           <td className="px-4 py-3.5 text-gray-700">
                             <div className="flex items-center gap-2.5">
-                              <div className="size-8 rounded-full bg-linear-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-xs font-semibold shrink-0">
+                              <div className="size-8 rounded-full bg-linear-to-br from-primary to-purple-500 flex items-center justify-center text-white text-xs font-semibold shrink-0">
                                 {user?.image ? (
                                   <img
                                     className="rounded-full"

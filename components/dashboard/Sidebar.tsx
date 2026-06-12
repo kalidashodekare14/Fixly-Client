@@ -40,7 +40,7 @@ const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
         </div>
         {/* Header */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-[#E91E63] text-white text-2xl rounded-xl">
+          <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-primary text-white text-2xl rounded-xl">
             <FaTools className="" />
           </div>
 
@@ -77,8 +77,8 @@ const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
                     className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition
                 ${
                   isActive
-                    ? 'bg-[#E91E63] text-white'
-                    : 'text-gray-600 hover:bg-[#FCE4EC]'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-600 hover:bg-primary-light'
                 }`}
                   >
                     {/* Icon always visible */}
@@ -97,7 +97,7 @@ const Sidebar = ({ sidebarProps }: { sidebarProps: ISidebar }) => {
       </div>
       <Link href={'/'}>
         <div
-          className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition text-gray-600 hover:bg-[#FCE4EC] border border-[#f8cada]`}
+          className={`flex items-center gap-3 p-2 cursor-pointer rounded-xl transition text-gray-600 hover:bg-primary-light border border-primary-light`}
         >
           <HomeIcon />
           {sidebarProps.sidebarSort && (

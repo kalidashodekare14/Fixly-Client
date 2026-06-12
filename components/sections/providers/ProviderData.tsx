@@ -93,7 +93,7 @@ const ProviderCard = ({
         {provider.skills.map((skill, i) => (
           <span
             key={i}
-            className="rounded-full bg-pastel_pink/60 px-3 py-1 text-[12px] font-medium text-pink/90"
+            className="rounded-full bg-primary-light/60 px-3 py-1 text-[12px] font-medium text-primary/90"
           >
             {skill?.label}
           </span>
@@ -136,7 +136,7 @@ const ProviderCard = ({
 
       {/* Footer */}
       <Link href={`/providers/${provider._id}`}>
-        <button className=" cursor-pointer rounded-xl border border-pink px-5 py-2.5 text-sm font-semibold text-charcoal shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
+        <button className=" cursor-pointer rounded-xl border border-primary px-5 py-2.5 text-sm font-semibold text-text-body shadow-xs transition-all hover:text-white hover:bg-pink/90 hover:shadow-md active:scale-95">
           View Profile
         </button>
       </Link>

@@ -68,7 +68,7 @@ const Testimonial = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            className="mb-4 inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
             Reviews
           </motion.span>
@@ -86,7 +86,7 @@ const Testimonial = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-base leading-relaxed text-charcoal"
+            className="mt-4 text-base leading-relaxed text-text-body"
           >
             Thousands of satisfied customers across Bangladesh trust Fixly for
             their home service needs.
@@ -116,12 +116,12 @@ const Testimonial = () => {
                 className="relative flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 {/* Quote icon */}
-                <div className="mb-4 text-pink/20">
+                <div className="mb-4 text-primary/20">
                   <HiOutlineStar className="h-8 w-8" />
                 </div>
 
                 {/* Review text */}
-                <p className="flex-1 text-sm leading-relaxed text-charcoal">
+                <p className="flex-1 text-sm leading-relaxed text-text-body">
                   &ldquo;{review.review.slice(0, 400)}&rdquo;
                 </p>
 
@@ -149,7 +149,7 @@ const Testimonial = () => {
                     <p className="truncate text-sm font-bold text-gray-900">
                       {review.name}
                     </p>
-                    <p className="truncate text-xs text-charcoal">
+                    <p className="truncate text-xs text-text-body">
                       {review.location}
                     </p>
                   </div>

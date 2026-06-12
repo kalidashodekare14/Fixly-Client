@@ -50,7 +50,7 @@ const ProviderCard = ({ provider }: { provider: Provider }) => {
           <h3 className="truncate text-base font-bold text-gray-900">
             {provider.name}
           </h3>
-          <p className="truncate text-sm text-charcoal">{provider.location}</p>
+          <p className="truncate text-sm text-text-body">{provider.location}</p>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ const ProviderCard = ({ provider }: { provider: Provider }) => {
           {provider.services.map((service, i) => (
             <span
               key={i}
-              className="rounded-full bg-pastel_pink/70 px-3 py-1 text-xs font-medium text-charcoal"
+              className="rounded-full bg-primary-light/70 px-3 py-1 text-xs font-medium text-text-body"
             >
               {service}
             </span>
@@ -90,9 +90,9 @@ const ProviderCard = ({ provider }: { provider: Provider }) => {
       <div className="flex items-center justify-between border-t border-gray-100 pt-4">
         <div>
           <p className="text-xs text-gray-500">Starting from</p>
-          <p className="text-lg font-bold text-pink">${provider.price}</p>
+          <p className="text-lg font-bold text-primary">${provider.price}</p>
         </div>
-        <button className="flex cursor-pointer items-center gap-2 rounded-xl bg-pink px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-shadow hover:shadow-md">
+        <button className="flex cursor-pointer items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-shadow hover:shadow-md">
           Hire me
           <FaArrowRightLong className="text-xs" />
         </button>
@@ -117,7 +117,7 @@ const TopProviders = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            className="mb-4 inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
             Top Providers
           </motion.span>
@@ -135,7 +135,7 @@ const TopProviders = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-base leading-relaxed text-charcoal"
+            className="mt-4 text-base leading-relaxed text-text-body"
           >
             Browse verified service providers, check their ratings and reviews,
             and hire directly.
@@ -182,13 +182,13 @@ const TopProviders = () => {
           {/* Navigation arrows */}
           <button
             ref={prevRef}
-            className="absolute -left-3.5 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md transition-colors hover:bg-pink hover:text-white lg:flex"
+            className="absolute -left-3.5 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md transition-colors hover:bg-primary hover:text-white lg:flex"
           >
             <IoChevronBack />
           </button>
           <button
             ref={nextRef}
-            className="absolute -right-3.5 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md transition-colors hover:bg-pink hover:text-white lg:flex"
+            className="absolute -right-3.5 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white shadow-md transition-colors hover:bg-primary hover:text-white lg:flex"
           >
             <IoChevronForward />
           </button>

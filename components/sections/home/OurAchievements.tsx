@@ -11,7 +11,7 @@ const achievements = [
     icon: FaUsers,
     gradient: 'from-pink-50 to-rose-50',
     iconBg: 'bg-pink-100',
-    iconColor: 'text-pink',
+    iconColor: 'text-primary',
   },
   {
     value: '10000+',
@@ -45,12 +45,12 @@ const OurAchievements = () => {
       {/* Background decorative elements */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-40 -top-40 size-96 rounded-full bg-pink/5 blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 size-80 rounded-full bg-pastel_pink/30 blur-3xl" />
+        <div className="absolute -bottom-40 -right-40 size-80 rounded-full bg-primary-light/30 blur-3xl" />
         <div className="absolute left-1/4 top-1/3 hidden lg:block">
-          <GoDotFill className="size-2 text-pink/20" />
+          <GoDotFill className="size-2 text-primary/20" />
         </div>
         <div className="absolute right-1/3 top-1/2 hidden lg:block">
-          <GoDotFill className="size-3 text-pink/15" />
+          <GoDotFill className="size-3 text-primary/15" />
         </div>
       </div>
 
@@ -62,7 +62,7 @@ const OurAchievements = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+            className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
             Our Achievements
           </motion.span>
@@ -80,7 +80,7 @@ const OurAchievements = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-3 text-base leading-relaxed text-charcoal"
+            className="mt-3 text-base leading-relaxed text-text-body"
           >
             Our growing community of verified providers and happy customers speaks for itself.
           </motion.p>
@@ -108,7 +108,7 @@ const OurAchievements = () => {
                 <p className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                   {item.value}
                 </p>
-                <p className="mt-1.5 text-sm font-medium text-charcoal">
+                <p className="mt-1.5 text-sm font-medium text-text-body">
                   {item.label}
                 </p>
               </motion.div>
@@ -122,7 +122,7 @@ const OurAchievements = () => {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mx-auto mt-14 h-px w-32 origin-center bg-linear-to-r from-transparent via-pink/40 to-transparent"
+          className="mx-auto mt-14 h-px w-32 origin-center bg-linear-to-r from-transparent via-primary/40 to-transparent"
         />
       </div>
     </section>

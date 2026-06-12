@@ -304,7 +304,7 @@ const EditRequestModal = ({
             <div className="border rounded-xl p-4 bg-gray-50/50 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <MapPin className="size-4 text-[#E91E63]" />
+                  <MapPin className="size-4 text-primary" />
                   <h3 className="text-sm font-semibold text-gray-800">
                     Service Location
                   </h3>
@@ -314,7 +314,7 @@ const EditRequestModal = ({
                   type="button"
                   onClick={getLocation}
                   disabled={locationLoading}
-                  className="h-9 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-lg text-xs gap-1.5"
+                  className="h-9 cursor-pointer bg-primary hover:bg-primary-hover text-white rounded-lg text-xs gap-1.5"
                 >
                   {locationLoading ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -399,7 +399,7 @@ const EditRequestModal = ({
             {/* Button */}
             <Button
               type="submit"
-              className="w-full h-12 bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl"
+              className="w-full h-12 bg-primary hover:bg-primary-hover text-white rounded-xl"
             >
               {loading && <Loader2 className="size-4 animate-spin" />}
               Update Request

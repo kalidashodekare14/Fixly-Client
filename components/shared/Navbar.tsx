@@ -70,7 +70,7 @@ const Navbar = () => {
         <div className="flex items-center gap-20">
           {/* Logo */}
           <Link href={'/'} className="flex items-center gap-2">
-            <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-[#E91E63] text-white text-2xl rounded-xl">
+            <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-primary text-white text-2xl rounded-xl">
               <FaTools className="" />
             </div>
             <h2 className="font-semibold text-xl">Fixly</h2>
@@ -79,7 +79,7 @@ const Navbar = () => {
           <ul className="hidden lg:flex items-center gap-5 text-[16px] font-normal">
             {NAV_ITEMS.map((navi) => (
               <Link
-                className={`${pathname == navi.path && 'text-pink border-b-2 border-pink'} hover:text-pink font-normal`}
+                className={`${pathname == navi.path && 'text-primary border-b-2 border-primary'} hover:text-primary font-normal`}
                 key={navi.id}
                 href={navi.path}
               >
@@ -146,12 +146,12 @@ const Navbar = () => {
             <div className="space-x-3">
               {/* Buttons */}
               <Link href={'/signin'}>
-                <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-pink text-black lg:rounded-xl rounded-[5px] cursor-pointer">
+                <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-primary text-black lg:rounded-xl rounded-[5px] cursor-pointer">
                   Login
                 </button>
               </Link>
               <Link href={'/signup'}>
-                <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-pink border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
+                <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-primary border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
                   Get Started
                 </button>
               </Link>
@@ -167,7 +167,7 @@ const Navbar = () => {
 
         {/* -------- Mobile Menu --------- */}
         <ul
-          className={`z-50 absolute left-0 p-5 lg:hidden  bg-[#d3588f] text-white w-[80%] h-full flex flex-col  gap-5 text-[19px] font-light translate-y-0 duration-300  ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`z-50 absolute left-0 p-5 lg:hidden  bg-primary text-white w-[80%] h-full flex flex-col  gap-5 text-[19px] font-light translate-y-0 duration-300  ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           {/* Close Button */}
           <div className="flex justify-end items-end text-4xl cursor-pointer">

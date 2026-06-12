@@ -102,7 +102,7 @@ const SendMessege = () => {
     <section className="relative overflow-hidden py-16 lg:py-24">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(247,37,133,0.05),transparent_60%)]" />
-      <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-pink/4 blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-primary/4 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
@@ -114,7 +114,7 @@ const SendMessege = () => {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative w-full lg:w-[45%]"
           >
-            <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-pink/15 to-pastel_pink/40 blur-3xl" />
+            <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-primary/15 to-primary-light/40 blur-3xl" />
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               <Image
                 className="h-[420px] w-full object-cover lg:h-[520px]"
@@ -125,7 +125,7 @@ const SendMessege = () => {
                 priority
               />
               {/* Overlay gradient */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-pink/30 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
             </div>
 
             {/* Floating badge with enhanced design */}
@@ -144,7 +144,7 @@ const SendMessege = () => {
                 <span className="text-lg">✨</span>
                 <p className="text-sm font-bold text-gray-900">Fast Response</p>
               </motion.div>
-              <p className="text-xs text-charcoal/70">Typically within 2 hours</p>
+              <p className="text-xs text-text-body/70">Typically within 2 hours</p>
             </motion.div>
           </motion.div>
 
@@ -164,9 +164,9 @@ const SendMessege = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-pink/30 bg-pastel_pink/60 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-pink"
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-light/60 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-pink" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                   Get in touch
                 </motion.span>
                 <motion.h2
@@ -183,7 +183,7 @@ const SendMessege = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.15 }}
-                  className="text-base leading-relaxed text-charcoal/70"
+                  className="text-base leading-relaxed text-text-body/70"
                 >
                   Have questions or feedback? Send us a message and we&apos;ll respond as quickly as possible. We value your input!
                 </motion.p>
@@ -211,7 +211,7 @@ const SendMessege = () => {
                       className="flex items-center gap-1 text-sm font-semibold text-gray-800"
                     >
                       Full Name
-                      <span className="text-pink">*</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <div className="relative">
                       <Input
@@ -224,7 +224,7 @@ const SendMessege = () => {
                         className={`h-12 rounded-xl border-2 px-4 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:outline-none ${
                           errors.name && touched.has('name')
                             ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100'
-                            : 'border-pink/20 focus:border-pink focus:ring-2 focus:ring-pink/10'
+                            : 'border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10'
                         }`}
                       />
                       {errors.name && touched.has('name') && (
@@ -260,7 +260,7 @@ const SendMessege = () => {
                       className="flex items-center gap-1 text-sm font-semibold text-gray-800"
                     >
                       Email Address
-                      <span className="text-pink">*</span>
+                      <span className="text-primary">*</span>
                     </label>
                     <div className="relative">
                       <Input
@@ -274,7 +274,7 @@ const SendMessege = () => {
                         className={`h-12 rounded-xl border-2 px-4 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:outline-none ${
                           errors.email && touched.has('email')
                             ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100'
-                            : 'border-pink/20 focus:border-pink focus:ring-2 focus:ring-pink/10'
+                            : 'border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10'
                         }`}
                       />
                       {errors.email && touched.has('email') && (
@@ -318,7 +318,7 @@ const SendMessege = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="How can we help?"
-                    className="h-12 rounded-xl border-2 border-pink/20 px-4 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:border-pink focus:outline-none focus:ring-2 focus:ring-pink/10"
+                    className="h-12 rounded-xl border-2 border-primary/20 px-4 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10"
                   />
                 </motion.div>
 
@@ -333,7 +333,7 @@ const SendMessege = () => {
                     className="flex items-center gap-1 text-sm font-semibold text-gray-800"
                   >
                     Message
-                    <span className="text-pink">*</span>
+                    <span className="text-primary">*</span>
                   </label>
                   <div className="relative">
                     <Textarea
@@ -346,10 +346,10 @@ const SendMessege = () => {
                       className={`min-h-[140px] resize-none rounded-xl border-2 p-4 bg-white/80 backdrop-blur-sm transition-all duration-300 focus:outline-none ${
                         errors.message && touched.has('message')
                           ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100'
-                          : 'border-pink/20 focus:border-pink focus:ring-2 focus:ring-pink/10'
+                          : 'border-primary/20 focus:border-primary focus:ring-2 focus:ring-primary/10'
                       }`}
                     />
-                    <div className="absolute bottom-3 right-3 text-xs text-charcoal/40">
+                    <div className="absolute bottom-3 right-3 text-xs text-text-body/40">
                       {formData.message.length}/500
                     </div>
                   </div>
@@ -376,10 +376,10 @@ const SendMessege = () => {
                     disabled={status !== 'idle'}
                     className={`relative h-13 w-full overflow-hidden rounded-xl font-semibold text-base text-white shadow-lg transition-all duration-300 sm:w-auto sm:px-8 ${
                       status === 'idle'
-                        ? 'bg-gradient-to-r from-pink to-pink/80 hover:shadow-xl hover:shadow-pink/30 cursor-pointer'
+                        ? 'bg-gradient-to-r from-primary to-pink/80 hover:shadow-xl hover:shadow-primary/30 cursor-pointer'
                         : status === 'success'
                           ? 'bg-green-500 hover:shadow-lg'
-                          : 'bg-pink/50 cursor-not-allowed'
+                          : 'bg-primary/50 cursor-not-allowed'
                     }`}
                   >
                     {status === 'idle' && (
