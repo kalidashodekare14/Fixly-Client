@@ -152,7 +152,7 @@ const Navbar = () => {
               </Link>
               <Link href={'/signup'}>
                 <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-primary border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
-                  Get Started
+                  Join
                 </button>
               </Link>
             </div>

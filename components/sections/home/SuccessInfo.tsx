@@ -43,25 +43,25 @@ const SuccessInfo = () => {
           <h1 className="text-4xl font-bold text-primary">
             <Counter target={10} suffix="K+" />
           </h1>
-          <p className="text-lg text-black">Happy Customers</p>
+          <p className="text-md text-black">Happy Customers</p>
         </div>
         <div>
           <h1 className="text-4xl font-bold text-primary">
             <Counter target={50} suffix="K+" />
           </h1>
-          <p className="text-lg text-black">Services Completed</p>
+          <p className="text-md text-black">Services Completed</p>
         </div>
         <div>
           <h1 className="text-4xl font-bold text-primary">
             <Counter target={80} suffix="K+" />
           </h1>
-          <p className="text-lg text-black">Satisfied Users</p>
+          <p className="text-md text-black">Satisfied Users</p>
         </div>
         <div>
           <h1 className="text-4xl font-bold text-primary">
             <Counter target={4.9} suffix="/5" decimals={1} />
           </h1>
-          <p className="text-lg text-black">AVG. Rating</p>
+          <p className="text-md text-black">AVG. Rating</p>
         </div>
       </div>
     </div>

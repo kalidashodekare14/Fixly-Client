@@ -1,18 +1,19 @@
 .testimonial-pagination .swiper-pagination {
   position: static;
-  margin-top: 24px;
+  margin-top: 28px;
 }
 .testimonial-pagination .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
   background: #d1d5db;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   opacity: 1;
-  margin: 0 4px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 .testimonial-pagination .swiper-pagination-bullet-active {
-  width: 24px;
-  background: #B50061;
+  width: 28px;
+  background: #d81b80;
   border-radius: 9999px;
 }
