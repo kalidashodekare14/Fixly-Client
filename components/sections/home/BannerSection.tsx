@@ -13,7 +13,7 @@ const BannerSection = () => {
     <div className="">
       <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto flex lg:flex-row flex-col justify-between items-center lg:h-140 pt-10">
         {/* Left side info */}
-        <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-190 ">
+        <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-140">
           <h1 className=" xl:text-[65px] lg:text-[55px] md:text-[50px] text-5xl leading-none font-bold">
             Smart Way to Hire Local Service Experts
           </h1>
@@ -50,7 +50,7 @@ const BannerSection = () => {
             </Link>
           </div>
           {/* Success Info */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
+          {/* <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
             <div className="flex items-center gap-1 p-2 rounded-2xl bg-primary-light">
               <MdVerifiedUser className="text-4xl text-primary" />
               <div>
@@ -72,8 +72,7 @@ const BannerSection = () => {
                 <p>Reviews Globally</p>
               </div>
             </div>
-          </div>
-          <div></div>
+          </div> */}
         </div>
         {/* Right Side Images */}
         <div className="relative z-20 lg:w-180 h-150 hidden lg:flex justify-center items-center">
