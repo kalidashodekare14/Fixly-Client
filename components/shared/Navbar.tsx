@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { Button } from '../ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   CreditCardIcon,
   LogOutIcon,
@@ -22,6 +22,7 @@ import {
   UserIcon,
   LayoutDashboardIcon,
 } from 'lucide-react';
+import { useGetNavbarProfileQuery } from '@/state/services/public/publicService';
 
 //---------------Navigation Data-----------------
 const NAV_ITEMS = [
@@ -37,7 +38,15 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSticky, setIsSticky] = useState<boolean>(false);
   const pathname = usePathname();
-  const { data: session } = useSession();
+  //
+  const { data: session, status } = useSession();
+  const { data: meInfo, isLoading: meInfoLoading } = useGetNavbarProfileQuery(
+    undefined,
+    {
+      skip: status !== 'authenticated',
+    }
+  );
+  console.log('checking me info', meInfo);
   console.log('checking session', session);
   // Taggle menu
   const toggleMenu = () => {
@@ -59,6 +68,13 @@ const Navbar = () => {
     pathname.startsWith('/dashboard');
   console.log('chack', matchPath);
 
+  const getInitials = (name: string) =>
+    name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase();
+
   return (
     <header
       className={`${isSticky ? 'sticky top-0 z-50 bg-[#ffffffb9] shadow-xl backdrop-blur-lg transition-all duration-300 opacity-100' : 'bg-white'}`}
@@ -70,7 +86,7 @@ const Navbar = () => {
         <div className="flex items-center gap-20">
           {/* Logo */}
           <Link href={'/'} className="flex items-center gap-2">
-            <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-[#E91E63] text-white text-2xl rounded-xl">
+            <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-primary text-white text-2xl rounded-xl">
               <FaTools className="" />
             </div>
             <h2 className="font-semibold text-xl">Fixly</h2>
@@ -79,7 +95,7 @@ const Navbar = () => {
           <ul className="hidden lg:flex items-center gap-5 text-[16px] font-normal">
             {NAV_ITEMS.map((navi) => (
               <Link
-                className={`${pathname == navi.path && 'text-pink border-b-2 border-pink'} hover:text-pink font-normal`}
+                className={`${pathname == navi.path && 'text-primary border-b-2 border-primary'} hover:text-primary font-normal`}
                 key={navi.id}
                 href={navi.path}
               >
@@ -91,12 +107,23 @@ const Navbar = () => {
 
         {/* --------- Right: Buttons + Mobile Icon ------------- */}
         <div className="flex items-center gap-5">
-          {session ? (
+          {meInfoLoading ? (
+            <Skeleton className="h-12 w-12 rounded-full" />
+          ) : session && meInfo ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Avatar size="lg" className={'cursor-pointer'}>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
+                <Avatar
+                  size="lg"
+                  className={
+                    'cursor-pointer flex justify-center items-center bg-primary-light'
+                  }
+                >
+                  {meInfo?.image ? (
+                    <AvatarImage src={meInfo?.image} />
+                  ) : (
+                    getInitials(meInfo?.name || 'N/A')
+                  )}
+                  {/* <AvatarFallback>CN</AvatarFallback> */}
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -104,7 +131,7 @@ const Navbar = () => {
                   <UserIcon />
                   Profile
                 </DropdownMenuItem>
-                {session.user?.role === 'admin' && (
+                {meInfo?.role && meInfo?.role === 'admin' && (
                   <Link href={'/dashboard/admin'}>
                     <DropdownMenuItem>
                       <LayoutDashboardIcon />
@@ -112,7 +139,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </Link>
                 )}
-                {session.user?.role === 'provider' && (
+                {meInfo?.role && meInfo?.role === 'provider' && (
                   <Link href={'/dashboard/provider'}>
                     <DropdownMenuItem>
                       <LayoutDashboardIcon />
@@ -120,7 +147,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </Link>
                 )}
-                {session.user?.role === 'user' && (
+                {meInfo?.role && meInfo?.role === 'user' && (
                   <Link href={'/dashboard/user'}>
                     <DropdownMenuItem>
                       <LayoutDashboardIcon />
@@ -144,48 +171,70 @@ const Navbar = () => {
             </DropdownMenu>
           ) : (
             <div className="space-x-3">
-              {/* Buttons */}
               <Link href={'/signin'}>
-                <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-pink text-black lg:rounded-xl rounded-[5px] cursor-pointer">
+                <button className="btn lg:w-40 lg:h-10  w-20 h-10 border border-primary text-black lg:rounded-xl rounded-[5px] cursor-pointer">
                   Login
                 </button>
               </Link>
               <Link href={'/signup'}>
-                <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-pink border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
-                  Get Started
+                <button className="btn lg:w-40 lg:h-10  w-30 h-10 bg-primary border-0 text-white lg:rounded-xl rounded-[5px] cursor-pointer">
+                  Join
                 </button>
               </Link>
             </div>
           )}
-          {/* Avatar Dropdown */}
 
-          {/* Mobile Taggle Icon */}
-          <button onClick={toggleMenu} className="lg:hidden text-[19px]">
-            {isOpen ? <IoClose className="hidden" /> : <FaBars />}
+          {/* Mobile Toggle Icon */}
+          <button
+            onClick={toggleMenu}
+            className="relative z-70 lg:hidden text-[19px]"
+          >
+            {isOpen ? <IoClose /> : <FaBars />}
           </button>
         </div>
 
-        {/* -------- Mobile Menu --------- */}
+        {/* -------- Mobile Menu Overlay + Panel --------- */}
+        {/* Backdrop */}
+        {isOpen && (
+          <div
+            onClick={toggleMenu}
+            className="fixed inset-0 z-55 bg-black/20 backdrop-blur-sm lg:hidden"
+          />
+        )}
+
+        {/* Slide Panel */}
         <ul
-          className={`z-50 absolute left-0 p-5 lg:hidden  bg-[#d3588f] text-white w-[80%] h-full flex flex-col  gap-5 text-[19px] font-light translate-y-0 duration-300  ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed left-0 top-0 z-60 flex h-dvh w-70 flex-col gap-5 overflow-y-auto border-r border-gray-100 bg-white/95 p-6 text-base font-light text-gray-900 shadow-xl backdrop-blur-xl transition-all duration-300 lg:hidden ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
         >
           {/* Close Button */}
-          <div className="flex justify-end items-end text-4xl cursor-pointer">
-            <IoClose onClick={toggleMenu} />
+          <div className="flex justify-end">
+            <button
+              onClick={toggleMenu}
+              className="flex size-9 items-center justify-center rounded-lg bg-gray-100 text-xl text-gray-500 transition-colors hover:bg-gray-200"
+            >
+              <IoClose />
+            </button>
           </div>
 
-          {/* MObile Links */}
-          {NAV_ITEMS.map((item) => (
-            <li key={item.id}>
+          {/* Mobile Links */}
+          <div className="flex flex-col gap-1.5">
+            {NAV_ITEMS.map((item) => (
               <Link
+                key={item.id}
                 href={item.path}
-                className={`block hover:text-[#307bc4] 
-                  ${pathname == item.path && 'text-white border-b-2 border-black'}`}
+                onClick={toggleMenu}
+                className={`rounded-xl px-4 py-3 text-base transition-all ${
+                  pathname === item.path
+                    ? 'bg-primary-light/60 font-semibold text-primary'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
               >
                 {item.name}
               </Link>
-            </li>
-          ))}
+            ))}
+          </div>
         </ul>
       </nav>
     </header>

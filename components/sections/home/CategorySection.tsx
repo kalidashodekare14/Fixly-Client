@@ -25,7 +25,7 @@ const CategorySection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="inline-block rounded-full border border-pink/20 bg-pastel_pink/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-pink"
+              className="inline-block rounded-full border border-primary/20 bg-primary-light/50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
             >
               Top categories
             </motion.span>
@@ -43,7 +43,7 @@ const CategorySection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base leading-relaxed text-charcoal"
+              className="text-base leading-relaxed text-text-body"
             >
               From quick fixes to major renovations — find specialists in every
               home service category.
@@ -55,7 +55,7 @@ const CategorySection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
             href="#"
-            className="group flex shrink-0 items-center gap-2 text-sm font-medium text-pink transition-colors hover:text-pink/80"
+            className="group flex shrink-0 items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
             See more
             <FaArrowRightLong className="transition-transform duration-200 group-hover:translate-x-1" />
@@ -89,7 +89,7 @@ const CategorySection = () => {
                 <span className="text-sm font-semibold text-gray-900">
                   {cat.name}
                 </span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pastel_pink text-xs text-pink transition-transform duration-200 group-hover:translate-x-0.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-light text-xs text-primary transition-transform duration-200 group-hover:translate-x-0.5">
                   <FaArrowRightLong />
                 </span>
               </div>

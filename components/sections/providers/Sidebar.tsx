@@ -105,7 +105,7 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
                 onClick={() => toggleCategory(cat._id)}
                 className={`cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-medium transition-all ${
                   active
-                    ? 'bg-pink text-white shadow-sm'
+                    ? 'bg-primary text-white shadow-sm'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -170,13 +170,13 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
                 onClick={() => setRating(val)}
                 className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all ${
                   active
-                    ? 'bg-pastel_pink text-pink font-medium'
+                    ? 'bg-primary-light text-primary font-medium'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <span
                   className={`flex size-4 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
-                    active ? 'border-pink bg-pink' : 'border-gray-300'
+                    active ? 'border-primary bg-primary' : 'border-gray-300'
                   }`}
                 >
                   {active && (
@@ -223,7 +223,7 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
         <SlidersHorizontal className="size-4" />
         Filters
         {hasActiveFilters && (
-          <span className="flex size-5 items-center justify-center rounded-full bg-pink text-[10px] text-white">
+          <span className="flex size-5 items-center justify-center rounded-full bg-primary text-[10px] text-white">
             {filters.category.length +
               (filters.rating ? 1 : 0) +
               (filters.priceMin > 0 || filters.priceMax < Infinity ? 1 : 0) +
@@ -243,7 +243,7 @@ const Sidebar = ({ filters, setFilters }: SidebarProps) => {
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-base font-bold text-gray-900">Filters</h2>
             {hasActiveFilters && (
-              <span className="rounded-full bg-pastel_pink px-2.5 py-0.5 text-[11px] font-medium text-pink">
+              <span className="rounded-full bg-primary-light px-2.5 py-0.5 text-[11px] font-medium text-primary">
                 {filters.category.length +
                   (filters.rating ? 1 : 0) +
                   (filters.priceMin > 0 || filters.priceMax < Infinity

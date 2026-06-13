@@ -37,31 +37,31 @@ const Counter = ({
 
 const SuccessInfo = () => {
   return (
-    <div className="bg-[#B50061] py-16 text-center text-white">
+    <div className="bg-[#FDF3F8]  py-16 text-center text-white">
       <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl items-center justify-between px-5 lg:px-8">
         <div>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold text-primary">
             <Counter target={10} suffix="K+" />
           </h1>
-          <p className="text-lg">Happy Customers</p>
+          <p className="text-md text-black">Happy Customers</p>
         </div>
         <div>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold text-primary">
             <Counter target={50} suffix="K+" />
           </h1>
-          <p className="text-lg">Services Completed</p>
+          <p className="text-md text-black">Services Completed</p>
         </div>
         <div>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold text-primary">
             <Counter target={80} suffix="K+" />
           </h1>
-          <p className="text-lg">Satisfied Users</p>
+          <p className="text-md text-black">Satisfied Users</p>
         </div>
         <div>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold text-primary">
             <Counter target={4.9} suffix="/5" decimals={1} />
           </h1>
-          <p className="text-lg">AVG. Rating</p>
+          <p className="text-md text-black">AVG. Rating</p>
         </div>
       </div>
     </div>

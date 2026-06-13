@@ -48,6 +48,18 @@ export const adminService = baseApi.injectEndpoints({
       providesTags: ['Admin'],
       transformResponse: (response: any) => response?.data,
     }),
+    manageReviews: builder.query<
+      any,
+      { search?: string; rating?: string; currentPage: number }
+    >({
+      query: (params) => ({
+        url: '/api/admin/manage_reviews',
+        method: 'GET',
+        params,
+      }),
+      providesTags: ['Admin'],
+      transformResponse: (response: any) => response?.data,
+    }),
   }),
 });
 
@@ -57,4 +69,5 @@ export const {
   useStatusChangeMutation,
   useManageRequestsQuery,
   useManagePaymentsQuery,
+  useManageReviewsQuery,
 } = adminService;

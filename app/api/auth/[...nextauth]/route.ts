@@ -58,8 +58,9 @@ export const authOptions = {
       if (account.provider === 'google') {
         try {
           const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/social_login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`,
             {
+              googleId: account.providerAccountId,
               name: user?.name,
               email: user?.email,
               image: user?.image,

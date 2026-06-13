@@ -134,54 +134,67 @@ const AdminPayments = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              {
-                label: 'Total Revenue',
-                value: `৳${payments?.kpiInfo?.totalRevenue?.[0]?.total || 0}`,
-                color: 'text-gray-900',
-                bg: 'bg-gray-50',
-                icon: <Landmark className="size-4 text-gray-500" />,
-              },
-              {
-                label: 'Paid',
-                value: payments?.kpiInfo?.totalPaid || 0,
-                color: 'text-emerald-600',
-                bg: 'bg-emerald-50',
-                icon: <CheckCircle2 className="size-4 text-emerald-500" />,
-              },
-              {
-                label: 'Pending',
-                value: payments?.kpiInfo?.totalPending || 0,
-                color: 'text-amber-600',
-                bg: 'bg-amber-50',
-                icon: <Clock className="size-4 text-amber-500" />,
-              },
-              {
-                label: 'Failed',
-                value: payments?.kpiInfo?.totalFailed || 0,
-                color: 'text-red-600',
-                bg: 'bg-red-50',
-                icon: <AlertCircle className="size-4 text-red-500" />,
-              },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className={cn(
-                  'flex items-center gap-2.5 rounded-xl px-3.5 py-2.5',
-                  stat.bg
-                )}
-              >
-                <span className="text-sm">{stat.icon}</span>
-                <div>
-                  <p
-                    className={cn('text-lg font-bold leading-none', stat.color)}
+            {!isLoading
+              ? [
+                  {
+                    label: 'Total Revenue',
+                    value: `৳${payments?.kpiInfo?.totalRevenue?.[0]?.total || 0}`,
+                    color: 'text-gray-900',
+                    bg: 'bg-gray-50',
+                    icon: <Landmark className="size-4 text-gray-500" />,
+                  },
+                  {
+                    label: 'Paid',
+                    value: payments?.kpiInfo?.totalPaid || 0,
+                    color: 'text-emerald-600',
+                    bg: 'bg-emerald-50',
+                    icon: <CheckCircle2 className="size-4 text-emerald-500" />,
+                  },
+                  {
+                    label: 'Pending',
+                    value: payments?.kpiInfo?.totalPending || 0,
+                    color: 'text-amber-600',
+                    bg: 'bg-amber-50',
+                    icon: <Clock className="size-4 text-amber-500" />,
+                  },
+                  {
+                    label: 'Failed',
+                    value: payments?.kpiInfo?.totalFailed || 0,
+                    color: 'text-red-600',
+                    bg: 'bg-red-50',
+                    icon: <AlertCircle className="size-4 text-red-500" />,
+                  },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className={cn(
+                      'flex items-center gap-2.5 rounded-xl px-3.5 py-2.5',
+                      stat.bg
+                    )}
                   >
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
-                </div>
-              </div>
-            ))}
+                    <span className="text-sm">{stat.icon}</span>
+                    <div>
+                      <p
+                        className={cn('text-lg font-bold leading-none', stat.color)}
+                      >
+                        {stat.value}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+                    </div>
+                  </div>
+                ))
+              : Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 bg-gray-50"
+                  >
+                    <Skeleton className="size-4 bg-gray-200" />
+                    <div>
+                      <Skeleton className="h-5 w-12 bg-gray-200 mb-1" />
+                      <Skeleton className="h-3 w-16 bg-gray-200" />
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
 

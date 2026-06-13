@@ -194,7 +194,7 @@ const OfferDrawer = ({
                   {/* Price */}
                   <div>
                     <p className="text-xs text-gray-500">Price Offer</p>
-                    <p className="font-semibold text-[#E91E63]">
+                    <p className="font-semibold text-primary">
                       ৳ {offer.offeredPrice}
                     </p>
                   </div>
@@ -212,7 +212,7 @@ const OfferDrawer = ({
 
                 <div>
                   {offer.status === 'accepted' && (
-                    <p className="text-[#E91E63] mt-2">
+                    <p className="text-primary mt-2">
                       You selected this offer
                     </p>
                   )}
@@ -220,11 +220,11 @@ const OfferDrawer = ({
                 <div className="flex items-center gap-5">
                   <button
                     onClick={() => handleSelectedOffer(offer?._id)}
-                    className={`${offer.status === 'accepted' && 'hidden'} w-full mt-2 py-2 cursor-pointer rounded-lg bg-[#E91E63] text-white text-sm hover:bg-[#d81b60] transition`}
+                    className={`${offer.status === 'accepted' && 'hidden'} w-full mt-2 py-2 cursor-pointer rounded-lg bg-primary text-white text-sm hover:bg-primary-hover transition`}
                   >
                     Confirm & Pay
                   </button>
-                  <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-[#E91E63]  text-sm hover:bg-[#ffedf4] transition">
+                  <button className="w-full mt-2 py-2 cursor-pointer rounded-lg border border-primary  text-sm hover:bg-primary-light transition">
                     View Profile
                   </button>
                 </div>

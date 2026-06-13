@@ -224,7 +224,7 @@ const MyPayment = () => {
                 onClick={() => setStatusFilter(status)}
                 className={`px-3.5 py-1.5 text-xs font-medium rounded-full whitespace-nowrap transition cursor-pointer ${
                   statusFilter === status
-                    ? 'bg-[#E91E63] text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >

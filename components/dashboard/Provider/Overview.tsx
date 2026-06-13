@@ -38,7 +38,7 @@ const categoryData = [
   { name: 'Other', value: 17 },
 ];
 
-const COLORS = ['#F72585', '#A855F7', '#6366F1', '#EC4899'];
+const COLORS = ['#B50061', '#A855F7', '#6366F1', '#EC4899'];
 
 const recentRequests = [
   {
@@ -134,7 +134,7 @@ const Overview = () => {
                 <h1 className="text-2xl font-bold text-gray-900">
                   Welcome back, Amir
                 </h1>
-                <p className="text-sm text-charcoal mt-2">
+                <p className="text-sm text-text-body mt-2">
                   You have 3 active tasks needing your attention today.
                 </p>
               </div>
@@ -148,7 +148,7 @@ const Overview = () => {
             kpiCards.map((card) => (
               <div
                 key={card.id}
-                className={`bg-[#FFFFFF] rounded-lg p-6 shadow-sm`}
+                className={`bg-white rounded-lg p-6 shadow-sm`}
               >
                 <div
                   className={`${card.bgColor} w-14 h-14 flex items-center justify-center rounded-2xl mb-3`}
@@ -201,7 +201,7 @@ const Overview = () => {
                     />
                     <Bar
                       dataKey="amount"
-                      fill="#F72585"
+                      fill="#B50061"
                       radius={[6, 6, 0, 0]}
                     />
                   </BarChart>

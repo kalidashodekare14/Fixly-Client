@@ -102,7 +102,7 @@ const Overview = () => {
               <h1 className="text-2xl font-bold text-gray-900">
                 Welcome back, Amir
               </h1>
-              <p className="text-sm text-charcoal mt-2">
+              <p className="text-sm text-text-body mt-2">
                 You have 3 active tasks needing your attention today.
               </p>
             </div>
@@ -116,7 +116,7 @@ const Overview = () => {
           kpiCards.map((card) => (
             <div
               key={card.id}
-              className={`bg-[#FFFFFF] rounded-lg p-6 shadow-sm`}
+              className={`bg-white rounded-lg p-6 shadow-sm`}
             >
               <div
                 className={`${card.bgColor} w-14 h-14 flex items-center justify-center rounded-2xl mb-3`}
@@ -161,7 +161,7 @@ const Overview = () => {
                     borderRadius: '8px',
                   }}
                 />
-                <Bar dataKey="amount" fill="#cc1652" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="amount" fill="#B50061" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

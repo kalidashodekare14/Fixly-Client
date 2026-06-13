@@ -10,8 +10,8 @@ const ContactTemplate = () => {
     <main className="relative overflow-hidden bg-gradient-to-b from-white to-white/95">
       {/* Decorative background elements */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-pink/5 blur-3xl" />
-        <div className="absolute bottom-1/3 right-0 w-72 h-72 rounded-full bg-pastel_pink/3 blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-1/3 right-0 w-72 h-72 rounded-full bg-primary-light/3 blur-3xl" />
       </div>
 
       <HeaderSection title="Contact" />
@@ -27,7 +27,7 @@ const ContactTemplate = () => {
 
       {/* Divider */}
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="h-px bg-gradient-to-r from-transparent via-pink/20 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       </div>
 
       {/* Send Message Section */}

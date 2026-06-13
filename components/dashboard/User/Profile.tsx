@@ -31,6 +31,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   useProfileInfoQuery,
   useProfileInfoUpdateMutation,
@@ -186,12 +187,16 @@ const Profile = () => {
     },
   ];
 
+  if (infoLoading) {
+    return <ProfileSkeleton />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="mx-auto max-w-5xl space-y-6">
         {/* Profile Header */}
         <Card className="overflow-hidden border-0 shadow-sm">
-          <div className="relative h-40 bg-linear-to-r from-pink-500 via-purple-500 to-indigo-500 sm:h-48">
+          <div className="relative h-40 bg-linear-to-r from-primary via-purple-500 to-indigo-500 sm:h-48">
             <div className="absolute inset-0 bg-black/10" />
           </div>
 
@@ -221,7 +226,7 @@ const Profile = () => {
                   <h1 className="text-2xl font-bold text-gray-900">
                     {name ? name : 'N/A'}
                   </h1>
-                  <Badge className="border-0 bg-pink-500/10 capitalize text-pink-600 hover:bg-pink-500/20">
+                  <Badge className="border-0 bg-primary/10 capitalize text-primary hover:bg-primary/20">
                     <Shield className="mr-1 size-3" />
                     {role ? role : 'N/A'}
                   </Badge>
@@ -290,8 +295,8 @@ const Profile = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-pink-50">
-                  <Mail className="size-4 text-pink-600" />
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-light">
+                  <Mail className="size-4 text-primary" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Email</p>
@@ -301,8 +306,8 @@ const Profile = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-pink-50">
-                  <Phone className="size-4 text-pink-600" />
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-light">
+                  <Phone className="size-4 text-primary" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Phone</p>
@@ -312,8 +317,8 @@ const Profile = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-pink-50">
-                  <MapPin className="size-4 text-pink-600" />
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-light">
+                  <MapPin className="size-4 text-primary" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-gray-500">Address</p>
@@ -469,7 +474,7 @@ const Profile = () => {
 
             <DialogFooter>
               <Button
-                className={'border border-[#E91E63] h-10'}
+                className={'border border-primary h-10'}
                 type="button"
                 variant="outline"
                 onClick={() => setOpen(false)}
@@ -477,7 +482,7 @@ const Profile = () => {
                 Cancel
               </Button>
               <Button
-                className={'bg-[#E91E63] h-10'}
+                className={'bg-primary h-10'}
                 type="submit"
                 disabled={saving}
               >
@@ -491,5 +496,78 @@ const Profile = () => {
     </div>
   );
 };
+
+function ProfileSkeleton() {
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+      <div className="mx-auto max-w-5xl space-y-6">
+        {/* Profile Header Skeleton */}
+        <Card className="overflow-hidden border-0 shadow-sm">
+          <div className="relative h-40 bg-linear-to-r from-muted via-muted/50 to-muted sm:h-48" />
+          <CardContent className="relative px-4 pb-6 sm:px-6">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-6">
+              <div className="relative -mt-16 sm:-mt-20">
+                <Skeleton className="size-28 rounded-full border-4 border-white sm:size-32" />
+              </div>
+              <div className="flex-1 space-y-2 text-center sm:text-left">
+                <div className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
+                  <Skeleton className="h-8 w-48" />
+                  <Skeleton className="h-6 w-20 rounded-full" />
+                </div>
+                <Skeleton className="mx-auto h-4 w-40 sm:mx-0" />
+              </div>
+              <Skeleton className="h-9 w-32 shrink-0 rounded-md" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Stats Grid Skeleton */}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Card key={i} className="border-0 shadow-sm">
+              <CardContent className="flex items-center gap-4 p-4">
+                <Skeleton className="size-12 shrink-0 rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-7 w-16" />
+                  <Skeleton className="h-3 w-12" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bio & Contact Skeleton */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          <Card className="border-0 shadow-sm lg:col-span-2">
+            <CardHeader>
+              <Skeleton className="h-5 w-16" />
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardHeader>
+              <Skeleton className="h-5 w-24" />
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <Skeleton className="size-9 shrink-0 rounded-lg" />
+                  <div className="space-y-1.5 min-w-0 flex-1">
+                    <Skeleton className="h-3 w-12" />
+                    <Skeleton className="h-4 w-32" />
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Profile;

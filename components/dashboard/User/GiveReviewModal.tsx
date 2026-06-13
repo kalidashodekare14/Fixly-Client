@@ -138,7 +138,7 @@ const GiveReviewModal = ({
             <Button
               type="submit"
               disabled={loading}
-              className="cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white"
+              className="cursor-pointer bg-primary hover:bg-primary-hover text-white"
             >
               {loading && <Loader2 className="size-4 animate-spin" />}
               Submit Review

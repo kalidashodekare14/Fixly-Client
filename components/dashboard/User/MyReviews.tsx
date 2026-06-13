@@ -264,7 +264,7 @@ const MyReviews = () => {
               {/* Top Section - Provider Info */}
               <div className="p-5 pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="relative size-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-100 group-hover:ring-[#E91E63]/20 transition">
+                  <div className="relative size-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-100 group-hover:ring-primary/20 transition">
                     <Image
                       src={review?.provider?.user?.image}
                       alt={review?.provider?.user?.name}
@@ -397,7 +397,7 @@ const MyReviews = () => {
               <Button
                 type="submit"
                 disabled={saving || !editRating || !editText.trim()}
-                className="cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white"
+                className="cursor-pointer bg-primary hover:bg-primary-hover text-white"
               >
                 {saving && <Loader2 className="size-4 animate-spin mr-2" />}
                 Save Changes

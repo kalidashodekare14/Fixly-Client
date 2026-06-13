@@ -16,6 +16,13 @@ export interface ICategory {
 
 export const requestService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getNavbarProfile: builder.query<any, void>({
+      query: () => ({
+        url: '/api/user/me',
+        method: 'GET',
+      }),
+      transformResponse: (response: any) => response?.data,
+    }),
     providersData: builder.query({
       query: (params) => ({
         url: '/api/public',
@@ -40,6 +47,7 @@ export const requestService = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetNavbarProfileQuery,
   useProvidersDataQuery,
   useProviderDetailsQuery,
   useGetCategoriesQuery,

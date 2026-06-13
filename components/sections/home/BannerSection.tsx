@@ -13,11 +13,11 @@ const BannerSection = () => {
     <div className="">
       <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto flex lg:flex-row flex-col justify-between items-center lg:h-140 pt-10">
         {/* Left side info */}
-        <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-190 ">
+        <div className="lg:w-[50%] lg:mx-0 mx-5 flex flex-col justify-center gap-4 lg:h-0 h-140">
           <h1 className=" xl:text-[65px] lg:text-[55px] md:text-[50px] text-5xl leading-none font-bold">
             Smart Way to Hire Local Service Experts
           </h1>
-          <p className="text-charcoal">
+          <p className="text-text-body">
             Skip the hassle of searching. Let providers come to you, compare
             options instantly, and get your job done efficiently and
             transparently.
@@ -28,7 +28,7 @@ const BannerSection = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-pink text-white"
+                className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer bg-primary text-white"
               >
                 <FaPlus />
                 <span>Post Request</span>
@@ -38,11 +38,11 @@ const BannerSection = () => {
               <motion.button
                 whileHover={{
                   scale: 1.05,
-                  backgroundColor: '#F72585',
+                  backgroundColor: '#B50061',
                   color: 'white',
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer border border-pink text-black"
+                className="px-5 py-3 flex items-center gap-2 rounded-xl cursor-pointer border border-primary text-black"
               >
                 <span> Browse providers</span>
                 <FaArrowRight />
@@ -50,30 +50,29 @@ const BannerSection = () => {
             </Link>
           </div>
           {/* Success Info */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
-              <MdVerifiedUser className="text-4xl text-pink" />
+          {/* <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-primary-light">
+              <MdVerifiedUser className="text-4xl text-primary" />
               <div>
                 <p>530,547 +</p>
                 <p>Verified Providers</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
-              <IoStar className="text-4xl text-pink" />
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-primary-light">
+              <IoStar className="text-4xl text-primary" />
               <div>
                 <p>80,00 +</p>
                 <p>Services Completed</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 p-2 rounded-2xl bg-pastel_pink">
-              <MdVerifiedUser className="text-4xl text-pink" />
+            <div className="flex items-center gap-1 p-2 rounded-2xl bg-primary-light">
+              <MdVerifiedUser className="text-4xl text-primary" />
               <div>
                 <p>80,00 +</p>
                 <p>Reviews Globally</p>
               </div>
             </div>
-          </div>
-          <div></div>
+          </div> */}
         </div>
         {/* Right Side Images */}
         <div className="relative z-20 lg:w-180 h-150 hidden lg:flex justify-center items-center">
@@ -85,7 +84,7 @@ const BannerSection = () => {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="absolute left-0 top-8 flex items-center gap-2 bg-pastel_pink p-2 rounded-xl"
+            className="absolute left-0 top-8 flex items-center gap-2 bg-primary-light p-2 rounded-xl"
           >
             <IoMdStar className="text-4xl border rounded-full bg-amber-300 text-white p-2" />
             <div>
@@ -100,7 +99,7 @@ const BannerSection = () => {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="absolute right-0 top-7 flex items-center gap-2 bg-pastel_pink p-2 rounded-xl"
+            className="absolute right-0 top-7 flex items-center gap-2 bg-primary-light p-2 rounded-xl"
           >
             <IoCheckmarkCircle className="text-[#29f022] text-xl" />
             <p className="text-[14px]">500+ Booking Completed</p>

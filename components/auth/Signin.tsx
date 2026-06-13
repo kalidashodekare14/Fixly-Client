@@ -61,7 +61,7 @@ const Signin = () => {
       <Card className="w-full max-w-md shadow-2xl rounded-2xl border border-gray-100">
         <CardHeader className="space-y-4 text-center">
           <CardTitle className="text-2xl font-semibold">Welcome back</CardTitle>
-          <CardContent className="text-charcoal">
+          <CardContent className="text-text-body">
             Log in to your account to continue
           </CardContent>
         </CardHeader>
@@ -106,7 +106,7 @@ const Signin = () => {
 
             <Button
               type="submit"
-              className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
+              className="w-full h-11 rounded-xl bg-primary hover:bg-primary"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ const Signin = () => {
             <p className="text-center text-sm text-gray-500">
               Don't have an account?{' '}
               <Link href={'/signup'}>
-                <span className="text-pink">SignUp</span>
+                <span className="text-primary">SignUp</span>
               </Link>
             </p>
           </form>

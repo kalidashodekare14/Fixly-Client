@@ -79,7 +79,7 @@ const SelectedOffers = () => {
               {/* CONTENT */}
               <div className="p-5 space-y-4">
                 {/* Title */}
-                <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-[#E91E63] transition-colors duration-200">
+                <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-primary transition-colors duration-200">
                   {req.title}
                 </h3>
 
@@ -110,7 +110,7 @@ const SelectedOffers = () => {
                 <div className="flex gap-3 pt-1">
                   <Button
                     onClick={() => handleSelectedProvider(req._id)}
-                    className="flex-1 h-11 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl text-sm font-medium"
+                    className="flex-1 h-11 cursor-pointer bg-primary hover:bg-primary-hover text-white rounded-xl text-sm font-medium"
                   >
                     <User className="size-4 mr-1.5" />
                     Provider
@@ -119,7 +119,7 @@ const SelectedOffers = () => {
                     <Button
                       onClick={() => handleGiveReview(req._id)}
                       variant="outline"
-                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-[#E91E63] text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
+                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
                     >
                       <Star className="size-4 mr-1.5" />
                       Review
@@ -130,7 +130,7 @@ const SelectedOffers = () => {
                       disabled
                       onClick={() => handleGiveReview(req._id)}
                       variant="outline"
-                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-[#E91E63] text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
+                      className="flex-1 h-11 cursor-pointer rounded-xl text-sm font-medium border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200"
                     >
                       <Star className="size-4 mr-1.5" />
                       Reviewed ✓

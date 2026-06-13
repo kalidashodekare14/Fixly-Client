@@ -244,7 +244,7 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
                     onClick={() => setSelectedSkill(skill._id)}
                     className={`cursor-pointer rounded-4xl border px-2.5 py-2 text-xs font-medium whitespace-nowrap transition-all ${
                       selectedSkill === skill._id
-                        ? 'bg-[#E91E63] text-white border-[#E91E63]'
+                        ? 'bg-primary text-white border-primary'
                         : 'bg-secondary text-secondary-foreground border-transparent hover:bg-secondary/80'
                     }`}
                   >
@@ -259,7 +259,7 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
           <div className="border rounded-xl p-4 bg-gray-50/50 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <MapPin className="size-5 text-[#E91E63]" />
+                <MapPin className="size-5 text-primary" />
                 <h3 className="font-semibold text-sm text-gray-800">
                   Service Location
                 </h3>
@@ -268,7 +268,7 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
                 type="button"
                 onClick={getLocation}
                 disabled={locationLoading}
-                className="h-9 cursor-pointer bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl text-xs gap-1.5"
+                className="h-9 cursor-pointer bg-primary hover:bg-primary-hover text-white rounded-xl text-xs gap-1.5"
               >
                 {locationLoading ? (
                   <Loader2 className="size-3.5 animate-spin" />
@@ -339,7 +339,7 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
 
           <Button
             type="submit"
-            className="w-full h-11 bg-[#E91E63] hover:bg-[#d81b60] text-white rounded-xl cursor-pointer"
+            className="w-full h-11 bg-primary hover:bg-primary-hover text-white rounded-xl cursor-pointer"
           >
             {submitLoading && <Loader2 className="size-4 animate-spin" />}
             Submit Request

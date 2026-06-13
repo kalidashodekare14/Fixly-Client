@@ -114,7 +114,7 @@ export default function Signup() {
               onClick={() => setAccountType('user')}
               className={`px-15 py-3 text-sm rounded-full transition-all ${
                 accountType === 'user'
-                  ? 'bg-white shadow text-pink'
+                  ? 'bg-white shadow text-primary'
                   : 'text-gray-500'
               }`}
             >
@@ -126,7 +126,7 @@ export default function Signup() {
               onClick={() => setAccountType('provider')}
               className={`px-12 py-3 text-sm rounded-full transition-all ${
                 accountType === 'provider'
-                  ? 'bg-white shadow text-pink'
+                  ? 'bg-white shadow text-primary'
                   : 'text-gray-500'
               }`}
             >
@@ -146,7 +146,7 @@ export default function Signup() {
             {/* Name */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label className="text-charcoal">First Name</Label>
+                <Label className="text-text-body">First Name</Label>
                 <Input
                   {...register('first_name', { required: true })}
                   className={`p-6 ${errors.first_name && 'border-red-400'}`}
@@ -159,7 +159,7 @@ export default function Signup() {
                 )}
               </div>
               <div className="space-y-2">
-                <Label className="text-charcoal">Last Name (Optional)</Label>
+                <Label className="text-text-body">Last Name (Optional)</Label>
                 <Input
                   {...register('last_name')}
                   className={`p-6 ${errors.last_name && 'border-red-400'}`}
@@ -175,7 +175,7 @@ export default function Signup() {
 
             {/* Email */}
             <div className="space-y-2">
-              <Label className="text-charcoal">Email</Label>
+              <Label className="text-text-body">Email</Label>
               <Input
                 {...register('email', { required: true })}
                 className={`p-6 ${errors.email && 'border-red-400'}`}
@@ -189,7 +189,7 @@ export default function Signup() {
 
             {/* Password */}
             <div className="space-y-2">
-              <Label className="text-charcoal">Password</Label>
+              <Label className="text-text-body">Password</Label>
               <Input
                 {...register('password', {
                   required: true,
@@ -207,7 +207,7 @@ export default function Signup() {
 
             {/* Confirm Password */}
             <div className="space-y-2">
-              <Label className="text-charcoal">Confirm Password</Label>
+              <Label className="text-text-body">Confirm Password</Label>
               <Input
                 {...register('confirm_password', {
                   required: true,
@@ -232,7 +232,7 @@ export default function Signup() {
 
             <Button
               type="submit"
-              className="w-full h-11 rounded-xl bg-pink hover:bg-pink"
+              className="w-full h-11 rounded-xl bg-primary hover:bg-primary"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -258,7 +258,7 @@ export default function Signup() {
             <p className="text-center text-sm text-gray-500">
               Already have an account?{' '}
               <Link href={'/signin'}>
-                <span className="text-pink">SignIn</span>
+                <span className="text-primary">SignIn</span>
               </Link>
             </p>
           </form>

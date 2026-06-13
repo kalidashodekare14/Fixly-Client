@@ -133,7 +133,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
       <div className="mx-auto max-w-5xl space-y-6">
         {/* Profile Header */}
         <Card className="overflow-hidden border-0 shadow-xs">
-          <div className="relative h-40 bg-linear-to-r from-purple-600 via-pink-500 to-rose-500 sm:h-48">
+          <div className="relative h-40 bg-linear-to-r from-purple-600 via-primary to-rose-500 sm:h-48">
             <div className="absolute inset-0 bg-black/10" />
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzem0wIDM2YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
           </div>
@@ -152,7 +152,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
                       className="size-full object-cover"
                     />
                   ) : (
-                    <div className="flex size-full items-center justify-center bg-linear-to-br from-purple-500 to-pink-500 text-4xl font-bold text-white">
+                    <div className="flex size-full items-center justify-center bg-linear-to-br from-purple-500 to-primary text-4xl font-bold text-white">
                       {user?.name?.charAt(0)?.toUpperCase() || 'P'}
                     </div>
                   )}
@@ -202,7 +202,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
               {/* Hire Button */}
               <button
                 onClick={() => handleHireMe()}
-                className="cursor-pointer rounded-xl bg-pink px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-pink/90 hover:shadow-md active:scale-95"
+                className="cursor-pointer rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-primary/90 hover:shadow-md active:scale-95"
               >
                 Hire Me
               </button>
@@ -256,9 +256,9 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
                   skills.map((skill: any, i: number) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 rounded-lg border border-[#DA5A96] bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
+                      className="flex items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 shadow-xs transition-shadow hover:shadow-sm"
                     >
-                      <Wrench className="size-4 text-[#DA5A96]" />
+                      <Wrench className="size-4 text-primary" />
                       <span className="text-sm font-medium text-gray-700">
                         {skill.label}
                       </span>
@@ -353,7 +353,7 @@ const ProviderDetails = ({ paramsId }: { paramsId: string }) => {
 
             {/* Verified Badge */}
             {isVerified && (
-              <Card className="border-0 bg-linear-to-br from-purple-50 to-pink-50 shadow-xs">
+              <Card className="border-0 bg-linear-to-br from-purple-50 to-primary-light shadow-xs">
                 <CardContent className="flex items-center gap-3 p-4">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white shadow-xs">
                     <Shield className="size-5 text-purple-600" />

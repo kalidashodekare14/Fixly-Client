@@ -1,8 +1,52 @@
 'use client';
 
 import { motion } from 'motion/react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { FaTools } from 'react-icons/fa';
+import {
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+  FaArrowRightLong,
+} from 'react-icons/fa6';
+import { IoMail } from 'react-icons/io5';
+
+const footerLinks = [
+  {
+    title: 'Services',
+    links: [
+      { label: 'Post a Request', href: '#' },
+      { label: 'Browse Providers', href: '#' },
+      { label: 'Emergency Service', href: '#' },
+      { label: 'Pricing', href: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About Fixly', href: '#' },
+      { label: 'Blog', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Press', href: '#' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { label: 'Help Center', href: '#' },
+      { label: 'Safety', href: '#' },
+      { label: 'Terms of Service', href: '#' },
+      { label: 'Privacy Policy', href: '#' },
+    ],
+  },
+];
+
+const socials = [
+  { icon: FaLinkedinIn, label: 'LinkedIn', href: '#' },
+  { icon: FaTwitter, label: 'Twitter', href: '#' },
+  { icon: FaInstagram, label: 'Instagram', href: '#' },
+];
 
 const Footer = () => {
   const pathname = usePathname();
@@ -13,107 +57,96 @@ const Footer = () => {
     pathname.startsWith('/dashboard');
 
   return (
-    <footer className={`bg-[#172030] ${matchPath && 'hidden'}`}>
-      <div className="2xl:w-350 xl:w-310 lg:w-260 w-full m-auto  p-5 ">
-        {/* First Content */}
-        <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-center gap-10">
-          {/* Left: Name + Description + Socials */}
-          <div className="space-y-3 w-80">
-            <h1 className="text-3xl text-pink font-bold">Fixly</h1>
-            <p className="text-[#9e9c9c]">
-              Bangladeshs trusted home services marketplace. Connecting skilled
-              professionals with homeowners since 2023.
+    <footer
+      className={`bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 ${matchPath && 'hidden'}`}
+    >
+      {/* Top section */}
+      <div className="mx-auto max-w-7xl px-5 pb-10 pt-16 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          {/* Brand column */}
+          <div className="lg:col-span-4">
+            <Link className="flex items-center gap-2" href="/">
+              <div className="w-10 h-10 shrink-0 flex justify-center items-center bg-primary text-white text-2xl rounded-xl">
+                <FaTools className="" />
+              </div>
+              <span className="text-3xl font-bold tracking-tight text-primary">
+                Fixly
+              </span>
+            </Link>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
+              Bangladesh&apos;s trusted home services marketplace. Connecting
+              skilled professionals with homeowners since 2023.
             </p>
+
             {/* Social icons */}
-            <div className="flex items-center gap-3">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-full text-white bg-pink flex justify-center items-center cursor-pointer"
-              >
-                <FaLinkedinIn />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-full text-white bg-pink flex justify-center items-center cursor-pointer"
-              >
-                <FaTwitter />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-full text-white bg-pink flex justify-center items-center cursor-pointer"
-              >
-                <FaInstagram />
-              </motion.div>
+            <div className="mt-6 flex items-center gap-3">
+              {socials.map((social) => (
+                <Link key={social.label} href={social.href}>
+                  <motion.div
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex size-10 cursor-pointer items-center justify-center rounded-xl border border-gray-700/50 bg-white/5 text-gray-400 backdrop-blur-sm transition-colors hover:border-primary/30 hover:bg-primary hover:text-white"
+                  >
+                    <social.icon className="size-4" />
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Newsletter */}
+            <div className="mt-8">
+              <p className="text-sm font-semibold text-gray-300">
+                Stay in touch
+              </p>
+              <div className="mt-3 flex items-center gap-2 rounded-xl border border-gray-700/50 bg-white/5 p-1.5 backdrop-blur-sm transition-all focus-within:border-primary/50">
+                <div className="flex flex-1 items-center gap-2 pl-2.5">
+                  <IoMail className="size-4 shrink-0 text-gray-500" />
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="w-full bg-transparent py-1.5 text-sm text-white placeholder-gray-500 outline-none"
+                  />
+                </div>
+                <button className="group flex shrink-0 cursor-pointer items-center justify-center rounded-lg bg-primary p-2 text-white transition-all hover:bg-primary-hover">
+                  <FaArrowRightLong className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                </button>
+              </div>
             </div>
           </div>
-          <div
-            className={
-              'space-y-2 grid grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-30'
-            }
-          >
-            {/* Services */}
-            <div className="space-y-2">
-              <h3 className="text-xl text-[#c7c7c7]">Services</h3>
-              <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                Post a Request
-              </p>
-              <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                Browse Providers
-              </p>
-              <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                Emergency Service
-              </p>
-              <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                Pricing
-              </p>
-            </div>
-            {/* Company info */}
-            <div>
-              <div className="space-y-2">
-                <h3 className="text-xl text-[#c7c7c7]">Company</h3>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  About Fixly
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]  ">
-                  Blog
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Careers
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Press
-                </p>
+
+          {/* Links columns */}
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8">
+            {footerLinks.map((group) => (
+              <div key={group.title}>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-300">
+                  {group.title}
+                </h3>
+                <ul className="mt-4 space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-gray-400 transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-            {/* Support info */}
-            <div className="">
-              <div className="space-y-2">
-                <h3 className="text-xl text-[#c7c7c7]">Support</h3>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Help Center
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Safety
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Terms
-                </p>
-                <p className="text-[15px] cursor-pointer text-[#9e9c9c]">
-                  Privacy
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-        {/* Last Content */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-5 my-5 pt-5 border-t border-[#c5c5c5bb]">
-          <p className="text-[#c7c7c7]">
-            © {new Date().getFullYear()} Fixly Bangladesh. All rights reserved.
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-gray-800">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-6 lg:flex-row lg:px-8">
+          <p className="text-sm text-gray-500">
+            &copy; {new Date().getFullYear()} Fixly Bangladesh. All rights
+            reserved.
           </p>
-          <p className="text-[#c7c7c7]">
+          <p className="text-sm text-gray-500">
             Made with care for homeowners everywhere BD
           </p>
         </div>
