@@ -80,16 +80,12 @@ const IncomingRequest = () => {
   const [offerMessage, setOfferMessage] = useState('');
   const [sending, setSending] = useState(false);
 
-  console.log('checking selected', selectedRequest);
-
   // incoming request data of rtk query
   const {
     data: requestData,
     isLoading: requestLoading,
     error: requestError,
   } = useIncomingRequestsQuery();
-
-  console.log('checking request', requestData);
 
   // send offer
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
@@ -117,7 +113,6 @@ const IncomingRequest = () => {
         setDialogOpen(false);
       }
     } catch (error: any) {
-      console.log(error.message);
     } finally {
       setSending(false);
       setDialogOpen(false);

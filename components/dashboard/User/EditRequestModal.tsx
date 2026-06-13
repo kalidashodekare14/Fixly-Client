@@ -149,7 +149,6 @@ const EditRequestModal = ({
     // }
 
     try {
-      console.log('data', data);
       const formData = new FormData();
       formData.append('category', data.category);
       formData.append('title', data.title);
@@ -178,8 +177,7 @@ const EditRequestModal = ({
         reset();
         editRequestProps.setEditModal(false);
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
     } finally {
       setLoading(false);
     }

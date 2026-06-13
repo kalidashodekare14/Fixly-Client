@@ -74,8 +74,6 @@ const PaymentsInfo = () => {
       status: statusFilter,
     });
 
-  console.log('checking payment Info', paymentInfo);
-
   const formatDate = (dateStr: string) => {
     if (!dateStr) return '—';
     return new Date(dateStr).toLocaleDateString('en-US', {

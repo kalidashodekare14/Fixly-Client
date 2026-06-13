@@ -45,11 +45,6 @@ const GiveReviewModal = ({
 
     try {
       // Connect review submission API
-      console.log({
-        requestId: selectedRequestIdForReview,
-        rating,
-        comment: reviewText,
-      });
 
       const reviewData = {
         requestId: selectedRequestIdForReview,

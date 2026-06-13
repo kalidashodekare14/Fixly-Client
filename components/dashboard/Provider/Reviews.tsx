@@ -21,8 +21,6 @@ const Reviews = () => {
   const { data: reviewsInfo = [], isLoading: reviewLoading } =
     useProviderReviewsQuery();
 
-  console.log('checking review data', reviewsInfo);
-
   const renderStars = (rating: number) => (
     <Rating style={{ maxWidth: 100 }} value={rating} readOnly />
   );

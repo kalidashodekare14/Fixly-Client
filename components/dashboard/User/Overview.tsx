@@ -25,8 +25,6 @@ const Overview = () => {
   const { data: overviewInfo, isLoading: overviewLoading } =
     useOverviewInfoQuery();
 
-  console.log('checking overview info', overviewInfo);
-
   // Monthly budget data for bar chart
   const monthlyData = [
     { month: 'Jan', amount: 4000 },
@@ -114,10 +112,7 @@ const Overview = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {!overviewLoading &&
           kpiCards.map((card) => (
-            <div
-              key={card.id}
-              className={`bg-white rounded-lg p-6 shadow-sm`}
-            >
+            <div key={card.id} className={`bg-white rounded-lg p-6 shadow-sm`}>
               <div
                 className={`${card.bgColor} w-14 h-14 flex items-center justify-center rounded-2xl mb-3`}
               >

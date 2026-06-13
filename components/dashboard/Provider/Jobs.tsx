@@ -70,8 +70,6 @@ const Jobs = () => {
     error: jobsError,
   } = useJobsInfoQuery();
 
-  console.log('checking jobs data', jobsData);
-
   // job status change of rtk query
   const [jobStatusChange, { isLoading: jobStatusLoading }] =
     useJobStatusChangeMutation();
@@ -79,9 +77,7 @@ const Jobs = () => {
   const handleStatusChange = async (jobId: string, status: string) => {
     try {
       await jobStatusChange({ jobId, status });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -38,7 +38,6 @@ export default function MyRequests() {
       setSelectedRequest(selectedData);
     }
     setEditModal(true);
-    console.log(selectedData);
   };
 
   return (

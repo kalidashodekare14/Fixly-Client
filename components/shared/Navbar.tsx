@@ -46,8 +46,7 @@ const Navbar = () => {
       skip: status !== 'authenticated',
     }
   );
-  console.log('checking me info', meInfo);
-  console.log('checking session', session);
+
   // Taggle menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -66,7 +65,6 @@ const Navbar = () => {
     pathname.startsWith('/signup') ||
     pathname.startsWith('/signin') ||
     pathname.startsWith('/dashboard');
-  console.log('chack', matchPath);
 
   const getInitials = (name: string) =>
     name

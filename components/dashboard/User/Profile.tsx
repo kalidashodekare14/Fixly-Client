@@ -148,8 +148,7 @@ const Profile = () => {
       if (res?.success) {
         setOpen(false);
       }
-    } catch (error: any) {
-      console.log(error?.message);
+    } catch (error) {
     } finally {
       setSaving(false);
     }

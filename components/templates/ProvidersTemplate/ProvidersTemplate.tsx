@@ -15,8 +15,6 @@ const ProvidersTemplate = () => {
     rating: null,
   });
 
-  console.log('checking filter', filters?.category);
-
   return (
     <div>
       <HeaderSection title="Providers" />

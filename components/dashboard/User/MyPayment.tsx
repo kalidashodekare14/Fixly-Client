@@ -60,7 +60,6 @@ const MyPayment = () => {
     search: search,
     status: statusFilter,
   });
-  console.log('checking payment data', payments);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);

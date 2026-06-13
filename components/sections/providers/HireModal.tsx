@@ -135,13 +135,12 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
       }
       setSubmitLoading(true);
       const res = await createRequest(formData).unwrap();
-      console.log('checking res data', res);
 
       if (res?.success && res?.data?.request?._id) {
         const paymentRes = await initPayment({
           requestId: res.data?.request?._id,
         }).unwrap();
-        console.log('created successfully');
+
         window.location.href = paymentRes?.data?.paymentUrl;
       }
 
@@ -162,8 +161,7 @@ const HireModal = ({ hireToggle, setHireToggle, seletedData }: IHireModal) => {
       //   setLatitude('');
       //   setPostalCode('');
       // }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
     } finally {
       setSubmitLoading(false);
     }

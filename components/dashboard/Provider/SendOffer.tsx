@@ -83,8 +83,6 @@ const SendOffer = () => {
   // update offers
   const [sendOffer, { isLoading: sendOfferLoading }] = useSendOfferMutation();
 
-  console.log('checking offer id', selectedOffer);
-
   const openEditOffer = (offer: IOffer) => {
     setSelectedOffer(offer);
     setEditPrice(String(offer.offeredPrice));
@@ -106,8 +104,7 @@ const SendOffer = () => {
       if (send.success) {
         setDialogOpen(false);
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
     } finally {
       setSaving(false);
       setDialogOpen(false);

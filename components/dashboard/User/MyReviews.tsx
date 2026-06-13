@@ -49,9 +49,6 @@ const MyReviews = () => {
 
   const [updateReview] = useUpdateReviewMutation();
 
-  console.log('my review', myReviews);
-  console.log('set review data', editingReview);
-
   const [reviews, setReviews] = useState<IMyReview[]>([
     {
       _id: '1',
