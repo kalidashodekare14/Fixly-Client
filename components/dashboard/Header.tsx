@@ -1,26 +1,49 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { FaBars } from 'react-icons/fa';
 import { FiSearch, FiBell } from 'react-icons/fi';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Skeleton } from '@/components/ui/skeleton';
+import { LogOutIcon, SettingsIcon } from 'lucide-react';
+import { useGetNavbarProfileQuery } from '@/state/services/public/publicService';
 
 interface IParams {
   handleToggle: () => void;
   handleSidebarSort: () => void;
 }
 
+const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase();
+
 export default function DashboardHeader({
   headerProps,
 }: {
   headerProps: IParams;
 }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const { data: meInfo, isLoading: meInfoLoading } = useGetNavbarProfileQuery(
+    undefined,
+    {
+      skip: status !== 'authenticated',
+    }
+  );
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white border-b">
       {/* Left: Greeting */}
       <div className="flex items-center gap-10">
-        {/* Sidebar sort */}
         <div
           onClick={headerProps.handleSidebarSort}
           className="hidden lg:flex text-xl cursor-pointer"
@@ -28,7 +51,6 @@ export default function DashboardHeader({
           <FaBars />
         </div>
 
-        {/* Responsive sort */}
         <div
           onClick={headerProps.handleToggle}
           className="lg:hidden text-xl cursor-pointer"
@@ -37,7 +59,7 @@ export default function DashboardHeader({
         </div>
         <div>
           <h1 className="text-lg font-semibold text-gray-800">
-            Welcome back 👋
+            Welcome back &#x1F44B;
           </h1>
           <p className="text-sm text-gray-500">
             {session?.user?.name || 'User'}
@@ -64,21 +86,37 @@ export default function DashboardHeader({
         </div>
 
         {/* Profile */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <img
-            src={session?.user?.image || '/avatar.png'}
-            className="w-8 h-8 rounded-full"
-            alt="profile"
-          />
-          <div className="hidden md:block">
-            <p className="text-sm font-medium text-gray-700">
-              {session?.user?.name}
-            </p>
-            <p className="text-xs text-pink-500 capitalize">
-              {session?.user?.role}
-            </p>
-          </div>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {meInfoLoading ? (
+              <Skeleton className="size-8 rounded-full" />
+            ) : (
+              <Avatar className="cursor-pointer flex justify-center items-center bg-primary-light">
+                {meInfo?.image ? (
+                  <AvatarImage src={meInfo.image} />
+                ) : (
+                  <AvatarFallback>
+                    {getInitials(meInfo?.name || session?.user?.name || 'N/A')}
+                  </AvatarFallback>
+                )}
+              </Avatar>
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <SettingsIcon />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => signOut()}
+              variant="destructive"
+            >
+              <LogOutIcon />
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
