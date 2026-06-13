@@ -57,7 +57,7 @@ const GetServices = () => {
 
   return (
     <section className="relative overflow-hidden py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 ]">
         {/* Section header */}
         <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
           <motion.span
