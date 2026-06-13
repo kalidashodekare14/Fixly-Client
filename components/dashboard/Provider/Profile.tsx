@@ -72,8 +72,6 @@ const Profile = () => {
 
   const { data: categories, isLoading } = useGetCategoriesQuery();
 
-  console.log('checking provider data', profileInfo?.data);
-
   const {
     user,
     image,
@@ -93,7 +91,7 @@ const Profile = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(image);
   const [skills, setSkills] = useState<string[]>([]);
-  console.log('checking skills', skills);
+
   // Location state fields — address, city, division, lat, lng
   const [address, setAddress] = useState<string>('');
   const [city, setCity] = useState<string>('');
@@ -234,8 +232,7 @@ const Profile = () => {
       if (res?.success) {
         setOpen(false);
       }
-    } catch (error: any) {
-      console.log(error?.message);
+    } catch (error) {
     } finally {
       setSaving(false);
     }

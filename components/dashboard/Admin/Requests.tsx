@@ -306,8 +306,6 @@ const Requests = () => {
       search,
     });
 
-  console.log('checking manage requests data', manageRequests);
-
   // Total pages for pagination
   const totalPages: number = manageRequests?.pagination?.totalPages || 1;
 

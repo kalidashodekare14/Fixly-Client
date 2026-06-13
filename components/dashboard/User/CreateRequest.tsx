@@ -105,7 +105,6 @@ export default function CreateRequest() {
     }
 
     try {
-      console.log('data', data);
       const formData = new FormData();
       formData.append('category', data.category);
       formData.append('title', data.title);
@@ -134,8 +133,7 @@ export default function CreateRequest() {
         toast.success('Request Create Successfully🎉');
         reset();
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
     } finally {
       setLoading(false);
     }

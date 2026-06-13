@@ -60,8 +60,6 @@ export default function Signup() {
         userData
       );
 
-      console.log(res.data.data);
-
       if (res.status === 200 || res.status === 201) {
         const loginRes = await signIn('credentials', {
           email: data.email,
@@ -77,8 +75,6 @@ export default function Signup() {
         }
       }
     } catch (error: any) {
-      console.log(error.message);
-
       // Backend Error
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);

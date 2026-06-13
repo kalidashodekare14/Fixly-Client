@@ -38,8 +38,6 @@ const SelectedOffers = () => {
     setReviewDrawer(true);
   };
 
-  console.log('checking selected request id', selectedRequestId);
-
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">Selected Providers</h2>

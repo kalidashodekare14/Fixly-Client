@@ -20,10 +20,6 @@ const SelectedProviderDrawer = ({
   const providerData = selectedProvider?.request;
   const offerData = selectedProvider?.offer;
 
-  console.log('selected id', selectedRequestId);
-
-  console.log('selected provider', selectedProvider);
-
   return (
     <Drawer direction="right" open={isDrawer} onOpenChange={setIsDrawer}>
       <DrawerContent className="w-105 p-0 bg-white flex flex-col">

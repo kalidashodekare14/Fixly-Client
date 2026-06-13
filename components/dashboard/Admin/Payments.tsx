@@ -78,7 +78,7 @@ const AdminPayments = () => {
     status: statusFilter,
     currentPage,
   });
-  console.log('chekcing payments data', payments);
+
   const list = payments?.data || [];
   const totalPages = payments?.pagination?.totalPages || 1;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -175,11 +175,16 @@ const AdminPayments = () => {
                     <span className="text-sm">{stat.icon}</span>
                     <div>
                       <p
-                        className={cn('text-lg font-bold leading-none', stat.color)}
+                        className={cn(
+                          'text-lg font-bold leading-none',
+                          stat.color
+                        )}
                       >
                         {stat.value}
                       </p>
-                      <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {stat.label}
+                      </p>
                     </div>
                   </div>
                 ))

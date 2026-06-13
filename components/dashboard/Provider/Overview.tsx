@@ -85,8 +85,6 @@ const Overview = () => {
   const { data: overviewInfo, isLoading: overviewLoading } =
     useOverviewInfoQuery();
 
-  console.log('checking overview data', overviewInfo);
-
   // KPI Cards Data
   const kpiCards = [
     {

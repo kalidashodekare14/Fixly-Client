@@ -71,7 +71,7 @@ export const authOptions = {
           user.role = res.data.data?.user?.role;
           return true;
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
       return true;

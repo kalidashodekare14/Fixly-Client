@@ -93,7 +93,6 @@ const Users = () => {
     search: searchQuery,
     currentPage,
   });
-  console.log('checking user manage', usersManage);
 
   // Total pages for pagination
   const totalPages: number = usersManage?.pagination?.totalPages || 1;
@@ -140,14 +139,11 @@ const Users = () => {
         status: confirmAction,
       };
       const userId = selectedUser?._id;
-      console.log('checking user id data', userId);
       const res = await statusChange({ userId, statusData }).unwrap();
       if (res?.success) {
         setConfirmOpen(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getInitials = (name: string) =>

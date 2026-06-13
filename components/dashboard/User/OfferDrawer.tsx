@@ -136,14 +136,12 @@ const OfferDrawer = ({
       };
       // const res = await selectOffer({ offerId }).unwrap();
       const res = await initPayment(paymentInfo).unwrap();
-      console.log('check payment data', res);
+
       if (res?.success) {
         // setOfferDraser(false);
         window.location.href = res?.data?.paymentUrl;
       }
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -212,9 +210,7 @@ const OfferDrawer = ({
 
                 <div>
                   {offer.status === 'accepted' && (
-                    <p className="text-primary mt-2">
-                      You selected this offer
-                    </p>
+                    <p className="text-primary mt-2">You selected this offer</p>
                   )}
                 </div>
                 <div className="flex items-center gap-5">
